@@ -1,0 +1,16 @@
+{
+  "round_name": "round_4_musique",
+  "bank_name": "final_skill_bank",
+  "base_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_3_2wiki/outputs/round3_skill_bank.md",
+  "samples_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples",
+  "datasets": [
+    "musique"
+  ],
+  "evolution_mode": "expansive_decomposition_additions",
+  "trajectory_goal": "Use GPT-5.4 to expand B3 with reusable MuSiQue decomposition and long-hop retrieval skills before later trajectory generation and SFT.",
+  "notes": [
+    "final should preserve the useful B1 to B3 skills while adding stronger decomposition policies for 3-hop and 4-hop questions supported by MuSiQue.",
+    "New MuSiQue skills should improve longer-hop planning, checkpointed decomposition, and mid-chain recovery without harming shorter multihop questions.",
+    "Prefer additions or targeted refinements that improve long-hop routing, decomposition checkpoints, answer typing, or verification in reusable ways."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "shard_0": {
+    "target": 243,
+    "written": 243,
+    "datasets": {
+      "2wiki": 140,
+      "hotpotqa": 103
+    },
+    "first_id": "train_10015",
+    "last_id": "train_87441"
+  },
+  "shard_1": {
+    "target": 247,
+    "written": 247,
+    "datasets": {
+      "2wiki": 140,
+      "hotpotqa": 107
+    },
+    "first_id": "train_10079",
+    "last_id": "train_9722"
+  },
+  "shard_2": {
+    "target": 242,
+    "written": 242,
+    "datasets": {
+      "2wiki": 140,
+      "hotpotqa": 102
+    },
+    "first_id": "train_1009",
+    "last_id": "train_87236"
+  }
+}

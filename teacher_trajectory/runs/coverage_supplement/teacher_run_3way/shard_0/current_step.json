@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-04-27T07:23:21Z",
+  "record_id": "train_61741",
+  "dataset": "triviaqa",
+  "question": "\"Which BBC commentator said \"\"Ah - isn't that nice - the wife of the Cambridge President is kissing the cox of the Oxford crew\"\"?\"",
+  "phase": "rollout_model_call",
+  "step_index": 3,
+  "completed_step_count": 3,
+  "action": "",
+  "query": "",
+  "checkpoint": {},
+  "note": "waiting for model step output"
+}

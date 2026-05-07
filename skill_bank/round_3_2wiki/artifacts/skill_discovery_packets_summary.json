@@ -1,0 +1,15 @@
+{
+  "round_name": "round_3_2wiki",
+  "bank_name": "round3_skill_bank",
+  "datasets": {
+    "2wiki": {
+      "group_count": 410,
+      "representative_examples": 923,
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/2wiki/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/2wiki/train_sample_full.jsonl"
+    }
+  },
+  "total_groups": 410,
+  "total_examples": 923,
+  "examples_per_group": 3
+}

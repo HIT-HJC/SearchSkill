@@ -1,0 +1,1279 @@
+{
+  "generated_at_utc": "2026-04-18T17:24:27.889390+00:00",
+  "packet_count": 410,
+  "dataset_packet_counts": {
+    "2wiki": 410
+  },
+  "dataset_group_sizes": {
+    "2wiki": 8300
+  },
+  "bucket_summaries": [
+    {
+      "bucket_id": "compositional_core",
+      "description": "Classic 2Wiki compositional questions where one relation leads to an intermediate entity and then to the answer.",
+      "matched_packet_count": 251,
+      "matched_group_size": 4314,
+      "datasets": {
+        "2wiki": 251
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "When did the director of film The Desert Pirate die?",
+          "primary_answer": "August 5, 1937",
+          "golden_answers": [
+            "August 5, 1937"
+          ],
+          "flags": [
+            "numeric",
+            "relation_chain",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Desert Pirate",
+            "James Dugan (director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "When did the director of film The Human Dutch die?",
+          "primary_answer": "23 October 1997",
+          "golden_answers": [
+            "23 October 1997"
+          ],
+          "flags": [
+            "numeric",
+            "relation_chain",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Human Dutch",
+            "Bert Haanstra"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "When did the director of film Fall Of Berlin – 1945 die?",
+          "primary_answer": "December 11, 1994",
+          "golden_answers": [
+            "December 11, 1994"
+          ],
+          "flags": [
+            "numeric",
+            "relation_chain",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Fall of Berlin – 1945",
+            "Yuli Raizman"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "When is Mary Stewart, Countess Of Arran's father's birthday?",
+          "primary_answer": "16 October 1430",
+          "golden_answers": [
+            "16 October 1430"
+          ],
+          "flags": [
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Mary Stewart, Countess of Arran",
+            "James II of Scotland"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "comparison_core",
+      "description": "Pairwise comparison questions that require retrieving evidence for both sides before deciding.",
+      "matched_packet_count": 191,
+      "matched_group_size": 3704,
+      "datasets": {
+        "2wiki": 191
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who died first, Joe Palooka In Humphrey Takes A Chance or Aksharathettu?",
+          "primary_answer": "Joe Palooka In Humphrey Takes A Chance",
+          "golden_answers": [
+            "Joe Palooka In Humphrey Takes A Chance"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Joe Palooka in Humphrey Takes a Chance",
+            "Aksharathettu",
+            "Jean Yarbrough",
+            "I. V. Sasi"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who was born first, The Dude Cowboy or Casbah (Film)?",
+          "primary_answer": "The Dude Cowboy",
+          "golden_answers": [
+            "The Dude Cowboy"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Dude Cowboy",
+            "Casbah (film)",
+            "Jack Nelson (actor)",
+            "John Berry (film director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director born later, In Bed or No Other Woman (1933 Film)?",
+          "primary_answer": "In Bed",
+          "golden_answers": [
+            "In Bed"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "In Bed",
+            "No Other Woman (1933 film)",
+            "Matías Bize",
+            "J. Walter Ruben"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are both Pero Mićić and Carly Hibberd from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Pero Mićić",
+            "Carly Hibberd"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "bridge_comparison_core",
+      "description": "Bridge-comparison questions where a hidden intermediate entity must be found before a comparison or selection can be made.",
+      "matched_packet_count": 49,
+      "matched_group_size": 1331,
+      "datasets": {
+        "2wiki": 49
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who died first, Joe Palooka In Humphrey Takes A Chance or Aksharathettu?",
+          "primary_answer": "Joe Palooka In Humphrey Takes A Chance",
+          "golden_answers": [
+            "Joe Palooka In Humphrey Takes A Chance"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Joe Palooka in Humphrey Takes a Chance",
+            "Aksharathettu",
+            "Jean Yarbrough",
+            "I. V. Sasi"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who was born first, The Dude Cowboy or Casbah (Film)?",
+          "primary_answer": "The Dude Cowboy",
+          "golden_answers": [
+            "The Dude Cowboy"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Dude Cowboy",
+            "Casbah (film)",
+            "Jack Nelson (actor)",
+            "John Berry (film director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director born later, In Bed or No Other Woman (1933 Film)?",
+          "primary_answer": "In Bed",
+          "golden_answers": [
+            "In Bed"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "In Bed",
+            "No Other Woman (1933 film)",
+            "Matías Bize",
+            "J. Walter Ruben"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director died later, Convoy Busters or Murder By An Aristocrat?",
+          "primary_answer": "Convoy Busters",
+          "golden_answers": [
+            "Convoy Busters"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Convoy Busters",
+            "Murder by an Aristocrat",
+            "Stelvio Massi",
+            "Frank McDonald (director)"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "inference_core",
+      "description": "Inference-style questions where the answer is not exposed by one direct bridge and requires joining multiple supported relations.",
+      "matched_packet_count": 21,
+      "matched_group_size": 397,
+      "datasets": {
+        "2wiki": 21
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Who is Julia Livia's paternal grandmother?",
+          "primary_answer": "Vipsania Agrippina",
+          "golden_answers": [
+            "Vipsania Agrippina"
+          ],
+          "flags": [],
+          "native_type": "inference",
+          "metadata_type": "inference",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Julia Livia",
+            "Drusus Julius Caesar"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Who is Ruodhaid's mother-in-law?",
+          "primary_answer": "Alpaida",
+          "golden_answers": [
+            "Alpaida"
+          ],
+          "flags": [],
+          "native_type": "inference",
+          "metadata_type": "inference",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Ruodhaid",
+            "Charles Martel"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Who is the mother-in-law of Kantavati Devi?",
+          "primary_answer": "Rajendra Rajya Lakshmi Devi",
+          "golden_answers": [
+            "Rajendra Rajya Lakshmi Devi"
+          ],
+          "flags": [],
+          "native_type": "inference",
+          "metadata_type": "inference",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Kantavati Devi",
+            "Rana Bahadur Shah"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Who is the maternal grandmother of Poom Jensen?",
+          "primary_answer": "Sirikit",
+          "golden_answers": [
+            "Sirikit"
+          ],
+          "flags": [
+            "relation_chain"
+          ],
+          "native_type": "inference",
+          "metadata_type": "inference",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Poom Jensen",
+            "Ubol Ratana"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "relation_chain_composition",
+      "description": "Compositional questions with explicit relation-chain structure that benefit from edge-by-edge retrieval instead of a broad bridge query.",
+      "matched_packet_count": 151,
+      "matched_group_size": 2826,
+      "datasets": {
+        "2wiki": 151
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "When did the director of film The Desert Pirate die?",
+          "primary_answer": "August 5, 1937",
+          "golden_answers": [
+            "August 5, 1937"
+          ],
+          "flags": [
+            "numeric",
+            "relation_chain",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Desert Pirate",
+            "James Dugan (director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "When did the director of film The Human Dutch die?",
+          "primary_answer": "23 October 1997",
+          "golden_answers": [
+            "23 October 1997"
+          ],
+          "flags": [
+            "numeric",
+            "relation_chain",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Human Dutch",
+            "Bert Haanstra"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "When did the director of film Fall Of Berlin – 1945 die?",
+          "primary_answer": "December 11, 1994",
+          "golden_answers": [
+            "December 11, 1994"
+          ],
+          "flags": [
+            "numeric",
+            "relation_chain",
+            "temporal"
+          ],
+          "native_type": "compositional",
+          "metadata_type": "compositional",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Fall of Berlin – 1945",
+            "Yuli Raizman"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are director of film Farewell Moscow and director of film Rawhide Mail from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "multi_entity",
+            "numeric",
+            "relation_chain",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Farewell Moscow",
+            "Rawhide Mail",
+            "Mauro Bolognini",
+            "Bernard B. Ray"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "four_hop_composition",
+      "description": "Longer 4-hop questions where the retrieval policy must preserve intermediate checkpoints and avoid skipping hidden steps.",
+      "matched_packet_count": 49,
+      "matched_group_size": 1331,
+      "datasets": {
+        "2wiki": 49
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who died first, Joe Palooka In Humphrey Takes A Chance or Aksharathettu?",
+          "primary_answer": "Joe Palooka In Humphrey Takes A Chance",
+          "golden_answers": [
+            "Joe Palooka In Humphrey Takes A Chance"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Joe Palooka in Humphrey Takes a Chance",
+            "Aksharathettu",
+            "Jean Yarbrough",
+            "I. V. Sasi"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who was born first, The Dude Cowboy or Casbah (Film)?",
+          "primary_answer": "The Dude Cowboy",
+          "golden_answers": [
+            "The Dude Cowboy"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Dude Cowboy",
+            "Casbah (film)",
+            "Jack Nelson (actor)",
+            "John Berry (film director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director born later, In Bed or No Other Woman (1933 Film)?",
+          "primary_answer": "In Bed",
+          "golden_answers": [
+            "In Bed"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "In Bed",
+            "No Other Woman (1933 film)",
+            "Matías Bize",
+            "J. Walter Ruben"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director died later, Convoy Busters or Murder By An Aristocrat?",
+          "primary_answer": "Convoy Busters",
+          "golden_answers": [
+            "Convoy Busters"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Convoy Busters",
+            "Murder by an Aristocrat",
+            "Stelvio Massi",
+            "Frank McDonald (director)"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "same_attribute_compare",
+      "description": "Comparison questions where two candidates must be checked against the same attribute or relation in a like-for-like way.",
+      "matched_packet_count": 92,
+      "matched_group_size": 2119,
+      "datasets": {
+        "2wiki": 92
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Are both Pero Mićić and Carly Hibberd from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Pero Mićić",
+            "Carly Hibberd"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are the bands Georgia Fair and The Gourishankar, from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Georgia Fair",
+            "The Gourishankar"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are both villages, Fajlit and Kodibeleng, located in the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Fajlit",
+            "Kodibeleng"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Do both films, Croquette (Film) and Red Devils (Film), have the directors who are from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Croquette (film)",
+            "Red Devils (film)",
+            "Louis Mercanton",
+            "Ivan Perestiani"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "yes_no_verification",
+      "description": "Yes/no or verification-heavy 2Wiki questions where the answer depends on confirming a full relational claim rather than one page lookup.",
+      "matched_packet_count": 93,
+      "matched_group_size": 2192,
+      "datasets": {
+        "2wiki": 93
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Are both Pero Mićić and Carly Hibberd from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Pero Mićić",
+            "Carly Hibberd"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are the bands Georgia Fair and The Gourishankar, from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Georgia Fair",
+            "The Gourishankar"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are both villages, Fajlit and Kodibeleng, located in the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Fajlit",
+            "Kodibeleng"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Do both films, Croquette (Film) and Red Devils (Film), have the directors who are from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Croquette (film)",
+            "Red Devils (film)",
+            "Louis Mercanton",
+            "Ivan Perestiani"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "temporal_numeric_composition",
+      "description": "Compositional questions whose endpoint is a date, year, count, ranking, or other numeric value after one or more intermediate hops.",
+      "matched_packet_count": 283,
+      "matched_group_size": 5047,
+      "datasets": {
+        "2wiki": 283
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who died first, Joe Palooka In Humphrey Takes A Chance or Aksharathettu?",
+          "primary_answer": "Joe Palooka In Humphrey Takes A Chance",
+          "golden_answers": [
+            "Joe Palooka In Humphrey Takes A Chance"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Joe Palooka in Humphrey Takes a Chance",
+            "Aksharathettu",
+            "Jean Yarbrough",
+            "I. V. Sasi"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who was born first, The Dude Cowboy or Casbah (Film)?",
+          "primary_answer": "The Dude Cowboy",
+          "golden_answers": [
+            "The Dude Cowboy"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Dude Cowboy",
+            "Casbah (film)",
+            "Jack Nelson (actor)",
+            "John Berry (film director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director born later, In Bed or No Other Woman (1933 Film)?",
+          "primary_answer": "In Bed",
+          "golden_answers": [
+            "In Bed"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "In Bed",
+            "No Other Woman (1933 film)",
+            "Matías Bize",
+            "J. Walter Ruben"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are both Pero Mićić and Carly Hibberd from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Pero Mićić",
+            "Carly Hibberd"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "dense_entity_disambiguation",
+      "description": "Questions with dense entities, multiple candidates, or alias-heavy intermediate pages that require stronger compositional disambiguation.",
+      "matched_packet_count": 246,
+      "matched_group_size": 4882,
+      "datasets": {
+        "2wiki": 246
+      },
+      "examples": [
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who died first, Joe Palooka In Humphrey Takes A Chance or Aksharathettu?",
+          "primary_answer": "Joe Palooka In Humphrey Takes A Chance",
+          "golden_answers": [
+            "Joe Palooka In Humphrey Takes A Chance"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Joe Palooka in Humphrey Takes a Chance",
+            "Aksharathettu",
+            "Jean Yarbrough",
+            "I. V. Sasi"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director who was born first, The Dude Cowboy or Casbah (Film)?",
+          "primary_answer": "The Dude Cowboy",
+          "golden_answers": [
+            "The Dude Cowboy"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "The Dude Cowboy",
+            "Casbah (film)",
+            "Jack Nelson (actor)",
+            "John Berry (film director)"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Which film has the director born later, In Bed or No Other Woman (1933 Film)?",
+          "primary_answer": "In Bed",
+          "golden_answers": [
+            "In Bed"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "multi_entity",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge_comparison",
+          "metadata_type": "bridge_comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "In Bed",
+            "No Other Woman (1933 film)",
+            "Matías Bize",
+            "J. Walter Ruben"
+          ]
+        },
+        {
+          "dataset": "2wiki",
+          "question": "Are both Pero Mićić and Carly Hibberd from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": null,
+          "supporting_titles": [
+            "Pero Mićić",
+            "Carly Hibberd"
+          ]
+        }
+      ]
+    }
+  ],
+  "top_profiles": [
+    {
+      "dataset": "2wiki",
+      "group_size": 165,
+      "native_type": "bridge_comparison",
+      "hop_count": 4,
+      "wh_word": "which",
+      "answer_form_hint": "long_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "longer_hop",
+        "lookup",
+        "multi_entity",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "bridge_comparison",
+        "supporting_title_count": 4,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Which film has the director who died first, Joe Palooka In Humphrey Takes A Chance or Aksharathettu?",
+        "Which film has the director who was born first, The Dude Cowboy or Casbah (Film)?",
+        "Which film has the director born later, In Bed or No Other Woman (1933 Film)?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 160,
+      "native_type": "comparison",
+      "hop_count": 2,
+      "wh_word": "are",
+      "answer_form_hint": "boolean",
+      "entity_bin": "multi_entity",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "multi_entity",
+        "numeric",
+        "same_attribute",
+        "verification",
+        "yes_no"
+      ],
+      "native_summary": {
+        "native_type": "comparison",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Are both Pero Mićić and Carly Hibberd from the same country?",
+        "Are the bands Georgia Fair and The Gourishankar, from the same country?",
+        "Are both villages, Fajlit and Kodibeleng, located in the same country?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 148,
+      "native_type": "inference",
+      "hop_count": 2,
+      "wh_word": "who",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "two_entities",
+      "token_bin": "short",
+      "flags": [],
+      "native_summary": {
+        "native_type": "inference",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Who is Julia Livia's paternal grandmother?",
+        "Who is Ruodhaid's mother-in-law?",
+        "Who is the mother-in-law of Kantavati Devi?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 141,
+      "native_type": "compositional",
+      "hop_count": 2,
+      "wh_word": "when",
+      "answer_form_hint": "year_or_date",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [
+        "numeric",
+        "relation_chain",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "compositional",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "When did the director of film The Desert Pirate die?",
+        "When did the director of film The Human Dutch die?",
+        "When did the director of film Fall Of Berlin – 1945 die?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 130,
+      "native_type": "bridge_comparison",
+      "hop_count": 4,
+      "wh_word": "which",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "longer_hop",
+        "lookup",
+        "multi_entity",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "bridge_comparison",
+        "supporting_title_count": 4,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Which film has the director died later, Convoy Busters or Murder By An Aristocrat?",
+        "Which film whose director was born first, Texas Carnival or Save the Green Planet!?",
+        "Which film has the director who died first, Frankenstein's Daughter or Jungle Ka Jawahar?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 111,
+      "native_type": "compositional",
+      "hop_count": 2,
+      "wh_word": "when",
+      "answer_form_hint": "number",
+      "entity_bin": "multi_entity",
+      "token_bin": "medium",
+      "flags": [
+        "dense_entities",
+        "numeric",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "compositional",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "When is Mary Stewart, Countess Of Arran's father's birthday?",
+        "When is the performer of song Be Here Now (George Harrison Song) 's birthday?",
+        "When did Robert Of Courtenay, Lord Of Champignelles's father die?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 103,
+      "native_type": "bridge_comparison",
+      "hop_count": 4,
+      "wh_word": "do",
+      "answer_form_hint": "boolean",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "longer_hop",
+        "multi_entity",
+        "numeric",
+        "same_attribute",
+        "verification",
+        "yes_no"
+      ],
+      "native_summary": {
+        "native_type": "bridge_comparison",
+        "supporting_title_count": 4,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Do both films, Croquette (Film) and Red Devils (Film), have the directors who are from the same country?",
+        "Do both The Night Holds Terror and Naan Avanillai (1974 Film) films have the directors from the same country?",
+        "Do both films Opera Ball (1956 Film) and Picnic At Hanging Rock (Film) have the directors from the same country?"
+      ]
+    },
+    {
+      "dataset": "2wiki",
+      "group_size": 92,
+      "native_type": "bridge_comparison",
+      "hop_count": 4,
+      "wh_word": "are",
+      "answer_form_hint": "boolean",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "longer_hop",
+        "multi_entity",
+        "numeric",
+        "same_attribute",
+        "verification",
+        "yes_no"
+      ],
+      "native_summary": {
+        "native_type": "bridge_comparison",
+        "supporting_title_count": 4,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Are both directors of films The Overland Stage and Two Solutions for One Problem from the same country?",
+        "Are both directors of films Secret Agent (1947 Film) and Thai Maaman from the same country?",
+        "Are both directors of films Riding High (1950 Film) and True Friends (Film) from the same country?"
+      ]
+    }
+  ]
+}

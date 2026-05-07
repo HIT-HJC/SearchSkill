@@ -1,0 +1,16 @@
+{
+  "round_name": "round_3_2wiki",
+  "bank_name": "round3_skill_bank",
+  "base_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_2_hotpotqa/outputs/round2_skill_bank.md",
+  "samples_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples",
+  "datasets": [
+    "2wiki"
+  ],
+  "evolution_mode": "expansive_compositional_additions",
+  "trajectory_goal": "Use GPT-5.4 to expand B2 with reusable 2Wiki compositional, bridge-comparison, and inference retrieval skills before later trajectory generation and SFT.",
+  "notes": [
+    "B3 should preserve the useful B1 and B2 single-hop and hotpot-style multihop spine while adding stronger compositional and relation-chain retrieval skills supported by 2Wiki.",
+    "New compositional skills should improve longer relation chains, bridge-comparison hybrids, and inference-style retrieval without destabilizing easier bridge questions.",
+    "Prefer additions or targeted refinements that improve routing, chain decomposition, evidence alignment, or stop conditions in reusable ways."
+  ]
+}

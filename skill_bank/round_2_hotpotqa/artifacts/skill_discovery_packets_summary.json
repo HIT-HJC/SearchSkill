@@ -1,0 +1,15 @@
+{
+  "round_name": "round_2_hotpotqa",
+  "bank_name": "round2_skill_bank",
+  "datasets": {
+    "hotpotqa": {
+      "group_count": 3089,
+      "representative_examples": 6769,
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/hotpotqa/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/hotpotqa/train_sample_full.jsonl"
+    }
+  },
+  "total_groups": 3089,
+  "total_examples": 6769,
+  "examples_per_group": 3
+}

@@ -1,0 +1,18 @@
+{
+  "datasets": {
+    "nq": {
+      "default_target_size": 3000,
+      "selected_size": 3000,
+      "num_examples": 79168,
+      "num_signatures": 1086,
+      "target_size": 3000
+    },
+    "triviaqa": {
+      "default_target_size": 3000,
+      "selected_size": 3000,
+      "num_examples": 78785,
+      "num_signatures": 5130,
+      "target_size": 3000
+    }
+  }
+}

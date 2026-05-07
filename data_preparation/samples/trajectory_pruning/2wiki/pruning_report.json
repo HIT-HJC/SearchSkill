@@ -1,0 +1,203 @@
+{
+  "original_size": 8300,
+  "kept_size": 2075,
+  "kept_ratio": 0.25,
+  "unique_signatures_original": 410,
+  "unique_signatures_kept": 410,
+  "protect_signature_freq_leq": 3,
+  "cap_per_signature": 10,
+  "rare_label_threshold": 25,
+  "protected_examples": 320,
+  "protected_by_reason": {
+    "low_freq_signature": 320,
+    "rare_label": 5
+  },
+  "native_type_original": {
+    "bridge_comparison": 1331,
+    "comparison": 2258,
+    "compositional": 4314,
+    "inference": 397
+  },
+  "native_type_kept": {
+    "bridge_comparison": 317,
+    "comparison": 516,
+    "compositional": 1128,
+    "inference": 114
+  },
+  "hop_original": {
+    "4": 1331,
+    "2": 6969
+  },
+  "hop_kept": {
+    "4": 317,
+    "2": 1758
+  },
+  "entity_original": {
+    "multi_entity": 4484,
+    "dense_entity": 398,
+    "two_entities": 3413,
+    "single_entity": 5
+  },
+  "entity_kept": {
+    "multi_entity": 1058,
+    "dense_entity": 204,
+    "two_entities": 808,
+    "single_entity": 5
+  },
+  "top_flags_original": {
+    "dense_entities": 4882,
+    "comparison": 3704,
+    "multi_entity": 3680,
+    "numeric": 3668,
+    "temporal": 3223,
+    "lookup": 2926,
+    "relation_chain": 2827,
+    "yes_no": 2192,
+    "same_attribute": 2119,
+    "verification": 2114,
+    "time_anchor": 1505,
+    "longer_hop": 1331
+  },
+  "top_flags_kept": {
+    "dense_entities": 1262,
+    "multi_entity": 977,
+    "numeric": 969,
+    "comparison": 947,
+    "temporal": 777,
+    "relation_chain": 752,
+    "lookup": 713,
+    "yes_no": 551,
+    "same_attribute": 523,
+    "verification": 518,
+    "time_anchor": 391,
+    "longer_hop": 317
+  },
+  "rare_labels_preserved": {
+    "entity:single_entity": {
+      "original": 5,
+      "kept": 5
+    }
+  },
+  "high_freq_signature_examples": [
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"lookup\", \"multi_entity\", \"temporal\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"which\"}",
+      "original": 165,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"multi_entity\", \"numeric\", \"same_attribute\", \"verification\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"are\"}",
+      "original": 160,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"two_entities\", \"flags\": [], \"hop_count\": 2, \"native_type\": \"inference\", \"token_bin\": \"short\", \"wh_word\": \"who\"}",
+      "original": 148,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"two_entities\", \"flags\": [\"numeric\", \"relation_chain\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"compositional\", \"token_bin\": \"medium\", \"wh_word\": \"when\"}",
+      "original": 141,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"lookup\", \"multi_entity\", \"temporal\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"medium\", \"wh_word\": \"which\"}",
+      "original": 130,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"compositional\", \"token_bin\": \"medium\", \"wh_word\": \"when\"}",
+      "original": 111,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"multi_entity\", \"numeric\", \"same_attribute\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"do\"}",
+      "original": 103,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"multi_entity\", \"numeric\", \"same_attribute\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"are\"}",
+      "original": 92,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"lookup\", \"multi_entity\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"which\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"multi_entity\", \"numeric\", \"relation_chain\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"are\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"multi_entity\", \"relation_chain\", \"same_attribute\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"do\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\", \"multi_entity\", \"same_attribute\", \"verification\"], \"hop_count\": 4, \"native_type\": \"bridge_comparison\", \"token_bin\": \"long\", \"wh_word\": \"do\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"temporal\", \"time_anchor\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"which\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"which\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"which\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"multi_entity\", \"numeric\", \"same_attribute\", \"verification\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"long\", \"wh_word\": \"are\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"multi_entity\", \"same_attribute\", \"temporal\", \"time_anchor\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"were\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"multi_entity\", \"temporal\", \"time_anchor\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"who\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"multi_entity\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"who\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    },
+    {
+      "signature": "{\"dataset\": \"2wiki\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"multi_entity\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"short\", \"wh_word\": \"who\"}",
+      "original": 91,
+      "protected": 0,
+      "kept": 10
+    }
+  ]
+}

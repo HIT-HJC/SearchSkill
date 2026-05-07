@@ -1,0 +1,27 @@
+{
+  "root_dir": "/online1/ycsc_chenkh/hitici_11/SearchSkill/data_preparation/samples",
+  "out_root": "/online1/ycsc_chenkh/hitici_11/SearchSkill/data_preparation/samples/trajectory_pruning",
+  "datasets": {
+    "hotpotqa": {
+      "original_size": 12445,
+      "kept_size": 8178,
+      "kept_ratio": 0.6571313780634793,
+      "cap_per_signature": 4,
+      "rare_label_threshold": 38
+    },
+    "2wiki": {
+      "original_size": 8300,
+      "kept_size": 2075,
+      "kept_ratio": 0.25,
+      "cap_per_signature": 10,
+      "rare_label_threshold": 25
+    },
+    "musique": {
+      "original_size": 8594,
+      "kept_size": 4908,
+      "kept_ratio": 0.5710961135676053,
+      "cap_per_signature": 4,
+      "rare_label_threshold": 26
+    }
+  }
+}

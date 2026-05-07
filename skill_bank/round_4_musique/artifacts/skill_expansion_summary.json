@@ -1,0 +1,1049 @@
+{
+  "generated_at_utc": "2026-04-18T17:26:34.256601+00:00",
+  "packet_count": 2117,
+  "dataset_packet_counts": {
+    "musique": 2117
+  },
+  "dataset_group_sizes": {
+    "musique": 8594
+  },
+  "bucket_summaries": [
+    {
+      "bucket_id": "decomp_2_core",
+      "description": "Two-hop decomposition questions where one intermediate entity is enough but the answer still requires an explicit stepwise plan.",
+      "matched_packet_count": 1008,
+      "matched_group_size": 4678,
+      "datasets": {
+        "musique": 1008
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What is the population of the city in India the headquarters of the Northern Railway are located?",
+          "primary_answer": "249,998",
+          "golden_answers": [
+            "249,998"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What magnitude was the September 2011 earthquake that struck the city in India where the torch relay happened?",
+          "primary_answer": "4.2-magnitude",
+          "golden_answers": [
+            "4.2-magnitude"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What is the total area, in square miles, of the Indian city that's the headquarters of the Northern Railway?",
+          "primary_answer": "16.5 sq mi",
+          "golden_answers": [
+            "16.5 sq mi"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When was the most rainfall for the city where Kevin Durant played before Golden State?",
+          "primary_answer": "May 2015",
+          "golden_answers": [
+            "May 2015"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "decomp_3_core",
+      "description": "Three-hop decomposition questions where the model must preserve at least one intermediate checkpoint before extracting the final answer.",
+      "matched_packet_count": 776,
+      "matched_group_size": 2872,
+      "datasets": {
+        "musique": 776
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "In which country is Walnut Corner in the county where Whitewater is located in the state where Shotgun Stories takes place?",
+          "primary_answer": "U.S.",
+          "golden_answers": [
+            "U.S.",
+            "America",
+            "U.S",
+            "the United States",
+            "the U.S."
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "In which country is Walnut Corner, in the county where Whitewater is located in the state True Grit takes place in?",
+          "primary_answer": "U.S.",
+          "golden_answers": [
+            "U.S.",
+            "United States",
+            "US",
+            "U.S",
+            "America"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "Midway (near Pleasant Plains), in the county where Bradford is located in the state KAGH-FM is located is found in what country?",
+          "primary_answer": "U.S.",
+          "golden_answers": [
+            "U.S.",
+            "America",
+            "U.S",
+            "the United States",
+            "United States"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When did the people who won the Battle of Borodino come to the place where Andy sailed to in The Office?",
+          "primary_answer": "1625",
+          "golden_answers": [
+            "1625"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "decomp_4_core",
+      "description": "Four-hop decomposition questions that need longer search plans and careful checkpointing across multiple hidden intermediates.",
+      "matched_packet_count": 333,
+      "matched_group_size": 1044,
+      "datasets": {
+        "musique": 333
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What's the most popular sport in the country that provided the most legal immigrants in 2013 in the continent for the country that won the 2002 World Cup in Japan?",
+          "primary_answer": "Futbol",
+          "golden_answers": [
+            "Futbol"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "The largest country on this continent won the 2002 World Cup in Japan. What type of government is in the country that provided the most legal immigrants in 2013 from the continent?",
+          "primary_answer": "four - yearly elected presidential, unicameral representative democracy",
+          "golden_answers": [
+            "four - yearly elected presidential, unicameral representative democracy"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "The gold spike in the city where Falling in Reverse formed is owned by a person whose alma mater has how many undergraduates?",
+          "primary_answer": "7,200",
+          "golden_answers": [
+            "7,200"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "Who fathered the leader of the first expedition to reach Asia by sailing west across the ocean serving as the mouth of the river the Salmonberry River flows into?",
+          "primary_answer": "Estêvão da Gama",
+          "golden_answers": [
+            "Estêvão da Gama"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "longer_hop"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "longer_hop_chain",
+      "description": "Questions with longer-hop signatures where recovery and re-anchoring matter because one missed intermediate breaks the chain.",
+      "matched_packet_count": 1109,
+      "matched_group_size": 3916,
+      "datasets": {
+        "musique": 1109
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What's the most popular sport in the country that provided the most legal immigrants in 2013 in the continent for the country that won the 2002 World Cup in Japan?",
+          "primary_answer": "Futbol",
+          "golden_answers": [
+            "Futbol"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "The largest country on this continent won the 2002 World Cup in Japan. What type of government is in the country that provided the most legal immigrants in 2013 from the continent?",
+          "primary_answer": "four - yearly elected presidential, unicameral representative democracy",
+          "golden_answers": [
+            "four - yearly elected presidential, unicameral representative democracy"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "The gold spike in the city where Falling in Reverse formed is owned by a person whose alma mater has how many undergraduates?",
+          "primary_answer": "7,200",
+          "golden_answers": [
+            "7,200"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_4",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "In which country is Walnut Corner in the county where Whitewater is located in the state where Shotgun Stories takes place?",
+          "primary_answer": "U.S.",
+          "golden_answers": [
+            "U.S.",
+            "America",
+            "U.S",
+            "the United States",
+            "the U.S."
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "temporal_numeric_endgame",
+      "description": "Long-hop questions whose endpoint is a date, year, count, ranking, population, or other numeric value after decomposition.",
+      "matched_packet_count": 1583,
+      "matched_group_size": 6482,
+      "datasets": {
+        "musique": 1583
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What is the population of the city in India the headquarters of the Northern Railway are located?",
+          "primary_answer": "249,998",
+          "golden_answers": [
+            "249,998"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What magnitude was the September 2011 earthquake that struck the city in India where the torch relay happened?",
+          "primary_answer": "4.2-magnitude",
+          "golden_answers": [
+            "4.2-magnitude"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What is the total area, in square miles, of the Indian city that's the headquarters of the Northern Railway?",
+          "primary_answer": "16.5 sq mi",
+          "golden_answers": [
+            "16.5 sq mi"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When was the most rainfall for the city where Kevin Durant played before Golden State?",
+          "primary_answer": "May 2015",
+          "golden_answers": [
+            "May 2015"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "dense_entity_decomposition",
+      "description": "Decomposition questions with dense entities or several plausible intermediates that require stronger checkpointing and disambiguation.",
+      "matched_packet_count": 1073,
+      "matched_group_size": 4494,
+      "datasets": {
+        "musique": 1073
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What is the population of the city in India the headquarters of the Northern Railway are located?",
+          "primary_answer": "249,998",
+          "golden_answers": [
+            "249,998"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What magnitude was the September 2011 earthquake that struck the city in India where the torch relay happened?",
+          "primary_answer": "4.2-magnitude",
+          "golden_answers": [
+            "4.2-magnitude"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What is the total area, in square miles, of the Indian city that's the headquarters of the Northern Railway?",
+          "primary_answer": "16.5 sq mi",
+          "golden_answers": [
+            "16.5 sq mi"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When was the most rainfall for the city where Kevin Durant played before Golden State?",
+          "primary_answer": "May 2015",
+          "golden_answers": [
+            "May 2015"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "comparison_interleave",
+      "description": "Questions where decomposition and comparison interact, requiring the system to resolve subquestions before comparing or choosing.",
+      "matched_packet_count": 763,
+      "matched_group_size": 2171,
+      "datasets": {
+        "musique": 763
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "When was the most rainfall for the city where Kevin Durant played before Golden State?",
+          "primary_answer": "May 2015",
+          "golden_answers": [
+            "May 2015"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When was the last time the team that beat the Patriots in the Super Bowl was 0-5?",
+          "primary_answer": "October 6",
+          "golden_answers": [
+            "October 6",
+            "6 October"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When is the Sturgis Motorcycle Rally at the state where SoDak Con is named after?",
+          "primary_answer": "August 3 - 12, 2018",
+          "golden_answers": [
+            "August 3 - 12, 2018"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What is the family of the thrush named after the country where Haltota is found?",
+          "primary_answer": "Zoothera",
+          "golden_answers": [
+            "Zoothera"
+          ],
+          "flags": [
+            "comparison",
+            "lookup",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "time_anchor_chain",
+      "description": "Long-hop questions with temporal anchors that must stay attached to the correct intermediate entity across multiple searches.",
+      "matched_packet_count": 355,
+      "matched_group_size": 1137,
+      "datasets": {
+        "musique": 355
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What is the U.S. population ranking of the city where Walter Parks was born, in the country where Castle Island is found?",
+          "primary_answer": "12th",
+          "golden_answers": [
+            "12th"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What was the rule of the king of the country that released Rochebaron, who re-translated the Reflections into French, followed by?",
+          "primary_answer": "First French Republic",
+          "golden_answers": [
+            "First French Republic",
+            "French Republic"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What is the population of the area of the city where the writer of A Walk in the Woods was born?",
+          "primary_answer": "645,911",
+          "golden_answers": [
+            "645,911"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "lookup",
+            "numeric",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When did the manufacturer of Koksan split from the country that released The Fox Family?",
+          "primary_answer": "1953",
+          "golden_answers": [
+            "1953"
+          ],
+          "flags": [
+            "dense_entities",
+            "longer_hop",
+            "numeric",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "decomp_3",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "relation_chain_decomposition",
+      "description": "Questions with explicit relation labels across several steps, where edge-by-edge decomposition is better than broad retrieval.",
+      "matched_packet_count": 203,
+      "matched_group_size": 478,
+      "datasets": {
+        "musique": 203
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "Who is the father of Blair's child in season 5 of the show with an episode titled Gaslit?",
+          "primary_answer": "Louis Grimaldi",
+          "golden_answers": [
+            "Louis Grimaldi"
+          ],
+          "flags": [
+            "dense_entities",
+            "relation_chain"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "Who is the father of Blair's baby in season 5 of the series Pilot is part of?",
+          "primary_answer": "Louis Grimaldi",
+          "golden_answers": [
+            "Louis Grimaldi"
+          ],
+          "flags": [
+            "dense_entities",
+            "relation_chain"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "Who is the father of Blair's baby in season 5 of the series that includes the episode Reversals of Fortune?",
+          "primary_answer": "Louis Grimaldi",
+          "golden_answers": [
+            "Louis Grimaldi"
+          ],
+          "flags": [
+            "dense_entities",
+            "relation_chain"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "Who did the director of Crazy on the Outside play in Toy Story?",
+          "primary_answer": "Buzz Lightyear",
+          "golden_answers": [
+            "Buzz Lightyear"
+          ],
+          "flags": [
+            "dense_entities",
+            "relation_chain"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    },
+    {
+      "bucket_id": "long_context_disambiguation",
+      "description": "Long, clue-heavy MuSiQue questions where the target and its constraints drift unless the model re-anchors after each step.",
+      "matched_packet_count": 1271,
+      "matched_group_size": 4849,
+      "datasets": {
+        "musique": 1271
+      },
+      "examples": [
+        {
+          "dataset": "musique",
+          "question": "What is the population of the city in India the headquarters of the Northern Railway are located?",
+          "primary_answer": "249,998",
+          "golden_answers": [
+            "249,998"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What magnitude was the September 2011 earthquake that struck the city in India where the torch relay happened?",
+          "primary_answer": "4.2-magnitude",
+          "golden_answers": [
+            "4.2-magnitude"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "What is the total area, in square miles, of the Indian city that's the headquarters of the Northern Railway?",
+          "primary_answer": "16.5 sq mi",
+          "golden_answers": [
+            "16.5 sq mi"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        },
+        {
+          "dataset": "musique",
+          "question": "When was the most rainfall for the city where Kevin Durant played before Golden State?",
+          "primary_answer": "May 2015",
+          "golden_answers": [
+            "May 2015"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "decomp_2",
+          "metadata_type": null,
+          "metadata_level": null,
+          "supporting_titles": []
+        }
+      ]
+    }
+  ],
+  "top_profiles": [
+    {
+      "dataset": "musique",
+      "group_size": 90,
+      "native_type": "decomp_2",
+      "hop_count": 2,
+      "wh_word": "what",
+      "answer_form_hint": "number",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "dense_entities",
+        "lookup",
+        "numeric"
+      ],
+      "native_summary": {
+        "native_type": "decomp_2",
+        "answerable": true,
+        "hop_count": 2
+      },
+      "sample_questions": [
+        "What is the population of the city in India the headquarters of the Northern Railway are located?",
+        "What magnitude was the September 2011 earthquake that struck the city in India where the torch relay happened?",
+        "What is the total area, in square miles, of the Indian city that's the headquarters of the Northern Railway?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 71,
+      "native_type": "decomp_2",
+      "hop_count": 2,
+      "wh_word": "when",
+      "answer_form_hint": "year_or_date",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "numeric",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "decomp_2",
+        "answerable": true,
+        "hop_count": 2
+      },
+      "sample_questions": [
+        "When was the most rainfall for the city where Kevin Durant played before Golden State?",
+        "When was the last time the team that beat the Patriots in the Super Bowl was 0-5?",
+        "When is the Sturgis Motorcycle Rally at the state where SoDak Con is named after?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 65,
+      "native_type": "decomp_4",
+      "hop_count": 4,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "very_long",
+      "flags": [
+        "dense_entities",
+        "longer_hop",
+        "lookup",
+        "numeric"
+      ],
+      "native_summary": {
+        "native_type": "decomp_4",
+        "answerable": true,
+        "hop_count": 4
+      },
+      "sample_questions": [
+        "What's the most popular sport in the country that provided the most legal immigrants in 2013 in the continent for the country that won the 2002 World Cup in Japan?",
+        "The largest country on this continent won the 2002 World Cup in Japan. What type of government is in the country that provided the most legal immigrants in 2013 from the continent?",
+        "The gold spike in the city where Falling in Reverse formed is owned by a person whose alma mater has how many undergraduates?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 58,
+      "native_type": "decomp_3",
+      "hop_count": 3,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "dense_entities",
+        "longer_hop",
+        "lookup",
+        "numeric"
+      ],
+      "native_summary": {
+        "native_type": "decomp_3",
+        "answerable": true,
+        "hop_count": 3
+      },
+      "sample_questions": [
+        "In which country is Walnut Corner in the county where Whitewater is located in the state where Shotgun Stories takes place?",
+        "In which country is Walnut Corner, in the county where Whitewater is located in the state True Grit takes place in?",
+        "Midway (near Pleasant Plains), in the county where Bradford is located in the state KAGH-FM is located is found in what country?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 34,
+      "native_type": "decomp_2",
+      "hop_count": 2,
+      "wh_word": "when",
+      "answer_form_hint": "year_or_date",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "dense_entities",
+        "numeric",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "decomp_2",
+        "answerable": true,
+        "hop_count": 2
+      },
+      "sample_questions": [
+        "When did Bush declare the war causing Kerry to criticize him during the 2004 campaign?",
+        "When is the Sturgis motorcycle rally held in the state where Lake Thompson is found?",
+        "When did the state where Pocahontas Mounds is located become part of the United States?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 30,
+      "native_type": "decomp_2",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "number",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [
+        "numeric"
+      ],
+      "native_summary": {
+        "native_type": "decomp_2",
+        "answerable": true,
+        "hop_count": 2
+      },
+      "sample_questions": [
+        "The continent enclosing the setting for The Thing is how big in square miles?",
+        "In 2018, who won the election in the country where Bandar Mas is located?",
+        "Whe did the country of citizenship of Liston Bochette gain independence from spain?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 29,
+      "native_type": "decomp_2",
+      "hop_count": 2,
+      "wh_word": "what",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "two_entities",
+      "token_bin": "long",
+      "flags": [
+        "comparison",
+        "lookup",
+        "numeric",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "decomp_2",
+        "answerable": true,
+        "hop_count": 2
+      },
+      "sample_questions": [
+        "What is the family of the thrush named after the country where Haltota is found?",
+        "What is the genus of the thrush commonly named after the country where Beragala is located?",
+        "What was the country that Sammy Fuentes held a citizenship before it was a commonwealth?"
+      ]
+    },
+    {
+      "dataset": "musique",
+      "group_size": 29,
+      "native_type": "decomp_2",
+      "hop_count": 2,
+      "wh_word": "who",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "decomp_2",
+        "answerable": true,
+        "hop_count": 2
+      },
+      "sample_questions": [
+        "Who made the later death city of Yang Xianyi his capital?",
+        "Who is the city where the novel McTeague is set named after?",
+        "Who is the city that the characters fly to in Pretty Woman named after?"
+      ]
+    }
+  ]
+}

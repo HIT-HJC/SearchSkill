@@ -1,0 +1,15 @@
+{
+  "canonical": true,
+  "output_scope": "2wiki",
+  "total_requested": 215,
+  "processed": 215,
+  "passed": 91,
+  "failed": 124,
+  "runtime_errors": 0,
+  "datasets": {
+    "2wiki": {
+      "processed": 215,
+      "passed": 91
+    }
+  }
+}

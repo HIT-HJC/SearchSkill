@@ -1,0 +1,19 @@
+{
+  "datasets": {
+    "2wiki": {
+      "recommended_target_size": 8300,
+      "selected_size": 8300,
+      "num_signatures": 410
+    },
+    "musique": {
+      "recommended_target_size": 8594,
+      "selected_size": 8594,
+      "num_signatures": 2118
+    },
+    "hotpotqa": {
+      "recommended_target_size": 12445,
+      "selected_size": 12445,
+      "num_signatures": 3094
+    }
+  }
+}

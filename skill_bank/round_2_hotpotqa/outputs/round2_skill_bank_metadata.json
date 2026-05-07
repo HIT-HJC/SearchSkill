@@ -1,0 +1,89 @@
+{
+  "generated_at_utc": "2026-04-18T16:09:29.105246+00:00",
+  "model": "gpt-5.4",
+  "base_url": "https://w.ciykj.cn",
+  "reasoning_effort": "high",
+  "verbosity": "medium",
+  "usage": {
+    "input_tokens": 12673,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 10239,
+    "output_tokens_details": {
+      "reasoning_tokens": 6352
+    },
+    "total_tokens": 22912
+  },
+  "strategy_summary": "B2 keeps the B1 single-hop backbone intact while tightening routing boundaries so direct lookups do not get over-routed into multihop plans. The main additions split multihop retrieval into reusable patterns that HotpotQA shows repeatedly: generic bridge-then-attribute lookup, bridge disambiguation before hop two, explicit relation-chain decomposition, and multihop yes-no verification after evidence collection. Existing comparison, temporal extraction, conflict handling, and grounding skills are refined so they depend on resolved targets, matched attributes, and explicit support for each hop.",
+  "new_skills": [
+    {
+      "skill_id": "bridge-disambiguate-then-hop",
+      "skill_text": "Use when hop one in a bridge question produces several plausible people, works, organizations, episodes, or pages because the question is long, alias-heavy, or dense with named entities. Search hop one with 2 to 4 rare anchors from the clue bundle, resolve the bridge candidate with the strongest leftover clue before launching hop two, then search the asked attribute only on that confirmed bridge. Verify both that the chosen bridge matches all key clues and that hop two explicitly states the final relation. Do not use when the bridge entity is already uniquely named, when a single canonical page obviously fits, or when the task is only single-hop disambiguation without a second lookup.",
+      "reason": "Dense-entity and long-constraint bridge questions repeatedly fail if the system jumps to hop two before confirming the right intermediate page, so this is a stable multihop search plan rather than a one-off wording variation.",
+      "supporting_buckets": [
+        "dense_entity_bridge",
+        "long_constraint_bridge",
+        "multi_hop_disambiguation"
+      ]
+    },
+    {
+      "skill_id": "relation-chain-decomposition",
+      "skill_text": "Use when the question states an explicit chain of relations such as director of X, mother of Y, actor in the film that, or song featured in the film that, so the intermediate entity should be found by following one named relation at a time. Search hop one for the first relation to identify the intermediate entity, then search hop two for the next relation or asked attribute from that intermediate page, keeping relation labels separate instead of collapsing all clues into one query. Verify each edge of the chain explicitly and only answer when the final entity is supported through the same chain. Do not use for loose descriptive bridges with no clear named relations, or for direct single-entity lookups where one page already states the answer.",
+      "reason": "Relation-chain bridge examples show a recurring need to separate edge one from edge two instead of using a generic bridge search, which improves both retrieval focus and final verification.",
+      "supporting_buckets": [
+        "relation_chain_bridge",
+        "bridge_core"
+      ]
+    },
+    {
+      "skill_id": "multihop-yes-no-verification",
+      "skill_text": "Use for yes-no questions whose truth depends on two or more retrieved facts, such as same-country checks, founder-of claims, membership claims, or relational comparisons after collecting evidence from multiple pages. Gather each required proposition separately, normalize names or comparable values if needed, and answer yes only when every component is explicitly satisfied under the same definition and timeframe; answer no when any required component is directly contradicted or fails after matched evidence is collected. Verify that the verdict is based on the full set of required facts, not on one supportive snippet. Do not use for open-ended wh-questions, simple one-page yes-no lookups, or pairwise comparisons where the output should be which entity wins rather than yes or no.",
+      "reason": "HotpotQA has a stable class of multihop boolean questions where retrieval is not complete after finding one page; the system must collect all required facts and only then issue a verdict.",
+      "supporting_buckets": [
+        "yes_no_verification",
+        "comparison_core",
+        "same_attribute_compare"
+      ]
+    }
+  ],
+  "refined_skills": [
+    {
+      "skill_id": "single-entity-relation-lookup",
+      "skill_text": "Use when the question already names one resolved target entity, event, work, or concept and asks for one direct relation or attribute. Query the exact target name plus the relation phrase, prefer a canonical page or infobox if available, and verify that the retrieved sentence explicitly links that target to the asked attribute before extracting the answer. Do not use when the final target must be found through another entity or clue chain, when multiple candidates must be compared or filtered, when the task is mainly name-form resolution, or when a yes-no answer depends on combining evidence from more than one page.",
+      "reason": "This keeps the B1 single-hop win path intact and adds sharper boundaries so bridge and verification questions do not over-trigger the direct lookup policy."
+    },
+    {
+      "skill_id": "multi-constraint-query-anchoring",
+      "skill_text": "Use when the question is long or clue-heavy, or when the target is described by a distinctive phrase instead of a short canonical name, especially to stabilize hop one of a later bridge search. Build the query from 2 to 4 rare anchors spanning the key constraints, keep exact titles or unusual phrases intact, and verify that the chosen passage satisfies every major constraint before trusting it as the target or bridge. Do not use as a substitute for a true two-hop plan once the intermediate entity has been found, and do not use for short direct lookups or explicit pairwise comparison questions.",
+      "reason": "Long, dense bridge questions often need anchor preservation to find the right first page, but the old wording was too easy to overuse as a complete solution instead of a hop-one aid."
+    },
+    {
+      "skill_id": "bridge-entity-search",
+      "skill_text": "Use when the answer is an attribute of a hidden intermediate entity rather than of the entity named in the question. First search for the bridge entity using the clue that links the named entity to another page, such as played for, voice actor, featuring, written by, located in, or spouse of; then run a second search for the asked attribute of that confirmed bridge. Verify hop one with an explicit relation and verify hop two on the same bridged target before answering. Do not use when the question directly names the final target, when both entities are already named for comparison, or when the chain is better handled as an explicit relation-of-relation pattern under relation-chain-decomposition.",
+      "reason": "Bridge questions dominate the evidence, so the core bridge skill needs a clearer two-hop procedure and cleaner boundaries against single-hop lookup and explicit relation chains."
+    },
+    {
+      "skill_id": "parallel-attribute-compare",
+      "skill_text": "Use when two named entities must be checked on the same attribute, including which is earlier or larger, whether one fits a category, or what attribute they share. Retrieve matched evidence for each side using the same relation label, definition, unit, and timeframe; if one side only supplies the relation cue, use it to identify the attribute type and then look up the other side under that same attribute. Verify that the comparison is like-for-like before deciding or extracting the shared attribute. Do not use for one-subject bridge questions where the second entity is hidden, or for yes-no questions that require a final claim-level verdict after multiple supporting facts are collected; use multihop-yes-no-verification there.",
+      "reason": "Comparison evidence repeatedly depends on same-attribute alignment, and the old wording did not sharply separate open-ended comparisons from boolean multifact verification."
+    },
+    {
+      "skill_id": "temporal-range-extract",
+      "skill_text": "Use when the final answer to extract is a date, year, age, duration, count, population, measurement, or bounded range for an already identified target. Search with the target plus the requested metric and any supplied time context, then verify that the value matches the same unit, scope, and timeframe in evidence before extracting it. Do not use when the question asks which entity ranks first, largest, smallest, or top within a set instead of asking for the raw value, and do not use until any needed bridge entity has been fixed by a separate bridge skill.",
+      "reason": "Many HotpotQA questions end in a numeric or temporal second hop, so this skill needs a stronger stop condition: extract only after the target is resolved."
+    },
+    {
+      "skill_id": "conflict-check",
+      "skill_text": "Use when retrieval surfaces multiple plausible entities, titles, organizations, dates, or numbers at either hop of a question. Run one targeted disambiguation search anchored on the current candidate plus the asked relation and the question's strongest leftover clue; in multihop cases, resolve hop-one ambiguity before trusting hop two, or resolve hop-two ambiguity before answering. Keep a candidate only if that relation is explicitly confirmed for the exact entity under consideration. Do not use as a default extra search when evidence already agrees, or as a replacement for a full bridge or comparison plan.",
+      "reason": "Ambiguity in HotpotQA often appears inside multihop retrieval rather than only at the end, so conflict handling should explicitly mention hop-level disambiguation."
+    },
+    {
+      "skill_id": "answer-grounding-check",
+      "skill_text": "Use after drafting an answer to confirm that the current evidence explicitly supports both the candidate and the asked relation, and for multihop questions confirm that the bridge or comparison links are also explicitly supported. If the support is only implicit, off-target, from a near-match entity, or missing one hop in the chain, do one extra targeted search anchored on the draft answer and the unresolved relation before finalizing. Do not skip this check when the answer was inferred from multiple passages or when routing passed through a bridge, comparison, or verification skill.",
+      "reason": "Final answer validation in multihop QA must check the full chain, not only the last span, so the grounding skill should explicitly cover missing-hop failures."
+    }
+  ],
+  "summary_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_2_hotpotqa/artifacts/skill_expansion_summary.json",
+  "raw_response_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_2_hotpotqa/logs/b2_expand_raw_response.json"
+}

@@ -1,0 +1,19 @@
+{
+  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "total_examples": 48,
+  "train_datasets": [
+    "triviaqa"
+  ],
+  "failure_datasets": [
+    "nq",
+    "hotpotqa",
+    "2wiki",
+    "musique"
+  ],
+  "dataset_counts": {
+    "triviaqa": 48
+  },
+  "sample_origin_counts": {
+    "train_full": 48
+  }
+}

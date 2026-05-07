@@ -1,0 +1,33 @@
+{
+  "manifest_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/shards_3way/manifest_shard_2.jsonl",
+  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "model": "gpt-5.4",
+  "base_url": "https://w.ciykj.cn",
+  "total_requested": 580,
+  "processed": 578,
+  "passed": 264,
+  "failed": 314,
+  "runtime_errors": 0,
+  "datasets": {
+    "2wiki": {
+      "processed": 140,
+      "passed": 65
+    },
+    "hotpotqa": {
+      "processed": 106,
+      "passed": 76
+    },
+    "musique": {
+      "processed": 185,
+      "passed": 55
+    },
+    "nq": {
+      "processed": 73,
+      "passed": 26
+    },
+    "triviaqa": {
+      "processed": 74,
+      "passed": 42
+    }
+  }
+}

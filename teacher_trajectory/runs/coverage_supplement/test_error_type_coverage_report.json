@@ -1,0 +1,1988 @@
+{
+  "manifest_group_counts": {
+    "hotpot_bridge": 205,
+    "hotpot_comparison": 115,
+    "hotpot_comparison_yesno": 113,
+    "hotpot_bridge_temporal_numeric": 192,
+    "2wiki_compositional": 120,
+    "2wiki_comparison": 100,
+    "2wiki_bridge_comparison": 145,
+    "2wiki_inference": 55,
+    "2wiki_same_attribute_yesno": 153,
+    "musique_decomp2": 145,
+    "musique_decomp3": 215,
+    "musique_decomp4": 200,
+    "musique_decomp3_4_temporal_numeric": 396,
+    "short_multihop": 324,
+    "answer_boundary_numeric_temporal": 1328,
+    "same_attribute": 369,
+    "yesno_comparison": 294,
+    "long_hop_attr": 506
+  },
+  "test_error_report": {
+    "hotpotqa": {
+      "total": 200,
+      "wrong": 121,
+      "correct": 79,
+      "meta_hit": 121,
+      "wrong_groups": {
+        "hotpot_bridge": 108,
+        "hotpot_bridge_temporal_numeric": 34,
+        "answer_boundary_numeric_temporal": 29,
+        "hotpot_comparison": 13,
+        "short_multihop": 10,
+        "hotpot_comparison_yesno": 4,
+        "yesno_comparison": 4,
+        "same_attribute": 2
+      },
+      "ungrouped_count": 0,
+      "top_wrong_labels": {
+        "dataset:hotpotqa": 121,
+        "hop:2": 121,
+        "tag:relation_chain": 111,
+        "native:bridge": 108,
+        "tag:lookup": 87,
+        "tag:answer_boundary_sensitive": 76,
+        "tag:multi_entity": 72,
+        "combo:multi_entity_relation": 64,
+        "answer:entity_or_short_span": 52,
+        "question:long": 43,
+        "answer:long_span": 38,
+        "tag:numeric": 23,
+        "tag:comparison": 20,
+        "tag:temporal": 19,
+        "answer:number": 14,
+        "native:comparison": 13,
+        "tag:dense_entities": 13,
+        "combo:short_multihop": 10,
+        "question:short": 10,
+        "answer:list_like": 7,
+        "tag:superlative": 6,
+        "answer:year_or_date": 6,
+        "answer:boolean": 4,
+        "tag:yes_no": 4,
+        "combo:yes_no_comparison": 4,
+        "tag:same_attribute": 2,
+        "combo:comparison_temporal": 2,
+        "combo:comparison_numeric": 1,
+        "tag:kinship": 1
+      },
+      "examples": {
+        "answer_boundary_numeric_temporal": [
+          {
+            "question": "What is the height of the player who won the 2015 AFL Rising Star award?",
+            "gold": [
+              "1.95 m"
+            ],
+            "prediction": "6ft 2in",
+            "native": "bridge",
+            "labels": [
+              "answer:number",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+            "gold": [
+              "276,170 inhabitants"
+            ],
+            "prediction": "Berlin",
+            "native": "bridge",
+            "labels": [
+              "answer:number",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+            "gold": [
+              "Ronald Shusett"
+            ],
+            "prediction": "Arthur P. Jacobs",
+            "native": "bridge",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain"
+            ]
+          }
+        ],
+        "hotpot_bridge": [
+          {
+            "question": "What is the height of the player who won the 2015 AFL Rising Star award?",
+            "gold": [
+              "1.95 m"
+            ],
+            "prediction": "6ft 2in",
+            "native": "bridge",
+            "labels": [
+              "answer:number",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "D1NZ is a series based on what oversteering technique?",
+            "gold": [
+              "Drifting"
+            ],
+            "prediction": "lift-off oversteer",
+            "native": "bridge",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "Alice David is the voice of Lara Croft in a video game developed by which company ?",
+            "gold": [
+              "Crystal Dynamics"
+            ],
+            "prediction": "Square Enix",
+            "native": "bridge",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          }
+        ],
+        "hotpot_bridge_temporal_numeric": [
+          {
+            "question": "What is the height of the player who won the 2015 AFL Rising Star award?",
+            "gold": [
+              "1.95 m"
+            ],
+            "prediction": "6ft 2in",
+            "native": "bridge",
+            "labels": [
+              "answer:number",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+            "gold": [
+              "Marion, South Australia"
+            ],
+            "prediction": "Melbourne",
+            "native": "bridge",
+            "labels": [
+              "answer:list_like",
+              "combo:comparison_temporal",
+              "combo:multi_entity_relation",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "question:long",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Where was the person born who was recognized by MIAL and is an American soprano?",
+            "gold": [
+              "Laurel, Mississippi"
+            ],
+            "prediction": "New York City",
+            "native": "bridge",
+            "labels": [
+              "answer:list_like",
+              "combo:multi_entity_relation",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "short_multihop": [
+          {
+            "question": "D1NZ is a series based on what oversteering technique?",
+            "gold": [
+              "Drifting"
+            ],
+            "prediction": "lift-off oversteer",
+            "native": "bridge",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "Which came out first, Dinosaur or McFarland, USA",
+            "gold": [
+              "Dinosaur"
+            ],
+            "prediction": "The Good Dinosaur",
+            "native": "comparison",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "Both Truth in Science and Discovery embrace what campaign?",
+            "gold": [
+              "\"Teach the Controversy\" campaign"
+            ],
+            "prediction": "Teach the Controversy",
+            "native": "bridge",
+            "labels": [
+              "answer:long_span",
+              "combo:multi_entity_relation",
+              "combo:short_multihop",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "question:short",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain"
+            ]
+          }
+        ],
+        "hotpot_comparison": [
+          {
+            "question": "Are Hot Rod and The Memory of Our People both magazines?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+            "gold": [
+              "no"
+            ],
+            "prediction": "yes",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Which case came first, Craig v. Boren or United States v. Paramount Pictures, Inc.?",
+            "gold": [
+              "Craig v. Boren"
+            ],
+            "prediction": "United States v. Paramount Pictures, Inc",
+            "native": "comparison",
+            "labels": [
+              "answer:long_span",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:comparison",
+              "tag:dense_entities",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:superlative"
+            ]
+          }
+        ],
+        "hotpot_comparison_yesno": [
+          {
+            "question": "Are Hot Rod and The Memory of Our People both magazines?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+            "gold": [
+              "no"
+            ],
+            "prediction": "yes",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          }
+        ],
+        "yesno_comparison": [
+          {
+            "question": "Are Hot Rod and The Memory of Our People both magazines?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+            "gold": [
+              "no"
+            ],
+            "prediction": "yes",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          }
+        ],
+        "same_attribute": [
+          {
+            "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+            "gold": [
+              "Marion, South Australia"
+            ],
+            "prediction": "Melbourne",
+            "native": "bridge",
+            "labels": [
+              "answer:list_like",
+              "combo:comparison_temporal",
+              "combo:multi_entity_relation",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:bridge",
+              "question:long",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:yes_no_comparison",
+              "dataset:hotpotqa",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          }
+        ]
+      }
+    },
+    "2wiki": {
+      "total": 200,
+      "wrong": 133,
+      "correct": 67,
+      "meta_hit": 133,
+      "wrong_groups": {
+        "2wiki_compositional": 63,
+        "short_multihop": 34,
+        "2wiki_bridge_comparison": 32,
+        "answer_boundary_numeric_temporal": 28,
+        "long_hop_attr": 24,
+        "2wiki_inference": 23,
+        "2wiki_comparison": 15,
+        "2wiki_same_attribute_yesno": 12,
+        "same_attribute": 12,
+        "yesno_comparison": 12
+      },
+      "ungrouped_count": 0,
+      "top_wrong_labels": {
+        "dataset:2wiki": 133,
+        "hop:2": 101,
+        "tag:answer_boundary_sensitive": 82,
+        "tag:relation_chain": 78,
+        "tag:multi_entity": 71,
+        "native:compositional": 63,
+        "tag:lookup": 63,
+        "answer:entity_or_short_span": 62,
+        "tag:kinship": 56,
+        "tag:temporal": 48,
+        "tag:comparison": 48,
+        "combo:multi_entity_relation": 47,
+        "answer:long_span": 37,
+        "combo:short_multihop": 34,
+        "question:short": 34,
+        "hop:4": 32,
+        "native:bridge_comparison": 32,
+        "combo:comparison_temporal": 32,
+        "combo:long_hop_temporal": 24,
+        "native:inference": 23,
+        "native:comparison": 15,
+        "answer:list_like": 14,
+        "answer:boolean": 12,
+        "tag:same_attribute": 12,
+        "tag:yes_no": 12,
+        "combo:yes_no_comparison": 12,
+        "tag:numeric": 10,
+        "question:long": 9,
+        "tag:superlative": 9,
+        "answer:year_or_date": 4,
+        "answer:number": 4,
+        "combo:long_hop_numeric": 2,
+        "combo:comparison_numeric": 2,
+        "tag:dense_entities": 1
+      },
+      "examples": {
+        "2wiki_compositional": [
+          {
+            "question": "Where was the director of film The Half-Way Girl born?",
+            "gold": [
+              "the five boroughs",
+              "City of New York",
+              "New York",
+              "NY City",
+              "New York City",
+              "NYC",
+              "Big Apple",
+              "New York, New York"
+            ],
+            "prediction": "County Kilkenny, Ireland",
+            "native": "compositional",
+            "labels": [
+              "answer:long_span",
+              "dataset:2wiki",
+              "hop:2",
+              "native:compositional",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Where did the presenter of Tim Russert (Talk Show) die?",
+            "gold": [
+              "Washington D.C.",
+              "Washington, District of Columbia",
+              "DC",
+              "Washington, D.C.",
+              "Washington",
+              "Washington, DC",
+              "District of Columbia",
+              "D.C.",
+              "Washington DC"
+            ],
+            "prediction": "Sibley Memorial Hospital",
+            "native": "compositional",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:2wiki",
+              "hop:2",
+              "native:compositional",
+              "tag:answer_boundary_sensitive",
+              "tag:multi_entity"
+            ]
+          },
+          {
+            "question": "What is the place of birth of Empress Xu (Ming Dynasty)'s husband?",
+            "gold": [
+              "Nanjing",
+              "Nankin",
+              "Nanking"
+            ],
+            "prediction": "Beijing",
+            "native": "compositional",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:2wiki",
+              "hop:2",
+              "native:compositional",
+              "tag:answer_boundary_sensitive",
+              "tag:kinship",
+              "tag:lookup",
+              "tag:multi_entity"
+            ]
+          }
+        ],
+        "2wiki_inference": [
+          {
+            "question": "Who is Sancho Ramírez's maternal grandfather?",
+            "gold": [
+              "Bernard-Roger, Count of Bigorre"
+            ],
+            "prediction": "King Ramiro I of Aragon",
+            "native": "inference",
+            "labels": [
+              "answer:list_like",
+              "combo:short_multihop",
+              "dataset:2wiki",
+              "hop:2",
+              "native:inference",
+              "question:short",
+              "tag:kinship"
+            ]
+          },
+          {
+            "question": "Who is Catherine Of Pomerania, Countess Palatine Of Neumarkt's father-in-law?",
+            "gold": [
+              "Rupert, King of Germany",
+              "Rupert",
+              "Ruprecht"
+            ],
+            "prediction": "John I, Count Palatine of Zweibrücken",
+            "native": "inference",
+            "labels": [
+              "answer:list_like",
+              "dataset:2wiki",
+              "hop:2",
+              "native:inference",
+              "tag:kinship",
+              "tag:multi_entity"
+            ]
+          },
+          {
+            "question": "Who is the paternal grandfather of Taj Al-Dawla?",
+            "gold": [
+              "Rukn al-Dawla"
+            ],
+            "prediction": "Buya",
+            "native": "inference",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:2wiki",
+              "hop:2",
+              "native:inference",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:kinship"
+            ]
+          }
+        ],
+        "short_multihop": [
+          {
+            "question": "Who is Sancho Ramírez's maternal grandfather?",
+            "gold": [
+              "Bernard-Roger, Count of Bigorre"
+            ],
+            "prediction": "King Ramiro I of Aragon",
+            "native": "inference",
+            "labels": [
+              "answer:list_like",
+              "combo:short_multihop",
+              "dataset:2wiki",
+              "hop:2",
+              "native:inference",
+              "question:short",
+              "tag:kinship"
+            ]
+          },
+          {
+            "question": "Who is the paternal grandfather of Taj Al-Dawla?",
+            "gold": [
+              "Rukn al-Dawla"
+            ],
+            "prediction": "Buya",
+            "native": "inference",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:2wiki",
+              "hop:2",
+              "native:inference",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:kinship"
+            ]
+          },
+          {
+            "question": "Where did Bianca Riario's father die?",
+            "gold": [
+              "Forlì",
+              "Forli"
+            ],
+            "prediction": "Rome",
+            "native": "compositional",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:2wiki",
+              "hop:2",
+              "native:compositional",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:kinship"
+            ]
+          }
+        ],
+        "2wiki_bridge_comparison": [
+          {
+            "question": "Which film has the director born later, Befikre or American Sniper?",
+            "gold": [
+              "Befikre"
+            ],
+            "prediction": "Aditya Chopra",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Which film has the director born earlier, Jayam Manade or Bulldog Drummond'S Revenge?",
+            "gold": [
+              "Bulldog Drummond's Revenge",
+              "Bulldog Drummond'S Revenge"
+            ],
+            "prediction": "Louis King",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:long_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Which film has the director born earlier, Spring Storms or Fun In The Barracks?",
+            "gold": [
+              "Les Gaietés de l'escadron",
+              "Fun in the Barracks",
+              "Fun In The Barracks"
+            ],
+            "prediction": "Maurice Tourneur",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:long_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "answer_boundary_numeric_temporal": [
+          {
+            "question": "Which film has the director born later, Befikre or American Sniper?",
+            "gold": [
+              "Befikre"
+            ],
+            "prediction": "Aditya Chopra",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "What is the date of death of the director of film Escándalo De Estrellas?",
+            "gold": [
+              "August 7, 2004"
+            ],
+            "prediction": "December 27, 2014",
+            "native": "compositional",
+            "labels": [
+              "answer:year_or_date",
+              "dataset:2wiki",
+              "hop:2",
+              "native:compositional",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Which film has the director died first, Resan Till Dej or Rocking Moon?",
+            "gold": [
+              "Rocking Moon"
+            ],
+            "prediction": "Crazy Moon",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:superlative",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "long_hop_attr": [
+          {
+            "question": "Which film has the director born later, Befikre or American Sniper?",
+            "gold": [
+              "Befikre"
+            ],
+            "prediction": "Aditya Chopra",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Which film has the director born earlier, Jayam Manade or Bulldog Drummond'S Revenge?",
+            "gold": [
+              "Bulldog Drummond's Revenge",
+              "Bulldog Drummond'S Revenge"
+            ],
+            "prediction": "Louis King",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:long_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "Which film has the director born earlier, Spring Storms or Fun In The Barracks?",
+            "gold": [
+              "Les Gaietés de l'escadron",
+              "Fun in the Barracks",
+              "Fun In The Barracks"
+            ],
+            "prediction": "Maurice Tourneur",
+            "native": "bridge_comparison",
+            "labels": [
+              "answer:long_span",
+              "combo:comparison_temporal",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:2wiki",
+              "hop:4",
+              "native:bridge_comparison",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "2wiki_comparison": [
+          {
+            "question": "Are Bal Vidyalaya (Kota) and Loreto House both located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are both Țerova and Slava (River) located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Which film was released more recently, Royal Treasure or When Love Begins?",
+            "gold": [
+              "Royal Treasure"
+            ],
+            "prediction": "When Love Begins",
+            "native": "comparison",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:comparison_temporal",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "2wiki_same_attribute_yesno": [
+          {
+            "question": "Are Bal Vidyalaya (Kota) and Loreto House both located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are both Țerova and Slava (River) located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are Blurt (Magazine) and Maui Nō Ka ʻOi Magazine from the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          }
+        ],
+        "same_attribute": [
+          {
+            "question": "Are Bal Vidyalaya (Kota) and Loreto House both located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are both Țerova and Slava (River) located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are Blurt (Magazine) and Maui Nō Ka ʻOi Magazine from the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          }
+        ],
+        "yesno_comparison": [
+          {
+            "question": "Are Bal Vidyalaya (Kota) and Loreto House both located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are both Țerova and Slava (River) located in the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          },
+          {
+            "question": "Are Blurt (Magazine) and Maui Nō Ka ʻOi Magazine from the same country?",
+            "gold": [
+              "yes"
+            ],
+            "prediction": "no",
+            "native": "comparison",
+            "labels": [
+              "answer:boolean",
+              "combo:multi_entity_relation",
+              "combo:yes_no_comparison",
+              "dataset:2wiki",
+              "hop:2",
+              "native:comparison",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute",
+              "tag:yes_no"
+            ]
+          }
+        ]
+      }
+    },
+    "musique": {
+      "total": 200,
+      "wrong": 180,
+      "correct": 20,
+      "meta_hit": 180,
+      "wrong_groups": {
+        "musique_decomp2": 79,
+        "answer_boundary_numeric_temporal": 71,
+        "musique_decomp3": 65,
+        "long_hop_attr": 58,
+        "musique_decomp3_4_temporal_numeric": 58,
+        "musique_decomp4": 36,
+        "short_multihop": 11,
+        "same_attribute": 7
+      },
+      "ungrouped_count": 0,
+      "top_wrong_labels": {
+        "tag:relation_chain": 180,
+        "dataset:musique": 180,
+        "tag:answer_boundary_sensitive": 122,
+        "question:long": 99,
+        "combo:multi_entity_relation": 82,
+        "tag:multi_entity": 82,
+        "tag:lookup": 80,
+        "native:decomp_2": 79,
+        "hop:2": 79,
+        "answer:entity_or_short_span": 66,
+        "hop:3": 65,
+        "native:decomp_3": 65,
+        "tag:temporal": 65,
+        "tag:numeric": 59,
+        "answer:long_span": 53,
+        "combo:long_hop_temporal": 47,
+        "combo:long_hop_numeric": 43,
+        "native:decomp_4": 36,
+        "hop:4": 36,
+        "answer:year_or_date": 34,
+        "tag:comparison": 26,
+        "answer:number": 22,
+        "combo:comparison_numeric": 14,
+        "combo:comparison_temporal": 14,
+        "tag:dense_entities": 13,
+        "combo:short_multihop": 11,
+        "question:short": 11,
+        "tag:superlative": 10,
+        "tag:kinship": 10,
+        "tag:same_attribute": 7,
+        "answer:list_like": 5,
+        "tag:yes_no": 1
+      },
+      "examples": {
+        "musique_decomp3": [
+          {
+            "question": "Where is the Bridge of Sighs located in the place of death of Sonata pian'e forte's composer?",
+            "gold": [
+              "passes over the Rio di Palazzo"
+            ],
+            "prediction": "Italy",
+            "native": "decomp_3",
+            "labels": [
+              "answer:long_span",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "tag:multi_entity",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "What was the first OS to support Hyper-V from the company the letters MS stands for in the network that broadcasts Buchanan & Press?",
+            "gold": [
+              "Windows 8"
+            ],
+            "prediction": "Windows Server 2008",
+            "native": "decomp_3",
+            "labels": [
+              "answer:number",
+              "combo:comparison_numeric",
+              "combo:long_hop_numeric",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:dense_entities",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "What country has the border troops of the country of the literature of the country of Karl Maron citizenship?",
+            "gold": [
+              "GDR",
+              "German Democratic Republic",
+              "East Germany"
+            ],
+            "prediction": "Belgium",
+            "native": "decomp_3",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          }
+        ],
+        "musique_decomp2": [
+          {
+            "question": "Who fathered Emperor Ai of the Chinese dynasty with the oldest remaining wooden buildings?",
+            "gold": [
+              "Emperor Zhaozong of Tang",
+              "Li Jie",
+              "Li Ye"
+            ],
+            "prediction": "Liu Kang",
+            "native": "decomp_2",
+            "labels": [
+              "answer:long_span",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "What is the goal of the group that European Movement Germany is a member of?",
+            "gold": [
+              "European integration"
+            ],
+            "prediction": "promoting European integration",
+            "native": "decomp_2",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "Which professional sports team would you not see play a home game where Jim Foster came up with the idea for arena football?",
+            "gold": [
+              "Brooklyn Nets NBA",
+              "Brooklyn"
+            ],
+            "prediction": "Capital One Arena",
+            "native": "decomp_2",
+            "labels": [
+              "answer:long_span",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "question:long",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          }
+        ],
+        "answer_boundary_numeric_temporal": [
+          {
+            "question": "What was the first OS to support Hyper-V from the company the letters MS stands for in the network that broadcasts Buchanan & Press?",
+            "gold": [
+              "Windows 8"
+            ],
+            "prediction": "Windows Server 2008",
+            "native": "decomp_3",
+            "labels": [
+              "answer:number",
+              "combo:comparison_numeric",
+              "combo:long_hop_numeric",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:dense_entities",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "When did the U.S. and the country in effective control of political and military functions of the group the People's Socialist Republic of Albania was a member of become allies?",
+            "gold": [
+              "June 1941"
+            ],
+            "prediction": "4 April 1949",
+            "native": "decomp_3",
+            "labels": [
+              "answer:year_or_date",
+              "combo:long_hop_numeric",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "When was the last time George Hollis's team beat the 1894-95 FA Cup winner?",
+            "gold": [
+              "1 December 2010"
+            ],
+            "prediction": "1895",
+            "native": "decomp_3",
+            "labels": [
+              "answer:year_or_date",
+              "combo:comparison_numeric",
+              "combo:comparison_temporal",
+              "combo:long_hop_numeric",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "long_hop_attr": [
+          {
+            "question": "What was the first OS to support Hyper-V from the company the letters MS stands for in the network that broadcasts Buchanan & Press?",
+            "gold": [
+              "Windows 8"
+            ],
+            "prediction": "Windows Server 2008",
+            "native": "decomp_3",
+            "labels": [
+              "answer:number",
+              "combo:comparison_numeric",
+              "combo:long_hop_numeric",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:dense_entities",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "When did the U.S. and the country in effective control of political and military functions of the group the People's Socialist Republic of Albania was a member of become allies?",
+            "gold": [
+              "June 1941"
+            ],
+            "prediction": "4 April 1949",
+            "native": "decomp_3",
+            "labels": [
+              "answer:year_or_date",
+              "combo:long_hop_numeric",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "When was the last time George Hollis's team beat the 1894-95 FA Cup winner?",
+            "gold": [
+              "1 December 2010"
+            ],
+            "prediction": "1895",
+            "native": "decomp_3",
+            "labels": [
+              "answer:year_or_date",
+              "combo:comparison_numeric",
+              "combo:comparison_temporal",
+              "combo:long_hop_numeric",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "musique_decomp3_4_temporal_numeric": [
+          {
+            "question": "What was the first OS to support Hyper-V from the company the letters MS stands for in the network that broadcasts Buchanan & Press?",
+            "gold": [
+              "Windows 8"
+            ],
+            "prediction": "Windows Server 2008",
+            "native": "decomp_3",
+            "labels": [
+              "answer:number",
+              "combo:comparison_numeric",
+              "combo:long_hop_numeric",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:dense_entities",
+              "tag:lookup",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "When did the U.S. and the country in effective control of political and military functions of the group the People's Socialist Republic of Albania was a member of become allies?",
+            "gold": [
+              "June 1941"
+            ],
+            "prediction": "4 April 1949",
+            "native": "decomp_3",
+            "labels": [
+              "answer:year_or_date",
+              "combo:long_hop_numeric",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "When was the last time George Hollis's team beat the 1894-95 FA Cup winner?",
+            "gold": [
+              "1 December 2010"
+            ],
+            "prediction": "1895",
+            "native": "decomp_3",
+            "labels": [
+              "answer:year_or_date",
+              "combo:comparison_numeric",
+              "combo:comparison_temporal",
+              "combo:long_hop_numeric",
+              "combo:long_hop_temporal",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "musique_decomp4": [
+          {
+            "question": "Who won the Indy Car Race in the largest populated city of the state where the performer of Mingus Plays Piano is from?",
+            "gold": [
+              "Mario Andretti"
+            ],
+            "prediction": "Will Power",
+            "native": "decomp_4",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:4",
+              "native:decomp_4",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "What is the seat of the county sharing a border with the county where Miller Electric is headquartered?",
+            "gold": [
+              "Green Bay"
+            ],
+            "prediction": "Appleton",
+            "native": "decomp_4",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:musique",
+              "hop:4",
+              "native:decomp_4",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "Ivo Werner is from Country A that invaded Country B because their military branch that Air Defense Artillery is part of was unprepared. Country B was the only communist country to have an embassy where?",
+            "gold": [
+              "Alfredo Stroessner's Paraguay",
+              "Alfredo Stroessner"
+            ],
+            "prediction": "Cuba",
+            "native": "decomp_4",
+            "labels": [
+              "answer:long_span",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:4",
+              "native:decomp_4",
+              "question:long",
+              "tag:multi_entity",
+              "tag:relation_chain"
+            ]
+          }
+        ],
+        "same_attribute": [
+          {
+            "question": "Why was Common Sense, by the same author as Rights of Man, an important work?",
+            "gold": [
+              "crystallized the rebellious demand for independence from Great Britain",
+              "Great Britain"
+            ],
+            "prediction": "important because it advocated independence from Great Britain and encouraged common people to fight for egalitarian government",
+            "native": "decomp_2",
+            "labels": [
+              "answer:long_span",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute"
+            ]
+          },
+          {
+            "question": "Where do they hold NASCAR races in the city that is in the same county as the Eric Marcus Municipal Airport?",
+            "gold": [
+              "Tucson Raceway Park",
+              "Tucson, Arizona",
+              "Tucson"
+            ],
+            "prediction": "Tucson Speedway",
+            "native": "decomp_3",
+            "labels": [
+              "answer:long_span",
+              "combo:multi_entity_relation",
+              "dataset:musique",
+              "hop:3",
+              "native:decomp_3",
+              "question:long",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:relation_chain",
+              "tag:same_attribute"
+            ]
+          },
+          {
+            "question": "What is the median household income for people today of the same country as the witness to the Blitz?",
+            "gold": [
+              "$59,039"
+            ],
+            "prediction": "£23,556",
+            "native": "decomp_2",
+            "labels": [
+              "answer:number",
+              "combo:comparison_numeric",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "question:long",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:numeric",
+              "tag:relation_chain",
+              "tag:same_attribute"
+            ]
+          }
+        ],
+        "short_multihop": [
+          {
+            "question": "Who was the spouse of the British queen?",
+            "gold": [
+              "Philip Mountbatten"
+            ],
+            "prediction": "Queen Elizabeth II",
+            "native": "decomp_2",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:kinship",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "Where did William Beckford's child die?",
+            "gold": [
+              "Bath"
+            ],
+            "prediction": "London",
+            "native": "decomp_2",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:relation_chain"
+            ]
+          },
+          {
+            "question": "What city is located in the county containing Qiantong?",
+            "gold": [
+              "Ningbo"
+            ],
+            "prediction": "Qianxinan布依族苗族自治州",
+            "native": "decomp_2",
+            "labels": [
+              "answer:entity_or_short_span",
+              "combo:short_multihop",
+              "dataset:musique",
+              "hop:2",
+              "native:decomp_2",
+              "question:short",
+              "tag:answer_boundary_sensitive",
+              "tag:lookup",
+              "tag:relation_chain"
+            ]
+          }
+        ]
+      }
+    },
+    "bamboogle": {
+      "total": 125,
+      "wrong": 77,
+      "correct": 48,
+      "meta_hit": 0,
+      "wrong_groups": {
+        "short_multihop": 57,
+        "answer_boundary_numeric_temporal": 32
+      },
+      "ungrouped_count": 12,
+      "top_wrong_labels": {
+        "dataset:bamboogle": 77,
+        "native:short_multihop": 77,
+        "hop:2": 72,
+        "tag:answer_boundary_sensitive": 63,
+        "tag:lookup": 33,
+        "tag:numeric": 32,
+        "answer:entity_or_short_span": 31,
+        "tag:temporal": 29,
+        "answer:year_or_date": 23,
+        "question:short": 18,
+        "tag:relation_chain": 16,
+        "tag:kinship": 15,
+        "tag:multi_entity": 14,
+        "tag:superlative": 13,
+        "answer:long_span": 13,
+        "answer:number": 9,
+        "tag:comparison": 5,
+        "hop:3": 5,
+        "question:long": 3,
+        "combo:multi_entity_relation": 3,
+        "combo:comparison_temporal": 2,
+        "combo:comparison_numeric": 2,
+        "tag:alias_or_disambiguation": 2,
+        "answer:list_like": 1
+      },
+      "examples": {
+        "short_multihop": [
+          {
+            "question": "What rocket was the first spacecraft that ever approached Uranus launched on?",
+            "gold": [
+              "Titan IIIE"
+            ],
+            "prediction": "Voyager 2",
+            "native": "short_multihop",
+            "labels": [
+              "answer:entity_or_short_span",
+              "dataset:bamboogle",
+              "hop:2",
+              "native:short_multihop",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:lookup",
+              "tag:superlative"
+            ]
+          },
+          {
+            "question": "When did the last king from Britain's House of Hanover die?",
+            "gold": [
+              "20 June 1837"
+            ],
+            "prediction": "12 June 1878",
+            "native": "short_multihop",
+            "labels": [
+              "answer:year_or_date",
+              "combo:comparison_numeric",
+              "combo:comparison_temporal",
+              "dataset:bamboogle",
+              "hop:2",
+              "native:short_multihop",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "How many people died in the second most powerful earthquake ever recorded?",
+            "gold": [
+              "131"
+            ],
+            "prediction": "139",
+            "native": "short_multihop",
+            "labels": [
+              "answer:number",
+              "dataset:bamboogle",
+              "hop:2",
+              "native:short_multihop",
+              "tag:answer_boundary_sensitive",
+              "tag:numeric",
+              "tag:temporal"
+            ]
+          }
+        ],
+        "answer_boundary_numeric_temporal": [
+          {
+            "question": "When did the last king from Britain's House of Hanover die?",
+            "gold": [
+              "20 June 1837"
+            ],
+            "prediction": "12 June 1878",
+            "native": "short_multihop",
+            "labels": [
+              "answer:year_or_date",
+              "combo:comparison_numeric",
+              "combo:comparison_temporal",
+              "dataset:bamboogle",
+              "hop:2",
+              "native:short_multihop",
+              "tag:answer_boundary_sensitive",
+              "tag:comparison",
+              "tag:multi_entity",
+              "tag:numeric",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "When did the president who set the precedent of a two term limit enter office?",
+            "gold": [
+              "April 30, 1789"
+            ],
+            "prediction": "March 4, 1801",
+            "native": "short_multihop",
+            "labels": [
+              "answer:year_or_date",
+              "dataset:bamboogle",
+              "hop:2",
+              "native:short_multihop",
+              "tag:answer_boundary_sensitive",
+              "tag:numeric",
+              "tag:temporal"
+            ]
+          },
+          {
+            "question": "When did the president who set the precedent of a two term limit leave office?",
+            "gold": [
+              "March 4, 1797"
+            ],
+            "prediction": "January 20, 1953",
+            "native": "short_multihop",
+            "labels": [
+              "answer:year_or_date",
+              "dataset:bamboogle",
+              "hop:2",
+              "native:short_multihop",
+              "tag:answer_boundary_sensitive",
+              "tag:numeric",
+              "tag:temporal"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

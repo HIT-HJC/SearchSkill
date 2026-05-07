@@ -1,0 +1,15 @@
+{
+  "canonical": true,
+  "output_scope": "musique",
+  "total_requested": 234,
+  "processed": 234,
+  "passed": 84,
+  "failed": 150,
+  "runtime_errors": 0,
+  "datasets": {
+    "musique": {
+      "processed": 234,
+      "passed": 84
+    }
+  }
+}

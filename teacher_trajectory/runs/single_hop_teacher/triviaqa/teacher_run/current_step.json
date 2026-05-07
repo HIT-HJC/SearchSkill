@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-04-20T07:53:20Z",
+  "record_id": "train_19569",
+  "dataset": "triviaqa",
+  "question": "On 60's TV who had the nickname 'The Galloping Gourmet'?",
+  "phase": "record_complete",
+  "step_index": 3,
+  "completed_step_count": 3,
+  "action": "answer",
+  "query": "",
+  "checkpoint": {},
+  "note": "passed=True"
+}

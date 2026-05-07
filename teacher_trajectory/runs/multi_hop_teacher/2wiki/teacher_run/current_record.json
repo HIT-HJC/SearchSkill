@@ -1,0 +1,18 @@
+{
+  "updated_at": "2026-04-20T06:27:01Z",
+  "record_id": "train_7169",
+  "dataset": "2wiki",
+  "sample_origin": "train_pruned",
+  "question": "Did the movies How To Do Well When You'Re A Jerk And A Crybaby and Tiger Love (1977 Film), originate from the same country?",
+  "candidate_primary_skills": [
+    "bridge-comparison-planning",
+    "multihop-yes-no-verification",
+    "bridge-entity-search",
+    "relation-chain-decomposition",
+    "temporal-anchor-carry-forward"
+  ],
+  "failure_info": null,
+  "processed_count": 204,
+  "total_requested": 205,
+  "remaining_count": 1
+}

@@ -1,0 +1,56 @@
+{
+  "dataset": "triviaqa",
+  "num_examples": 78785,
+  "num_signatures": 5130,
+  "answer_form_distribution": {
+    "entity_or_short_span": 60974,
+    "long_span": 9277,
+    "list_like": 3631,
+    "number": 3530,
+    "year_or_date": 1373
+  },
+  "wh_distribution": {
+    "other": 39427,
+    "what": 15435,
+    "which": 14348,
+    "who": 7015,
+    "how": 1267,
+    "where": 705,
+    "whose": 277,
+    "when": 260,
+    "whom": 28,
+    "is": 8,
+    "are": 5,
+    "was": 4,
+    "do": 3,
+    "were": 1,
+    "did": 1,
+    "does": 1
+  },
+  "entity_distribution": {
+    "multi_entity": 29206,
+    "two_entities": 27543,
+    "single_entity": 15921,
+    "dense_entity": 6115
+  },
+  "token_distribution": {
+    "long": 31249,
+    "medium": 24606,
+    "very_long": 19718,
+    "short": 3212
+  },
+  "flag_distribution": {
+    "direct_lookup": 78785,
+    "long_question": 31895,
+    "quoted_span": 18840,
+    "person": 17091,
+    "location": 10919,
+    "title_work": 10612,
+    "numeric": 6124,
+    "temporal": 4790,
+    "organization": 2806,
+    "alias": 1118,
+    "yes_no": 23
+  },
+  "default_target_size": 3000
+}

@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-04-20T08:09:51Z",
+  "record_id": "nq_failure_dev_3483",
+  "dataset": "nq",
+  "question": "where is the world cup going to be in 2019",
+  "phase": "record_complete",
+  "step_index": 4,
+  "completed_step_count": 4,
+  "action": "answer",
+  "query": "",
+  "checkpoint": {},
+  "note": "passed=False"
+}

@@ -1,0 +1,16 @@
+{
+  "updated_at": "2026-04-20T05:40:58Z",
+  "record_id": "train_6958",
+  "dataset": "musique",
+  "sample_origin": "train_pruned",
+  "question": "What did Goring believe the operator of the U-5 would gain with further support?",
+  "candidate_primary_skills": [
+    "bridge-entity-search",
+    "relation-chain-decomposition",
+    "multi-constraint-query-anchoring"
+  ],
+  "failure_info": null,
+  "processed_count": 224,
+  "total_requested": 225,
+  "remaining_count": 1
+}

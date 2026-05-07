@@ -1,0 +1,54 @@
+{
+  "dataset": "nq",
+  "num_examples": 79168,
+  "num_signatures": 1086,
+  "answer_form_distribution": {
+    "entity_or_short_span": 49940,
+    "year_or_date": 15436,
+    "number": 6952,
+    "long_span": 5295,
+    "list_like": 1543,
+    "boolean": 2
+  },
+  "wh_distribution": {
+    "who": 31348,
+    "when": 16490,
+    "what": 9514,
+    "other": 9282,
+    "where": 6478,
+    "how": 4234,
+    "which": 1568,
+    "is": 161,
+    "do": 17,
+    "whose": 17,
+    "does": 16,
+    "are": 16,
+    "was": 14,
+    "did": 7,
+    "whom": 3,
+    "were": 3
+  },
+  "entity_distribution": {
+    "single_entity": 79168
+  },
+  "token_distribution": {
+    "medium": 68015,
+    "long": 10792,
+    "very_long": 325,
+    "short": 36
+  },
+  "flag_distribution": {
+    "direct_lookup": 79168,
+    "person": 33111,
+    "numeric": 23760,
+    "temporal": 18029,
+    "title_work": 10837,
+    "location": 10351,
+    "quoted_span": 6537,
+    "long_question": 2197,
+    "organization": 1184,
+    "yes_no": 234,
+    "alias": 202
+  },
+  "default_target_size": 3000
+}

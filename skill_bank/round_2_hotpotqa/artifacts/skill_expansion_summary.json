@@ -1,0 +1,1486 @@
+{
+  "generated_at_utc": "2026-04-18T16:06:22.058075+00:00",
+  "packet_count": 3089,
+  "dataset_packet_counts": {
+    "hotpotqa": 3089
+  },
+  "dataset_group_sizes": {
+    "hotpotqa": 12445
+  },
+  "bucket_summaries": [
+    {
+      "bucket_id": "bridge_core",
+      "description": "Classic bridge questions where the final answer is reached through an intermediate entity or supporting page.",
+      "matched_packet_count": 2483,
+      "matched_group_size": 10142,
+      "datasets": {
+        "hotpotqa": 2483
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Where is the club located that Silvan Hefti played for?",
+          "primary_answer": "St. Gallen",
+          "golden_answers": [
+            "St. Gallen"
+          ],
+          "flags": [],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Silvan Hefti",
+            "FC St. Gallen"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Where was the mixed martial arts event that Sabah Homasi competed in?",
+          "primary_answer": "T-Mobile Arena in Paradise, Nevada",
+          "golden_answers": [
+            "T-Mobile Arena in Paradise, Nevada"
+          ],
+          "flags": [],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "hard",
+          "supporting_titles": [
+            "Sabah Homasi",
+            "Sabah Homasi",
+            "UFC 202"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Where did the form of music played by Die Rhöner Säuwäntzt originate?",
+          "primary_answer": "United States",
+          "golden_answers": [
+            "United States"
+          ],
+          "flags": [],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Die Rhöner Säuwäntzt",
+            "Skiffle"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Papa, is a 2012 South Korean comedy-drama film written and directed by Han Ji-seung, Park Yong-woo stars as a talent manager who persuades his step-daughter from a contract marriage, played by which South Korean actress and model, she is best known for starring in the television series \"Reply 1994\" (2013)?",
+          "primary_answer": "Go Ara",
+          "golden_answers": [
+            "Go Ara"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Papa (2012 film)",
+            "Go Ara"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Hotel Lester-Lester Cafe, also known as the Dodge House-Long Branch, is a historic building located in Mason City, Iowa, in which country, it was built as a two-story building a block away from the passenger and freight depots of the Chicago and North Western Railroad and the Chicago Great Western Railway?",
+          "primary_answer": "United States",
+          "golden_answers": [
+            "United States"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Hotel Lester-Lester Cafe",
+            "Chicago and North Western Transportation Company"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "comparison_core",
+      "description": "Pairwise comparison questions that require retrieving evidence for both sides before deciding.",
+      "matched_packet_count": 1647,
+      "matched_group_size": 5834,
+      "datasets": {
+        "hotpotqa": 1647
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Are André Berthomieu and Larisa Shepitko both from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "André Berthomieu",
+            "Larisa Shepitko"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Jason Schwartzman and Rob Halford from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jason Schwartzman",
+            "Rob Halford"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Beryl Bainbridge and John Dos Passos both nationals of the same country ?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Beryl Bainbridge",
+            "John Dos Passos"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "While Tâb is a board game, what type of game is Time's Up!?",
+          "primary_answer": "charades-based party game",
+          "golden_answers": [
+            "charades-based party game"
+          ],
+          "flags": [
+            "comparison",
+            "lookup"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Tâb",
+            "Time's Up! (game)"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "While J. D. Salinger was a writer, what profession did Vachel Lindsay hold?",
+          "primary_answer": "poet",
+          "golden_answers": [
+            "poet"
+          ],
+          "flags": [
+            "comparison",
+            "lookup"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "J. D. Salinger",
+            "Vachel Lindsay"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "bridge_temporal_numeric",
+      "description": "Bridge questions whose second hop targets a time, year, count, population, measurement, or other numeric/temporal attribute.",
+      "matched_packet_count": 1772,
+      "matched_group_size": 6796,
+      "datasets": {
+        "hotpotqa": 1772
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Papa, is a 2012 South Korean comedy-drama film written and directed by Han Ji-seung, Park Yong-woo stars as a talent manager who persuades his step-daughter from a contract marriage, played by which South Korean actress and model, she is best known for starring in the television series \"Reply 1994\" (2013)?",
+          "primary_answer": "Go Ara",
+          "golden_answers": [
+            "Go Ara"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Papa (2012 film)",
+            "Go Ara"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Hotel Lester-Lester Cafe, also known as the Dodge House-Long Branch, is a historic building located in Mason City, Iowa, in which country, it was built as a two-story building a block away from the passenger and freight depots of the Chicago and North Western Railroad and the Chicago Great Western Railway?",
+          "primary_answer": "United States",
+          "golden_answers": [
+            "United States"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Hotel Lester-Lester Cafe",
+            "Chicago and North Western Transportation Company"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The \"Voyager\" crew recovers its shuttlecraft containing Commander Chakotay and Chief of Security Tuvok, who had been exploring a nearby dark matter nebula is a scene in which television series?",
+          "primary_answer": "Star Trek",
+          "golden_answers": [
+            "Star Trek"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Cathexis (Star Trek: Voyager)",
+            "Chakotay",
+            "Chakotay"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "\"Nobody Speak\" is a song by American music producer DJ Shadow, featuring rap verses from a rap duo formed in what year?",
+          "primary_answer": "2013",
+          "golden_answers": [
+            "2013"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Nobody Speak",
+            "Run the Jewels"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "In what year did the voice actor of \"Doc Hudson\" in the animated film \"Cars\" die?",
+          "primary_answer": "2008",
+          "golden_answers": [
+            "2008"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "numeric",
+            "temporal"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "hard",
+          "supporting_titles": [
+            "Doc Hudson",
+            "Paul Newman",
+            "Paul Newman"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "comparison_temporal_numeric",
+      "description": "Comparison questions over dates, years, counts, measurements, rankings, or other comparable quantities.",
+      "matched_packet_count": 1057,
+      "matched_group_size": 3431,
+      "datasets": {
+        "hotpotqa": 1057
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Are André Berthomieu and Larisa Shepitko both from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "André Berthomieu",
+            "Larisa Shepitko"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Jason Schwartzman and Rob Halford from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jason Schwartzman",
+            "Rob Halford"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Beryl Bainbridge and John Dos Passos both nationals of the same country ?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Beryl Bainbridge",
+            "John Dos Passos"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The Commissioner is a 1998 Belgian-German drama film directed by George Sluizer, based on the novel of same name by Stanley Patrick Johnson, of West Nethercote, Winsford, Somerset, is a British politician and author, and an expert on environmental and population issues, and was a Conservative MEP for which organization, from 1979 to 1984?",
+          "primary_answer": "Wight & Hampshire East",
+          "golden_answers": [
+            "Wight & Hampshire East"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric",
+            "same_attribute"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "The Commissioner (film)",
+            "Stanley Johnson (writer)"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Carrie is an American supernatural horror film, released in what year, directed by Kimberly Peirce, and is the third film adaptation of Stephen King's 1974 novel of the same name, the film stars Alexander \"Alex\" Russell, born on 11 December 1987, an Australian actor?",
+          "primary_answer": "2013",
+          "golden_answers": [
+            "2013"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Carrie (2013 film)",
+            "Alex Russell (actor)"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "dense_entity_bridge",
+      "description": "Bridge questions with many named entities or confusing candidate sets that demand stronger query anchoring and disambiguation.",
+      "matched_packet_count": 1765,
+      "matched_group_size": 7225,
+      "datasets": {
+        "hotpotqa": 1765
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Papa, is a 2012 South Korean comedy-drama film written and directed by Han Ji-seung, Park Yong-woo stars as a talent manager who persuades his step-daughter from a contract marriage, played by which South Korean actress and model, she is best known for starring in the television series \"Reply 1994\" (2013)?",
+          "primary_answer": "Go Ara",
+          "golden_answers": [
+            "Go Ara"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Papa (2012 film)",
+            "Go Ara"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Hotel Lester-Lester Cafe, also known as the Dodge House-Long Branch, is a historic building located in Mason City, Iowa, in which country, it was built as a two-story building a block away from the passenger and freight depots of the Chicago and North Western Railroad and the Chicago Great Western Railway?",
+          "primary_answer": "United States",
+          "golden_answers": [
+            "United States"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Hotel Lester-Lester Cafe",
+            "Chicago and North Western Transportation Company"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The \"Voyager\" crew recovers its shuttlecraft containing Commander Chakotay and Chief of Security Tuvok, who had been exploring a nearby dark matter nebula is a scene in which television series?",
+          "primary_answer": "Star Trek",
+          "golden_answers": [
+            "Star Trek"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Cathexis (Star Trek: Voyager)",
+            "Chakotay",
+            "Chakotay"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Of the four public Elizabethan theatres built, including The Rose, which one was built in Shoreditch?",
+          "primary_answer": "The Theatre",
+          "golden_answers": [
+            "The Theatre"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "The Rose (theatre)",
+            "The Theatre"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The actress that played Jackie Clunes in the series \"Hotel Babylon\" was part of what short-lived pop duo?",
+          "primary_answer": "Jackson Mendoza",
+          "golden_answers": [
+            "Jackson Mendoza"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jackson Mendoza",
+            "Natalie Mendoza"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "long_constraint_bridge",
+      "description": "Long bridge questions where multiple clues must be preserved across retrieval and the bridge target is easy to lose.",
+      "matched_packet_count": 1693,
+      "matched_group_size": 6947,
+      "datasets": {
+        "hotpotqa": 1693
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Papa, is a 2012 South Korean comedy-drama film written and directed by Han Ji-seung, Park Yong-woo stars as a talent manager who persuades his step-daughter from a contract marriage, played by which South Korean actress and model, she is best known for starring in the television series \"Reply 1994\" (2013)?",
+          "primary_answer": "Go Ara",
+          "golden_answers": [
+            "Go Ara"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Papa (2012 film)",
+            "Go Ara"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Hotel Lester-Lester Cafe, also known as the Dodge House-Long Branch, is a historic building located in Mason City, Iowa, in which country, it was built as a two-story building a block away from the passenger and freight depots of the Chicago and North Western Railroad and the Chicago Great Western Railway?",
+          "primary_answer": "United States",
+          "golden_answers": [
+            "United States"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Hotel Lester-Lester Cafe",
+            "Chicago and North Western Transportation Company"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The \"Voyager\" crew recovers its shuttlecraft containing Commander Chakotay and Chief of Security Tuvok, who had been exploring a nearby dark matter nebula is a scene in which television series?",
+          "primary_answer": "Star Trek",
+          "golden_answers": [
+            "Star Trek"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Cathexis (Star Trek: Voyager)",
+            "Chakotay",
+            "Chakotay"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Of the four public Elizabethan theatres built, including The Rose, which one was built in Shoreditch?",
+          "primary_answer": "The Theatre",
+          "golden_answers": [
+            "The Theatre"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "The Rose (theatre)",
+            "The Theatre"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The actress that played Jackie Clunes in the series \"Hotel Babylon\" was part of what short-lived pop duo?",
+          "primary_answer": "Jackson Mendoza",
+          "golden_answers": [
+            "Jackson Mendoza"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jackson Mendoza",
+            "Natalie Mendoza"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "same_attribute_compare",
+      "description": "Comparison questions where two candidates must be checked against the same attribute or relation in a like-for-like way.",
+      "matched_packet_count": 366,
+      "matched_group_size": 970,
+      "datasets": {
+        "hotpotqa": 366
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Are André Berthomieu and Larisa Shepitko both from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "André Berthomieu",
+            "Larisa Shepitko"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Jason Schwartzman and Rob Halford from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jason Schwartzman",
+            "Rob Halford"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Beryl Bainbridge and John Dos Passos both nationals of the same country ?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Beryl Bainbridge",
+            "John Dos Passos"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The Commissioner is a 1998 Belgian-German drama film directed by George Sluizer, based on the novel of same name by Stanley Patrick Johnson, of West Nethercote, Winsford, Somerset, is a British politician and author, and an expert on environmental and population issues, and was a Conservative MEP for which organization, from 1979 to 1984?",
+          "primary_answer": "Wight & Hampshire East",
+          "golden_answers": [
+            "Wight & Hampshire East"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric",
+            "same_attribute"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "The Commissioner (film)",
+            "Stanley Johnson (writer)"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Carrie is an American supernatural horror film, released in what year, directed by Kimberly Peirce, and is the third film adaptation of Stephen King's 1974 novel of the same name, the film stars Alexander \"Alex\" Russell, born on 11 December 1987, an Australian actor?",
+          "primary_answer": "2013",
+          "golden_answers": [
+            "2013"
+          ],
+          "flags": [
+            "comparison",
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "temporal",
+            "time_anchor"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Carrie (2013 film)",
+            "Alex Russell (actor)"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "yes_no_verification",
+      "description": "Yes/no or verification-heavy multihop questions where the answer depends on confirming the final relation rather than only finding one entity.",
+      "matched_packet_count": 457,
+      "matched_group_size": 1327,
+      "datasets": {
+        "hotpotqa": 457
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Are André Berthomieu and Larisa Shepitko both from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "André Berthomieu",
+            "Larisa Shepitko"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Jason Schwartzman and Rob Halford from the same country?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jason Schwartzman",
+            "Rob Halford"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Are Beryl Bainbridge and John Dos Passos both nationals of the same country ?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "multi_entity",
+            "numeric",
+            "same_attribute",
+            "verification",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Beryl Bainbridge",
+            "John Dos Passos"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Is Jean Cocteau's full name longer than Tim Robbins' full name?",
+          "primary_answer": "yes",
+          "golden_answers": [
+            "yes"
+          ],
+          "flags": [
+            "comparison",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "hard",
+          "supporting_titles": [
+            "Tim Robbins",
+            "Jean Cocteau"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Is Henry Schein the founder of \"Keurig Green Mountain\"?",
+          "primary_answer": "no",
+          "golden_answers": [
+            "no"
+          ],
+          "flags": [
+            "comparison",
+            "yes_no"
+          ],
+          "native_type": "comparison",
+          "metadata_type": "comparison",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Keurig Green Mountain",
+            "Henry Schein"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "relation_chain_bridge",
+      "description": "Bridge questions that look like a relation chain and benefit from explicitly separating hop one and hop two.",
+      "matched_packet_count": 331,
+      "matched_group_size": 812,
+      "datasets": {
+        "hotpotqa": 331
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "The director of You've Got Mail won a BAFTA Award for Best Original Screenplay for what film?",
+          "primary_answer": "\"When Harry Met Sally...\"",
+          "golden_answers": [
+            "\"When Harry Met Sally...\""
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "relation_chain"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "You've Got Mail",
+            "Nora Ephron"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The mother of the vice chair of Hillary Clinton's 2016 campaign for President is the director of what institue?",
+          "primary_answer": "Institute of Muslim Minority Affairs",
+          "golden_answers": [
+            "Institute of Muslim Minority Affairs"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "relation_chain"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Institute of Muslim Minority Affairs",
+            "Institute of Muslim Minority Affairs",
+            "Huma Abedin"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Eugene Vidal, father of Gore, worked with Amelia Earhart on pioneering projects in what fledgling industry?",
+          "primary_answer": "aviation",
+          "golden_answers": [
+            "aviation"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "relation_chain"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Eugene Luther Vidal",
+            "Amelia Earhart"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Who is the director of the  2016 American mystery thriller drama film in which Haley Loraine Keeling has appeared?",
+          "primary_answer": "Tate Taylor",
+          "golden_answers": [
+            "Tate Taylor"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "relation_chain"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Haley Bennett",
+            "Haley Bennett",
+            "The Girl on the Train (2016 film)"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Who was the director of the 2005 American supernatural horror film which featured OK Go's \"Invincible\"?",
+          "primary_answer": "Rupert Wainwright",
+          "golden_answers": [
+            "Rupert Wainwright"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "relation_chain"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Invincible (OK Go song)",
+            "Invincible (OK Go song)",
+            "The Fog (2005 film)"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "multi_hop_disambiguation",
+      "description": "Questions where bridge discovery and candidate disambiguation interact, creating a high risk of near-match answers.",
+      "matched_packet_count": 1754,
+      "matched_group_size": 7327,
+      "datasets": {
+        "hotpotqa": 1754
+      },
+      "examples": [
+        {
+          "dataset": "hotpotqa",
+          "question": "Papa, is a 2012 South Korean comedy-drama film written and directed by Han Ji-seung, Park Yong-woo stars as a talent manager who persuades his step-daughter from a contract marriage, played by which South Korean actress and model, she is best known for starring in the television series \"Reply 1994\" (2013)?",
+          "primary_answer": "Go Ara",
+          "golden_answers": [
+            "Go Ara"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Papa (2012 film)",
+            "Go Ara"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Hotel Lester-Lester Cafe, also known as the Dodge House-Long Branch, is a historic building located in Mason City, Iowa, in which country, it was built as a two-story building a block away from the passenger and freight depots of the Chicago and North Western Railroad and the Chicago Great Western Railway?",
+          "primary_answer": "United States",
+          "golden_answers": [
+            "United States"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Hotel Lester-Lester Cafe",
+            "Chicago and North Western Transportation Company"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The \"Voyager\" crew recovers its shuttlecraft containing Commander Chakotay and Chief of Security Tuvok, who had been exploring a nearby dark matter nebula is a scene in which television series?",
+          "primary_answer": "Star Trek",
+          "golden_answers": [
+            "Star Trek"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup",
+            "multi_entity",
+            "numeric"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "easy",
+          "supporting_titles": [
+            "Cathexis (Star Trek: Voyager)",
+            "Chakotay",
+            "Chakotay"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "Of the four public Elizabethan theatres built, including The Rose, which one was built in Shoreditch?",
+          "primary_answer": "The Theatre",
+          "golden_answers": [
+            "The Theatre"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "The Rose (theatre)",
+            "The Theatre"
+          ]
+        },
+        {
+          "dataset": "hotpotqa",
+          "question": "The actress that played Jackie Clunes in the series \"Hotel Babylon\" was part of what short-lived pop duo?",
+          "primary_answer": "Jackson Mendoza",
+          "golden_answers": [
+            "Jackson Mendoza"
+          ],
+          "flags": [
+            "dense_entities",
+            "lookup"
+          ],
+          "native_type": "bridge",
+          "metadata_type": "bridge",
+          "metadata_level": "medium",
+          "supporting_titles": [
+            "Jackson Mendoza",
+            "Natalie Mendoza"
+          ]
+        }
+      ]
+    }
+  ],
+  "top_profiles": [
+    {
+      "dataset": "hotpotqa",
+      "group_size": 85,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "where",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "medium",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Where is the club located that Silvan Hefti played for?",
+        "Where was the mixed martial arts event that Sabah Homasi competed in?",
+        "Where did the form of music played by Die Rhöner Säuwäntzt originate?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 79,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "dense_entity",
+      "token_bin": "very_long",
+      "flags": [
+        "dense_entities",
+        "lookup",
+        "multi_entity",
+        "numeric"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "easy",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Papa, is a 2012 South Korean comedy-drama film written and directed by Han Ji-seung, Park Yong-woo stars as a talent manager who persuades his step-daughter from a contract marriage, played by which South Korean actress and model, she is best known for starring in the television series \"Reply 1994\" (2013)?",
+        "Hotel Lester-Lester Cafe, also known as the Dodge House-Long Branch, is a historic building located in Mason City, Iowa, in which country, it was built as a two-story building a block away from the passenger and freight depots of the Chicago and North Western Railroad and the Chicago Great Western Railway?",
+        "The \"Voyager\" crew recovers its shuttlecraft containing Commander Chakotay and Chief of Security Tuvok, who had been exploring a nearby dark matter nebula is a scene in which television series?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 75,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "dense_entities",
+        "lookup"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "medium",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Of the four public Elizabethan theatres built, including The Rose, which one was built in Shoreditch?",
+        "The actress that played Jackie Clunes in the series \"Hotel Babylon\" was part of what short-lived pop duo?",
+        "The company that proposed the Reeves Plains Power Station is owned by what Hong Kong-based enterprise?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 66,
+      "native_type": "comparison",
+      "hop_count": 2,
+      "wh_word": "are",
+      "answer_form_hint": "boolean",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "multi_entity",
+        "numeric",
+        "same_attribute",
+        "verification",
+        "yes_no"
+      ],
+      "native_summary": {
+        "native_type": "comparison",
+        "level": "medium",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Are André Berthomieu and Larisa Shepitko both from the same country?",
+        "Are Jason Schwartzman and Rob Halford from the same country?",
+        "Are Beryl Bainbridge and John Dos Passos both nationals of the same country ?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 64,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "year_or_date",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "dense_entities",
+        "lookup",
+        "numeric",
+        "temporal"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "medium",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "\"Nobody Speak\" is a song by American music producer DJ Shadow, featuring rap verses from a rap duo formed in what year?",
+        "In what year did the voice actor of \"Doc Hudson\" in the animated film \"Cars\" die?",
+        "Horst Fascher was an associate of the Beatles during the time they played in Germany during what years?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 14,
+      "native_type": "comparison",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "long_span",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "lookup"
+      ],
+      "native_summary": {
+        "native_type": "comparison",
+        "level": "easy",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "While Tâb is a board game, what type of game is Time's Up!?",
+        "While J. D. Salinger was a writer, what profession did Vachel Lindsay hold?",
+        "H. L. Mencken shares what profession with Joe R. Lansdale?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 12,
+      "native_type": "comparison",
+      "hop_count": 2,
+      "wh_word": "is",
+      "answer_form_hint": "boolean",
+      "entity_bin": "two_entities",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "yes_no"
+      ],
+      "native_summary": {
+        "native_type": "comparison",
+        "level": "hard",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Is Jean Cocteau's full name longer than Tim Robbins' full name?",
+        "Is Henry Schein the founder of \"Keurig Green Mountain\"?",
+        "Is Adam Gontier a member of the rock band Shiny Toy Guns?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 9,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "long_span",
+      "entity_bin": "dense_entity",
+      "token_bin": "very_long",
+      "flags": [
+        "dense_entities",
+        "lookup",
+        "multi_entity"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "easy",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Lucjan Żeligowski, was a Polish general, politician, military commander and veteran of World War I, the Polish-Soviet War and World War II, he's mostly remembered for his role in Żeligowski's Mutiny, a Polish military operation led by General Lucjan Żeligowski in October 1920, which resulted in the creation of which titled puppet state?",
+        "Nicholas Monroe Smith, Jr., was a nuclear physicist and research consultant, he had ties to the Manhattan Project at Chicago and Oak Ridge, and worked with James Van Allen, he was an American space scientist at which organization?",
+        "Friedrich Weber, Dr., was an instructor in veterinary medicine at the University of Munich, and was the leader of the Oberland League and ranked alongside Ernst Röhm, he was a German military officer and an early member of which organization?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 9,
+      "native_type": "comparison",
+      "hop_count": 2,
+      "wh_word": "which",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "medium",
+      "flags": [
+        "comparison",
+        "dense_entities",
+        "lookup",
+        "multi_entity"
+      ],
+      "native_summary": {
+        "native_type": "comparison",
+        "level": "medium",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Which magazine was started first Arthur's Magazine or First for Women?",
+        "Which singer is from South Korea, Anette Olzon or Park Gyu-ri?",
+        "Which occupation did Gareth Evans and Michael Winner have in common?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 9,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "what",
+      "answer_form_hint": "list_like",
+      "entity_bin": "multi_entity",
+      "token_bin": "long",
+      "flags": [
+        "dense_entities",
+        "lookup"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "easy",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "What are the names of the current members of  American heavy metal band who wrote the music for  Hurt Locker The Musical?",
+        "What is the name of this Mexican horror drama film from 1993 that starred Daniel Giménez Cacho?",
+        "What cricketeer active 1974–1993 had a strong performance in the tour by the Australian cricket team in England in 1981?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 9,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "what",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "multi_entity",
+      "token_bin": "medium",
+      "flags": [
+        "dense_entities",
+        "lookup"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "hard",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "What 2006 movie did the Hess husband-and-wife filmmaker duo create that starred Jack Black?",
+        "What is the nationality of the author of Txtng: the Gr8 Db8 ?",
+        "What is the full name of C. J. Cherryh, the author of Cloud's Rider?"
+      ]
+    },
+    {
+      "dataset": "hotpotqa",
+      "group_size": 9,
+      "native_type": "bridge",
+      "hop_count": 2,
+      "wh_word": "other",
+      "answer_form_hint": "long_span",
+      "entity_bin": "two_entities",
+      "token_bin": "long",
+      "flags": [
+        "lookup"
+      ],
+      "native_summary": {
+        "native_type": "bridge",
+        "level": "hard",
+        "supporting_title_count": 2,
+        "context_title_count": 10
+      },
+      "sample_questions": [
+        "Tallinn Airport is a secondary hub for two airlines, one of which established in 1929. What airline is this?",
+        "The video of the song Die with you is available only on a streaming service maintained by which company ?",
+        "Pauline Henry was known as the vocalist of a very popular cover song. Which album was this song from?"
+      ]
+    }
+  ]
+}

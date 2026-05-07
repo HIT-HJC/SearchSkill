@@ -1,0 +1,227 @@
+{
+  "original_size": 8594,
+  "kept_size": 4908,
+  "kept_ratio": 0.5710961135676053,
+  "unique_signatures_original": 2117,
+  "unique_signatures_kept": 2117,
+  "protect_signature_freq_leq": 3,
+  "cap_per_signature": 4,
+  "rare_label_threshold": 26,
+  "protected_examples": 2092,
+  "protected_by_reason": {
+    "low_freq_signature": 2058,
+    "rare_label": 79
+  },
+  "native_type_original": {
+    "decomp_2": 4678,
+    "decomp_3": 2872,
+    "decomp_4": 1044
+  },
+  "native_type_kept": {
+    "decomp_2": 2456,
+    "decomp_3": 1776,
+    "decomp_4": 676
+  },
+  "hop_original": {
+    "2": 4678,
+    "3": 2872,
+    "4": 1044
+  },
+  "hop_kept": {
+    "2": 2456,
+    "3": 1776,
+    "4": 676
+  },
+  "entity_original": {
+    "two_entities": 3273,
+    "multi_entity": 3925,
+    "single_entity": 827,
+    "dense_entity": 569
+  },
+  "entity_kept": {
+    "multi_entity": 2066,
+    "two_entities": 1840,
+    "single_entity": 562,
+    "dense_entity": 440
+  },
+  "top_flags_original": {
+    "numeric": 5205,
+    "dense_entities": 4494,
+    "lookup": 4240,
+    "temporal": 3928,
+    "longer_hop": 3916,
+    "comparison": 2171,
+    "multi_entity": 1266,
+    "time_anchor": 1138,
+    "relation_chain": 478,
+    "same_attribute": 247,
+    "verification": 88,
+    "yes_no": 74
+  },
+  "top_flags_kept": {
+    "numeric": 2823,
+    "dense_entities": 2506,
+    "longer_hop": 2452,
+    "lookup": 2406,
+    "temporal": 2301,
+    "comparison": 1514,
+    "multi_entity": 910,
+    "time_anchor": 733,
+    "relation_chain": 369,
+    "same_attribute": 221,
+    "verification": 83,
+    "yes_no": 74
+  },
+  "rare_labels_preserved": {
+    "wh:are": {
+      "original": 20,
+      "kept": 20
+    },
+    "wh:did": {
+      "original": 12,
+      "kept": 12
+    },
+    "wh:do": {
+      "original": 12,
+      "kept": 12
+    },
+    "wh:does": {
+      "original": 1,
+      "kept": 1
+    },
+    "wh:is": {
+      "original": 13,
+      "kept": 13
+    },
+    "wh:was": {
+      "original": 16,
+      "kept": 16
+    },
+    "wh:whom": {
+      "original": 5,
+      "kept": 5
+    }
+  },
+  "high_freq_signature_examples": [
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"lookup\", \"numeric\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"long\", \"wh_word\": \"what\"}",
+      "original": 90,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"long\", \"wh_word\": \"when\"}",
+      "original": 71,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"lookup\", \"numeric\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 65,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"lookup\", \"numeric\"], \"hop_count\": 3, \"native_type\": \"decomp_3\", \"token_bin\": \"long\", \"wh_word\": \"other\"}",
+      "original": 58,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"long\", \"wh_word\": \"when\"}",
+      "original": 34,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"numeric\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"medium\", \"wh_word\": \"other\"}",
+      "original": 30,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"comparison\", \"lookup\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"long\", \"wh_word\": \"what\"}",
+      "original": 29,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"comparison\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"medium\", \"wh_word\": \"who\"}",
+      "original": 29,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"single_entity\", \"flags\": [], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"long\", \"wh_word\": \"where\"}",
+      "original": 24,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"lookup\", \"numeric\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"short\", \"wh_word\": \"other\"}",
+      "original": 24,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"medium\", \"wh_word\": \"when\"}",
+      "original": 23,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"comparison\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"medium\", \"wh_word\": \"who\"}",
+      "original": 21,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"lookup\", \"numeric\"], \"hop_count\": 2, \"native_type\": \"decomp_2\", \"token_bin\": \"long\", \"wh_word\": \"what\"}",
+      "original": 21,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"longer_hop\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"who\"}",
+      "original": 20,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"lookup\", \"numeric\", \"temporal\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"what\"}",
+      "original": 20,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"two_entities\", \"flags\": [\"longer_hop\", \"lookup\", \"numeric\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"what\"}",
+      "original": 17,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"lookup\", \"multi_entity\", \"numeric\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 14,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"lookup\", \"numeric\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"how\"}",
+      "original": 14,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"lookup\", \"numeric\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"very_long\", \"wh_word\": \"what\"}",
+      "original": 14,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"musique\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"longer_hop\", \"numeric\", \"temporal\"], \"hop_count\": 4, \"native_type\": \"decomp_4\", \"token_bin\": \"long\", \"wh_word\": \"when\"}",
+      "original": 14,
+      "protected": 0,
+      "kept": 4
+    }
+  ]
+}

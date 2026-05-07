@@ -1,0 +1,44 @@
+{
+  "dataset": "hotpotqa",
+  "num_examples": 90447,
+  "num_signatures": 3094,
+  "native_type_distribution": {
+    "bridge": 72991,
+    "comparison": 17456
+  },
+  "hop_distribution": {
+    "2": 90447
+  },
+  "wh_distribution": {
+    "other": 39530,
+    "what": 20178,
+    "which": 12004,
+    "who": 7626,
+    "are": 3573,
+    "when": 2379,
+    "where": 1649,
+    "how": 1422,
+    "were": 614,
+    "do": 435,
+    "did": 374,
+    "is": 235,
+    "was": 224,
+    "does": 127,
+    "whose": 66,
+    "whom": 11
+  },
+  "flag_distribution": {
+    "lookup": 68031,
+    "dense_entities": 56536,
+    "multi_entity": 39375,
+    "comparison": 26769,
+    "numeric": 24139,
+    "temporal": 20935,
+    "time_anchor": 12009,
+    "yes_no": 5582,
+    "same_attribute": 2067,
+    "relation_chain": 1193,
+    "verification": 907
+  },
+  "recommended_target_size": 12445
+}

@@ -1,0 +1,17 @@
+{
+  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "total_examples": 205,
+  "train_datasets": [
+    "2wiki"
+  ],
+  "failure_datasets": [
+    "2wiki"
+  ],
+  "dataset_counts": {
+    "2wiki": 205
+  },
+  "sample_origin_counts": {
+    "train_pruned": 180,
+    "failure_replay": 25
+  }
+}

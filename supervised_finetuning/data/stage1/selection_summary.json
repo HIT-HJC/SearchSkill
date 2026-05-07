@@ -1,0 +1,72 @@
+{
+  "strategy": "v3_replay_plus_full_cleaned_coverage_supplement_with_closure",
+  "v3_data_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/sft_v3",
+  "supplement_run_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way",
+  "output_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1",
+  "v3_train_examples": 1445,
+  "v3_eval_examples": 16,
+  "raw_supplement_lines": 971,
+  "raw_supplement_unique_ids": 834,
+  "clean_supplement_examples": 792,
+  "transformed_supplement_examples": 786,
+  "supplement_train_examples_added": 1572,
+  "merged_train_examples": 3017,
+  "merged_eval_examples": 16,
+  "clean_drop_reasons": {
+    "too_many_search_steps": 4,
+    "duplicate_search_query": 40,
+    "duplicate_id": 135
+  },
+  "transform_drop_reasons": {
+    "singlehop_too_long": 6
+  },
+  "source_shards": {
+    "shard_0": {
+      "filtered_lines": 332,
+      "path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_0/trajectories.filtered.jsonl"
+    },
+    "shard_1": {
+      "filtered_lines": 331,
+      "path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_1/trajectories.filtered.jsonl"
+    },
+    "shard_2": {
+      "filtered_lines": 308,
+      "path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_2/trajectories.filtered.jsonl"
+    }
+  },
+  "raw_dataset_counts": {
+    "2wiki": 210,
+    "hotpotqa": 362,
+    "musique": 178,
+    "nq": 88,
+    "triviaqa": 133
+  },
+  "clean_dataset_counts": {
+    "2wiki": 189,
+    "hotpotqa": 226,
+    "musique": 163,
+    "nq": 86,
+    "triviaqa": 128
+  },
+  "transformed_dataset_counts": {
+    "2wiki": 189,
+    "hotpotqa": 226,
+    "musique": 163,
+    "nq": 83,
+    "triviaqa": 125
+  },
+  "search_count_hist": {
+    "2": 327,
+    "3": 108,
+    "1": 238,
+    "5": 63,
+    "4": 50
+  },
+  "supplement_sample_kind_counts": {
+    "trajectory": 786,
+    "closure_only": 786
+  },
+  "drop_duplicate_question": true,
+  "max_retrieved_chars": 4000,
+  "note": "Built from supervised_finetuning/data/sft_v3 plus the current teacher_run_3way filtered trajectories after cleaning/deduplication; v3 rows are not duplicated."
+}

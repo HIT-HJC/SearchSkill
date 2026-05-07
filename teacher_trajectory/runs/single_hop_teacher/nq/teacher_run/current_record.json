@@ -1,0 +1,25 @@
+{
+  "updated_at": "2026-04-20T08:08:29Z",
+  "record_id": "nq_failure_dev_3483",
+  "dataset": "nq",
+  "sample_origin": "failure_replay",
+  "question": "where is the world cup going to be in 2019",
+  "candidate_primary_skills": [
+    "bridge-entity-search",
+    "relation-chain-decomposition",
+    "single-entity-relation-lookup"
+  ],
+  "failure_info": {
+    "previous_prediction": "France",
+    "wrong_skills": [
+      "single-entity-relation-lookup, verbatim-evidence-span, answer-grounding-check",
+      "verbatim-evidence-span, answer-grounding-check",
+      "verbatim-evidence-span"
+    ],
+    "error_tag": "verifier_as_planner",
+    "trace_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/nq_b0_b1/b1/nq_b1_trace.jsonl"
+  },
+  "processed_count": 55,
+  "total_requested": 56,
+  "remaining_count": 1
+}

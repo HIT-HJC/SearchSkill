@@ -1,0 +1,923 @@
+{
+  "script": "build_manifest_coverage_supplement.py",
+  "purpose": "supplemental train-only coverage manifest for teacher trajectory generation",
+  "output_dir": "runs/coverage_supplement",
+  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "seed": 20260426,
+  "multihop_source": "full",
+  "total_examples": 1740,
+  "counts_requested": {
+    "hotpotqa": 320,
+    "2wiki": 420,
+    "musique": 560,
+    "nq": 220,
+    "triviaqa": 220
+  },
+  "counts_selected": {
+    "2wiki": 420,
+    "hotpotqa": 320,
+    "musique": 560,
+    "nq": 220,
+    "triviaqa": 220
+  },
+  "source_stats": {
+    "hotpotqa": {
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/hotpotqa/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/hotpotqa/train_sample_full.jsonl",
+      "loaded": 12283,
+      "skipped_existing_id": 162,
+      "skipped_existing_question": 0
+    },
+    "2wiki": {
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/2wiki/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/2wiki/train_sample_full.jsonl",
+      "loaded": 8110,
+      "skipped_existing_id": 190,
+      "skipped_existing_question": 0
+    },
+    "musique": {
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/musique/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/musique/train_sample_full.jsonl",
+      "loaded": 8385,
+      "skipped_existing_id": 209,
+      "skipped_existing_question": 0
+    },
+    "nq": {
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/nq/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/nq/train_sample_full.jsonl",
+      "loaded": 2944,
+      "skipped_existing_id": 56,
+      "skipped_existing_question": 0
+    },
+    "triviaqa": {
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/triviaqa/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/triviaqa/train_sample_full.jsonl",
+      "loaded": 2944,
+      "skipped_existing_id": 56,
+      "skipped_existing_question": 0
+    }
+  },
+  "exclusion_stats": {
+    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/canonical_teacher_set/all/trajectories.raw.jsonl": {
+      "exists": true,
+      "rows": 757
+    },
+    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/sft_v3/selected_trajectories.jsonl": {
+      "exists": true,
+      "rows": 327
+    },
+    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/sft_v3_qwen2.5_7b_base/selected_trajectories.jsonl": {
+      "exists": true,
+      "rows": 327
+    }
+  },
+  "excluded_id_count": 757,
+  "excluded_question_count": 757,
+  "dataset_summaries": {
+    "hotpotqa": {
+      "target_count": 320,
+      "selected_count": 320,
+      "candidate_count": 12283,
+      "cap_per_signature": 4,
+      "random_fill_ratio": 0.18,
+      "quota_coverage": {
+        "native:bridge": {
+          "quota": 140,
+          "available": 10012,
+          "selected": 205,
+          "met": true
+        },
+        "native:comparison": {
+          "quota": 115,
+          "available": 2271,
+          "selected": 115,
+          "met": true
+        },
+        "tag:comparison": {
+          "quota": 110,
+          "available": 5748,
+          "selected": 244,
+          "met": true
+        },
+        "tag:temporal": {
+          "quota": 90,
+          "available": 5677,
+          "selected": 215,
+          "met": true
+        },
+        "tag:numeric": {
+          "quota": 85,
+          "available": 4853,
+          "selected": 261,
+          "met": true
+        },
+        "tag:yes_no": {
+          "quota": 55,
+          "available": 1283,
+          "selected": 121,
+          "met": true
+        },
+        "tag:same_attribute": {
+          "quota": 45,
+          "available": 950,
+          "selected": 156,
+          "met": true
+        },
+        "tag:relation_chain": {
+          "quota": 45,
+          "available": 10581,
+          "selected": 288,
+          "met": true
+        },
+        "combo:comparison_temporal": {
+          "quota": 35,
+          "available": 2454,
+          "selected": 157,
+          "met": true
+        },
+        "combo:comparison_numeric": {
+          "quota": 35,
+          "available": 1920,
+          "selected": 205,
+          "met": true
+        },
+        "answer:boolean": {
+          "quota": 40,
+          "available": 999,
+          "selected": 97,
+          "met": true
+        },
+        "answer:number": {
+          "quota": 40,
+          "available": 860,
+          "selected": 54,
+          "met": true
+        },
+        "answer:year_or_date": {
+          "quota": 45,
+          "available": 1950,
+          "selected": 85,
+          "met": true
+        }
+      },
+      "label_caps": {
+        "native:comparison": 160,
+        "tag:yes_no": 120,
+        "answer:boolean": 115,
+        "tag:comparison": 220
+      },
+      "selected_label_top": {
+        "dataset:hotpotqa": 320,
+        "hop:2": 320,
+        "tag:answer_boundary_sensitive": 295,
+        "tag:multi_entity": 290,
+        "tag:relation_chain": 288,
+        "tag:numeric": 261,
+        "combo:multi_entity_relation": 259,
+        "tag:comparison": 244,
+        "tag:dense_entities": 231,
+        "tag:temporal": 215,
+        "combo:comparison_numeric": 205,
+        "native:bridge": 205,
+        "question:long": 158,
+        "combo:comparison_temporal": 157,
+        "tag:lookup": 157,
+        "tag:same_attribute": 156,
+        "tag:verification": 123,
+        "combo:yes_no_comparison": 121,
+        "tag:yes_no": 121,
+        "native:comparison": 115,
+        "answer:boolean": 97,
+        "answer:year_or_date": 85,
+        "tag:alias_or_disambiguation": 65,
+        "combo:short_multihop": 62,
+        "question:short": 62,
+        "answer:entity_or_short_span": 59,
+        "tag:superlative": 56,
+        "answer:number": 54,
+        "tag:kinship": 52,
+        "answer:long_span": 21,
+        "answer:list_like": 4
+      },
+      "candidate_label_top": {
+        "dataset:hotpotqa": 12283,
+        "hop:2": 12283,
+        "tag:relation_chain": 10581,
+        "native:bridge": 10012,
+        "tag:answer_boundary_sensitive": 9385,
+        "tag:multi_entity": 9280,
+        "combo:multi_entity_relation": 7682,
+        "tag:dense_entities": 7234,
+        "tag:lookup": 7090,
+        "tag:comparison": 5748,
+        "tag:temporal": 5677,
+        "question:long": 5587,
+        "answer:entity_or_short_span": 5576,
+        "tag:numeric": 4853,
+        "combo:comparison_temporal": 2454,
+        "answer:long_span": 2368,
+        "native:comparison": 2271,
+        "answer:year_or_date": 1950,
+        "combo:comparison_numeric": 1920,
+        "tag:superlative": 1433,
+        "tag:yes_no": 1283,
+        "combo:short_multihop": 1267,
+        "question:short": 1267,
+        "combo:yes_no_comparison": 1185,
+        "answer:boolean": 999,
+        "tag:same_attribute": 950,
+        "answer:number": 860,
+        "tag:kinship": 573,
+        "answer:list_like": 530,
+        "tag:verification": 337,
+        "tag:alias_or_disambiguation": 100
+      },
+      "signature_count": 220
+    },
+    "2wiki": {
+      "target_count": 420,
+      "selected_count": 420,
+      "candidate_count": 8110,
+      "cap_per_signature": 4,
+      "random_fill_ratio": 0.18,
+      "quota_coverage": {
+        "native:compositional": {
+          "quota": 115,
+          "available": 4196,
+          "selected": 120,
+          "met": true
+        },
+        "native:bridge_comparison": {
+          "quota": 100,
+          "available": 1312,
+          "selected": 145,
+          "met": true
+        },
+        "native:inference": {
+          "quota": 55,
+          "available": 389,
+          "selected": 55,
+          "met": true
+        },
+        "native:comparison": {
+          "quota": 95,
+          "available": 2213,
+          "selected": 100,
+          "met": true
+        },
+        "hop:4": {
+          "quota": 100,
+          "available": 1312,
+          "selected": 145,
+          "met": true
+        },
+        "tag:comparison": {
+          "quota": 130,
+          "available": 3614,
+          "selected": 280,
+          "met": true
+        },
+        "tag:temporal": {
+          "quota": 105,
+          "available": 3136,
+          "selected": 218,
+          "met": true
+        },
+        "tag:numeric": {
+          "quota": 120,
+          "available": 3577,
+          "selected": 261,
+          "met": true
+        },
+        "tag:yes_no": {
+          "quota": 100,
+          "available": 2149,
+          "selected": 165,
+          "met": true
+        },
+        "tag:same_attribute": {
+          "quota": 100,
+          "available": 2079,
+          "selected": 153,
+          "met": true
+        },
+        "tag:relation_chain": {
+          "quota": 115,
+          "available": 5708,
+          "selected": 292,
+          "met": true
+        },
+        "combo:yes_no_comparison": {
+          "quota": 70,
+          "available": 2149,
+          "selected": 165,
+          "met": true
+        },
+        "combo:multi_entity_relation": {
+          "quota": 115,
+          "available": 3824,
+          "selected": 263,
+          "met": true
+        }
+      },
+      "label_caps": {
+        "native:bridge_comparison": 150,
+        "native:comparison": 150,
+        "tag:yes_no": 165,
+        "answer:boolean": 165,
+        "tag:comparison": 280
+      },
+      "selected_label_top": {
+        "dataset:2wiki": 420,
+        "tag:multi_entity": 360,
+        "tag:dense_entities": 346,
+        "tag:answer_boundary_sensitive": 323,
+        "tag:relation_chain": 292,
+        "tag:comparison": 280,
+        "hop:2": 275,
+        "combo:multi_entity_relation": 263,
+        "tag:numeric": 261,
+        "tag:temporal": 218,
+        "combo:comparison_numeric": 173,
+        "combo:yes_no_comparison": 165,
+        "question:long": 165,
+        "tag:yes_no": 165,
+        "answer:boolean": 153,
+        "tag:same_attribute": 153,
+        "tag:verification": 153,
+        "combo:comparison_temporal": 152,
+        "hop:4": 145,
+        "native:bridge_comparison": 145,
+        "tag:long_hop": 145,
+        "tag:lookup": 135,
+        "tag:kinship": 121,
+        "native:compositional": 120,
+        "combo:short_multihop": 117,
+        "question:short": 117,
+        "native:comparison": 100,
+        "tag:superlative": 86,
+        "combo:long_hop_numeric": 81,
+        "answer:number": 76,
+        "answer:list_like": 56,
+        "native:inference": 55,
+        "combo:long_hop_temporal": 54,
+        "answer:entity_or_short_span": 48,
+        "answer:year_or_date": 46,
+        "answer:long_span": 41,
+        "tag:alias_or_disambiguation": 1
+      },
+      "candidate_label_top": {
+        "dataset:2wiki": 8110,
+        "tag:answer_boundary_sensitive": 6914,
+        "hop:2": 6798,
+        "tag:relation_chain": 5708,
+        "tag:multi_entity": 5441,
+        "tag:dense_entities": 4770,
+        "native:compositional": 4196,
+        "combo:multi_entity_relation": 3824,
+        "tag:comparison": 3614,
+        "tag:numeric": 3577,
+        "tag:temporal": 3136,
+        "answer:entity_or_short_span": 3133,
+        "tag:lookup": 2854,
+        "native:comparison": 2213,
+        "combo:yes_no_comparison": 2149,
+        "tag:yes_no": 2149,
+        "tag:same_attribute": 2079,
+        "answer:boolean": 2077,
+        "tag:verification": 2075,
+        "combo:short_multihop": 1575,
+        "question:short": 1575,
+        "answer:year_or_date": 1560,
+        "tag:kinship": 1471,
+        "combo:comparison_numeric": 1423,
+        "hop:4": 1312,
+        "native:bridge_comparison": 1312,
+        "tag:long_hop": 1312,
+        "combo:comparison_temporal": 1136,
+        "answer:long_span": 1052,
+        "question:long": 717,
+        "combo:long_hop_numeric": 533,
+        "tag:superlative": 503,
+        "combo:long_hop_temporal": 425,
+        "native:inference": 389,
+        "answer:list_like": 144,
+        "answer:number": 144,
+        "tag:alias_or_disambiguation": 1
+      },
+      "signature_count": 157
+    },
+    "musique": {
+      "target_count": 560,
+      "selected_count": 560,
+      "candidate_count": 8385,
+      "cap_per_signature": 4,
+      "random_fill_ratio": 0.18,
+      "quota_coverage": {
+        "native:decomp_2": {
+          "quota": 145,
+          "available": 4584,
+          "selected": 145,
+          "met": true
+        },
+        "native:decomp_4": {
+          "quota": 150,
+          "available": 1008,
+          "selected": 200,
+          "met": true
+        },
+        "native:decomp_3": {
+          "quota": 190,
+          "available": 2793,
+          "selected": 215,
+          "met": true
+        },
+        "hop:4": {
+          "quota": 150,
+          "available": 1008,
+          "selected": 200,
+          "met": true
+        },
+        "hop:3": {
+          "quota": 190,
+          "available": 2793,
+          "selected": 215,
+          "met": true
+        },
+        "tag:comparison": {
+          "quota": 85,
+          "available": 2102,
+          "selected": 190,
+          "met": true
+        },
+        "tag:temporal": {
+          "quota": 165,
+          "available": 3914,
+          "selected": 393,
+          "met": true
+        },
+        "tag:numeric": {
+          "quota": 210,
+          "available": 5094,
+          "selected": 459,
+          "met": true
+        },
+        "tag:relation_chain": {
+          "quota": 85,
+          "available": 8385,
+          "selected": 560,
+          "met": true
+        },
+        "combo:long_hop_temporal": {
+          "quota": 110,
+          "available": 1724,
+          "selected": 331,
+          "met": true
+        },
+        "combo:long_hop_numeric": {
+          "quota": 130,
+          "available": 2738,
+          "selected": 387,
+          "met": true
+        },
+        "combo:short_multihop": {
+          "quota": 70,
+          "available": 465,
+          "selected": 145,
+          "met": true
+        }
+      },
+      "label_caps": {
+        "native:decomp_4": 200,
+        "native:decomp_3": 250,
+        "tag:comparison": 190
+      },
+      "selected_label_top": {
+        "dataset:musique": 560,
+        "tag:relation_chain": 560,
+        "tag:answer_boundary_sensitive": 465,
+        "tag:numeric": 459,
+        "combo:multi_entity_relation": 430,
+        "tag:multi_entity": 430,
+        "tag:dense_entities": 418,
+        "tag:long_hop": 415,
+        "tag:temporal": 393,
+        "combo:long_hop_numeric": 387,
+        "question:long": 376,
+        "combo:long_hop_temporal": 331,
+        "tag:lookup": 316,
+        "hop:3": 215,
+        "native:decomp_3": 215,
+        "hop:4": 200,
+        "native:decomp_4": 200,
+        "tag:comparison": 190,
+        "combo:comparison_numeric": 178,
+        "answer:entity_or_short_span": 174,
+        "answer:year_or_date": 173,
+        "combo:comparison_temporal": 164,
+        "combo:short_multihop": 145,
+        "question:short": 145,
+        "hop:2": 145,
+        "native:decomp_2": 145,
+        "tag:superlative": 127,
+        "answer:number": 118,
+        "tag:kinship": 91,
+        "answer:long_span": 61,
+        "tag:same_attribute": 54,
+        "tag:yes_no": 39,
+        "answer:list_like": 34,
+        "tag:verification": 24,
+        "tag:alias_or_disambiguation": 15,
+        "combo:yes_no_comparison": 5
+      },
+      "candidate_label_top": {
+        "dataset:musique": 8385,
+        "tag:relation_chain": 8385,
+        "tag:answer_boundary_sensitive": 6087,
+        "tag:numeric": 5094,
+        "combo:multi_entity_relation": 4742,
+        "tag:multi_entity": 4742,
+        "hop:2": 4584,
+        "native:decomp_2": 4584,
+        "tag:dense_entities": 4394,
+        "tag:lookup": 4130,
+        "question:long": 3993,
+        "tag:temporal": 3914,
+        "tag:long_hop": 3801,
+        "answer:entity_or_short_span": 3464,
+        "hop:3": 2793,
+        "native:decomp_3": 2793,
+        "combo:long_hop_numeric": 2738,
+        "answer:long_span": 2186,
+        "tag:comparison": 2102,
+        "combo:long_hop_temporal": 1724,
+        "answer:year_or_date": 1385,
+        "combo:comparison_temporal": 1291,
+        "answer:number": 1238,
+        "combo:comparison_numeric": 1238,
+        "tag:superlative": 1108,
+        "hop:4": 1008,
+        "native:decomp_4": 1008,
+        "combo:short_multihop": 465,
+        "question:short": 465,
+        "tag:kinship": 457,
+        "tag:same_attribute": 240,
+        "answer:list_like": 112,
+        "tag:verification": 85,
+        "tag:yes_no": 72,
+        "tag:alias_or_disambiguation": 16,
+        "combo:yes_no_comparison": 8
+      },
+      "signature_count": 313
+    },
+    "nq": {
+      "target_count": 220,
+      "selected_count": 220,
+      "candidate_count": 2944,
+      "cap_per_signature": 4,
+      "random_fill_ratio": 0.18,
+      "quota_coverage": {
+        "answer:entity_or_short_span": {
+          "quota": 75,
+          "available": 1315,
+          "selected": 95,
+          "met": true
+        },
+        "answer:number": {
+          "quota": 55,
+          "available": 490,
+          "selected": 55,
+          "met": true
+        },
+        "answer:year_or_date": {
+          "quota": 55,
+          "available": 262,
+          "selected": 55,
+          "met": true
+        },
+        "tag:alias_or_disambiguation": {
+          "quota": 35,
+          "available": 98,
+          "selected": 35,
+          "met": true
+        },
+        "tag:temporal": {
+          "quota": 65,
+          "available": 670,
+          "selected": 125,
+          "met": true
+        },
+        "tag:numeric": {
+          "quota": 75,
+          "available": 963,
+          "selected": 137,
+          "met": true
+        },
+        "tag:quoted_span": {
+          "quota": 45,
+          "available": 654,
+          "selected": 90,
+          "met": true
+        },
+        "tag:person": {
+          "quota": 45,
+          "available": 620,
+          "selected": 63,
+          "met": true
+        },
+        "tag:location": {
+          "quota": 45,
+          "available": 887,
+          "selected": 82,
+          "met": true
+        },
+        "tag:superlative": {
+          "quota": 30,
+          "available": 288,
+          "selected": 65,
+          "met": true
+        },
+        "question:short": {
+          "quota": 65,
+          "available": 890,
+          "selected": 121,
+          "met": true
+        }
+      },
+      "label_caps": {
+        "tag:comparison": 65,
+        "tag:relation_chain": 55
+      },
+      "selected_label_top": {
+        "dataset:nq": 220,
+        "hop:1": 220,
+        "native:unknown": 220,
+        "tag:lookup": 220,
+        "tag:answer_boundary_sensitive": 207,
+        "tag:numeric": 137,
+        "tag:temporal": 125,
+        "question:short": 121,
+        "answer:entity_or_short_span": 95,
+        "tag:quoted_span": 90,
+        "tag:location": 82,
+        "tag:comparison": 65,
+        "tag:superlative": 65,
+        "tag:person": 63,
+        "combo:comparison_numeric": 57,
+        "tag:title_work": 55,
+        "tag:relation_chain": 55,
+        "answer:number": 55,
+        "answer:year_or_date": 55,
+        "combo:comparison_temporal": 49,
+        "tag:long_question": 42,
+        "tag:organization": 38,
+        "tag:alias_or_disambiguation": 35,
+        "tag:kinship": 25,
+        "question:long": 12,
+        "answer:list_like": 7,
+        "tag:yes_no": 6,
+        "answer:long_span": 6,
+        "answer:boolean": 2
+      },
+      "candidate_label_top": {
+        "dataset:nq": 2944,
+        "hop:1": 2944,
+        "native:unknown": 2944,
+        "tag:lookup": 2944,
+        "tag:answer_boundary_sensitive": 2069,
+        "answer:entity_or_short_span": 1315,
+        "tag:numeric": 963,
+        "question:short": 890,
+        "tag:location": 887,
+        "tag:long_question": 864,
+        "tag:temporal": 670,
+        "tag:quoted_span": 654,
+        "tag:person": 620,
+        "tag:title_work": 601,
+        "tag:organization": 572,
+        "answer:long_span": 530,
+        "answer:number": 490,
+        "tag:relation_chain": 397,
+        "tag:comparison": 361,
+        "answer:list_like": 345,
+        "tag:superlative": 288,
+        "answer:year_or_date": 262,
+        "combo:comparison_temporal": 147,
+        "tag:yes_no": 147,
+        "combo:comparison_numeric": 133,
+        "tag:alias_or_disambiguation": 98,
+        "question:long": 92,
+        "tag:kinship": 35,
+        "combo:yes_no_comparison": 9,
+        "tag:same_attribute": 9,
+        "answer:boolean": 2
+      },
+      "signature_count": 144
+    },
+    "triviaqa": {
+      "target_count": 220,
+      "selected_count": 220,
+      "candidate_count": 2944,
+      "cap_per_signature": 4,
+      "random_fill_ratio": 0.18,
+      "quota_coverage": {
+        "answer:entity_or_short_span": {
+          "quota": 75,
+          "available": 1293,
+          "selected": 81,
+          "met": true
+        },
+        "answer:number": {
+          "quota": 50,
+          "available": 416,
+          "selected": 53,
+          "met": true
+        },
+        "answer:year_or_date": {
+          "quota": 65,
+          "available": 674,
+          "selected": 82,
+          "met": true
+        },
+        "tag:alias_or_disambiguation": {
+          "quota": 65,
+          "available": 754,
+          "selected": 70,
+          "met": true
+        },
+        "tag:temporal": {
+          "quota": 75,
+          "available": 1126,
+          "selected": 150,
+          "met": true
+        },
+        "tag:numeric": {
+          "quota": 80,
+          "available": 1296,
+          "selected": 155,
+          "met": true
+        },
+        "tag:quoted_span": {
+          "quota": 55,
+          "available": 857,
+          "selected": 117,
+          "met": true
+        },
+        "tag:person": {
+          "quota": 55,
+          "available": 723,
+          "selected": 91,
+          "met": true
+        },
+        "tag:location": {
+          "quota": 55,
+          "available": 764,
+          "selected": 69,
+          "met": true
+        },
+        "question:short": {
+          "quota": 65,
+          "available": 777,
+          "selected": 67,
+          "met": true
+        }
+      },
+      "label_caps": {
+        "tag:comparison": 65,
+        "tag:relation_chain": 55
+      },
+      "selected_label_top": {
+        "dataset:triviaqa": 220,
+        "hop:1": 220,
+        "native:unknown": 220,
+        "tag:lookup": 220,
+        "tag:answer_boundary_sensitive": 216,
+        "tag:numeric": 155,
+        "tag:temporal": 150,
+        "tag:long_question": 140,
+        "tag:multi_entity": 137,
+        "tag:quoted_span": 117,
+        "question:long": 110,
+        "tag:person": 91,
+        "answer:year_or_date": 82,
+        "answer:entity_or_short_span": 81,
+        "tag:alias_or_disambiguation": 70,
+        "tag:location": 69,
+        "question:short": 67,
+        "tag:comparison": 65,
+        "tag:dense_entities": 64,
+        "combo:comparison_numeric": 64,
+        "combo:comparison_temporal": 61,
+        "tag:relation_chain": 55,
+        "answer:number": 53,
+        "tag:superlative": 49,
+        "tag:title_work": 39,
+        "combo:multi_entity_relation": 35,
+        "tag:organization": 23,
+        "tag:kinship": 17,
+        "tag:yes_no": 9,
+        "tag:same_attribute": 6,
+        "combo:yes_no_comparison": 3,
+        "answer:list_like": 3,
+        "answer:long_span": 1
+      },
+      "candidate_label_top": {
+        "dataset:triviaqa": 2944,
+        "hop:1": 2944,
+        "native:unknown": 2944,
+        "tag:lookup": 2944,
+        "tag:answer_boundary_sensitive": 2383,
+        "tag:multi_entity": 1410,
+        "tag:long_question": 1320,
+        "tag:numeric": 1296,
+        "answer:entity_or_short_span": 1293,
+        "tag:temporal": 1126,
+        "tag:quoted_span": 857,
+        "question:short": 777,
+        "tag:location": 764,
+        "tag:alias_or_disambiguation": 754,
+        "question:long": 737,
+        "tag:person": 723,
+        "answer:year_or_date": 674,
+        "answer:number": 416,
+        "tag:comparison": 390,
+        "answer:long_span": 365,
+        "tag:relation_chain": 340,
+        "tag:title_work": 336,
+        "tag:dense_entities": 326,
+        "tag:superlative": 300,
+        "combo:comparison_temporal": 255,
+        "tag:organization": 232,
+        "combo:comparison_numeric": 231,
+        "answer:list_like": 196,
+        "combo:multi_entity_relation": 182,
+        "tag:kinship": 45,
+        "tag:yes_no": 24,
+        "tag:same_attribute": 14,
+        "combo:yes_no_comparison": 4
+      },
+      "signature_count": 170
+    }
+  },
+  "overall_label_top": {
+    "tag:answer_boundary_sensitive": 1506,
+    "tag:numeric": 1273,
+    "tag:relation_chain": 1250,
+    "tag:multi_entity": 1217,
+    "tag:temporal": 1101,
+    "tag:dense_entities": 1059,
+    "tag:lookup": 1048,
+    "combo:multi_entity_relation": 987,
+    "tag:comparison": 844,
+    "question:long": 821,
+    "hop:2": 740,
+    "combo:comparison_numeric": 677,
+    "combo:comparison_temporal": 583,
+    "tag:long_hop": 560,
+    "dataset:musique": 560,
+    "question:short": 512,
+    "combo:long_hop_numeric": 468,
+    "answer:entity_or_short_span": 457,
+    "answer:year_or_date": 441,
+    "hop:1": 440,
+    "native:unknown": 440,
+    "dataset:2wiki": 420,
+    "combo:long_hop_temporal": 385,
+    "tag:superlative": 383,
+    "tag:same_attribute": 369,
+    "answer:number": 356,
+    "hop:4": 345,
+    "tag:yes_no": 340,
+    "combo:short_multihop": 324,
+    "dataset:hotpotqa": 320,
+    "tag:kinship": 306,
+    "tag:verification": 300,
+    "combo:yes_no_comparison": 294,
+    "answer:boolean": 252,
+    "dataset:nq": 220,
+    "dataset:triviaqa": 220,
+    "native:comparison": 215,
+    "hop:3": 215,
+    "native:decomp_3": 215,
+    "tag:quoted_span": 207,
+    "native:bridge": 205,
+    "native:decomp_4": 200,
+    "tag:alias_or_disambiguation": 186,
+    "tag:long_question": 182,
+    "tag:person": 154,
+    "tag:location": 151,
+    "native:bridge_comparison": 145,
+    "native:decomp_2": 145,
+    "answer:long_span": 130,
+    "native:compositional": 120,
+    "answer:list_like": 104,
+    "tag:title_work": 94,
+    "tag:organization": 61,
+    "native:inference": 55
+  },
+  "notes": [
+    "Only train-pool questions are sampled.",
+    "Existing canonical_teacher_set and sft_v3 questions are excluded by dataset/id and normalized question.",
+    "Labels are coarse coverage labels from dataset metadata, question cues, and answer form."
+  ]
+}

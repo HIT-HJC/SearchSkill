@@ -1,0 +1,28 @@
+{
+  "skill_bank_path": "$ROOT/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "n_skills": 20,
+  "train": {
+    "input": "$ROOT/reinforcement_learning/source_data/policy_training_pool/train.jsonl",
+    "output": "$ROOT/reinforcement_learning/data/policy_3b_instruct/train.parquet",
+    "n": 1200,
+    "dataset_counts": {
+      "hotpotqa": 368,
+      "2wikimultihopqa": 327,
+      "musique": 225,
+      "triviaqa": 111,
+      "nq": 169
+    }
+  },
+  "dev": {
+    "input": "$ROOT/reinforcement_learning/source_data/policy_training_pool/dev.jsonl",
+    "output": "$ROOT/reinforcement_learning/data/policy_3b_instruct/test.parquet",
+    "n": 80,
+    "dataset_counts": {
+      "2wikimultihopqa": 22,
+      "hotpotqa": 23,
+      "triviaqa": 9,
+      "musique": 15,
+      "nq": 11
+    }
+  }
+}

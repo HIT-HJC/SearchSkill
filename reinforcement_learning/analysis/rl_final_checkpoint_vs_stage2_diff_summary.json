@@ -1,0 +1,67 @@
+[
+  {
+    "dataset": "hotpotqa",
+    "n": 200,
+    "sft_correct": 86,
+    "rl_correct": 88,
+    "both_correct": 78,
+    "both_wrong": 104,
+    "rl_new_correct": 10,
+    "rl_new_wrong": 8,
+    "net": 2,
+    "sft_em": 0.43,
+    "rl_em": 0.44
+  },
+  {
+    "dataset": "2wiki",
+    "n": 200,
+    "sft_correct": 89,
+    "rl_correct": 91,
+    "both_correct": 69,
+    "both_wrong": 89,
+    "rl_new_correct": 22,
+    "rl_new_wrong": 20,
+    "net": 2,
+    "sft_em": 0.445,
+    "rl_em": 0.455
+  },
+  {
+    "dataset": "musique",
+    "n": 200,
+    "sft_correct": 31,
+    "rl_correct": 29,
+    "both_correct": 19,
+    "both_wrong": 159,
+    "rl_new_correct": 10,
+    "rl_new_wrong": 12,
+    "net": -2,
+    "sft_em": 0.155,
+    "rl_em": 0.145
+  },
+  {
+    "dataset": "bamboogle",
+    "n": 125,
+    "sft_correct": 48,
+    "rl_correct": 41,
+    "both_correct": 35,
+    "both_wrong": 71,
+    "rl_new_correct": 6,
+    "rl_new_wrong": 13,
+    "net": -7,
+    "sft_em": 0.384,
+    "rl_em": 0.328
+  },
+  {
+    "n": 725,
+    "sft_correct": 254,
+    "rl_correct": 249,
+    "both_correct": 201,
+    "both_wrong": 423,
+    "rl_new_correct": 48,
+    "rl_new_wrong": 53,
+    "net": -5,
+    "dataset": "macro_all",
+    "sft_em": 0.3503448275862069,
+    "rl_em": 0.34344827586206894
+  }
+]

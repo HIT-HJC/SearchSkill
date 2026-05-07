@@ -1,0 +1,111 @@
+{
+  "generated_at_utc": "2026-04-18T17:28:41.454104+00:00",
+  "model": "gpt-5.4",
+  "base_url": "https://w.ciykj.cn",
+  "reasoning_effort": "medium",
+  "verbosity": "medium",
+  "usage": {
+    "input_tokens": 10380,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 6971,
+    "output_tokens_details": {
+      "reasoning_tokens": 998
+    },
+    "total_tokens": 17351
+  },
+  "strategy_summary": "final keeps the B3 spine but sharpens routing boundaries and adds three reusable long-hop skills that repeatedly appear in MuSiQue: re-anchored decomposition for 3-to-4 hop clue-heavy chains, temporal-anchor preservation so date qualifiers stay attached to the right hop, and full-chain reconstruction before stopping on long multihop answers. Existing bridge, chain, checkpoint, conflict, and extraction skills are also tightened so shorter questions stay on simpler skills while longer questions get explicit checkpointing, recovery, and answer-type-preserving verification.",
+  "new_skills": [
+    {
+      "skill_id": "re-anchored-long-hop-decomposition",
+      "skill_text": "Use when a clue-heavy question hides a 3-hop or 4-hop path but does not cleanly name every intermediate up front, so each found entity must become the new anchor for the next search. Search one hop at a time, carrying forward only the unresolved remainder of the question plus the current verified checkpoint instead of the full original wording, and re-anchor after each hop before launching the next. Verify every checkpoint with the local relation that produced it, then verify that the final endpoint is extracted from the last confirmed intermediate rather than from a globally similar page. Do not use for direct lookups, ordinary two-hop bridges, or explicit edge-by-edge chains that already fit relation-chain-decomposition cleanly.",
+      "reason": "MuSiQue has a large stable cluster of decomp_3, decomp_4, longer_hop_chain, and long_context_disambiguation questions where naive broad retrieval drifts unless the model repeatedly re-anchors on each checkpoint.",
+      "supporting_buckets": [
+        "decomp_3_core",
+        "decomp_4_core",
+        "longer_hop_chain",
+        "long_context_disambiguation",
+        "dense_entity_decomposition"
+      ]
+    },
+    {
+      "skill_id": "temporal-anchor-carry-forward",
+      "skill_text": "Use when a year, date, season, last-time, before-after, or other temporal qualifier constrains an intermediate relation in a multihop chain, not just the final answer type. Attach the temporal anchor to the hop it modifies, search that hop with the time phrase and entity together, and keep that resolved time-scoped result as the checkpoint before continuing downstream. Verify that the retrieved intermediate is correct under the same timeframe, then verify the final endpoint on the entity produced by that time-scoped hop. Do not use when time is only the final attribute to extract after the chain is already resolved, or when a single-page lookup already states the answer directly.",
+      "reason": "A recurring MuSiQue pattern involves temporal phrases that belong to a middle edge rather than the endpoint, and dropping them causes wrong intermediates or wrong eras.",
+      "supporting_buckets": [
+        "time_anchor_chain",
+        "temporal_numeric_endgame",
+        "comparison_interleave",
+        "decomp_2_core",
+        "decomp_3_core"
+      ]
+    },
+    {
+      "skill_id": "reconstructed-chain-verification",
+      "skill_text": "Use as the final stop-check for 3-plus-hop questions, or for any long chain where the endpoint could be read from a wrong but nearby entity after drift. Before answering, replay the confirmed checkpoints in order, make sure each intermediate still satisfies the downstream clue that depended on it, and confirm that the extracted answer is attached to the final intended target under the asked type, unit, and timeframe. If any hop lacks explicit support or the endpoint could also fit a sibling candidate, run one targeted search from the last secure checkpoint rather than trusting the draft answer. Do not use for short direct lookups or simple two-hop questions whose local hop verification already fully grounds the answer.",
+      "reason": "Longer MuSiQue chains frequently fail at the stopping decision rather than at initial hop discovery; a dedicated full-chain verification policy improves reliability without changing shorter-question routing.",
+      "supporting_buckets": [
+        "decomp_3_core",
+        "decomp_4_core",
+        "longer_hop_chain",
+        "temporal_numeric_endgame",
+        "long_context_disambiguation"
+      ]
+    }
+  ],
+  "refined_skills": [
+    {
+      "skill_id": "multi-constraint-query-anchoring",
+      "skill_text": "Use when the question is long, clue-heavy, or alias-prone and the next target is described by several constraints instead of a short canonical name, especially at hop one of a later bridge or long-hop plan. Build the query from 2 to 4 rare anchors spanning the key constraints, keep exact titles or unusual phrases intact, and choose a candidate only if the passage satisfies every major constraint needed for the next hop. Verify the anchored candidate before continuing, then drop consumed clues and re-anchor on the new checkpoint rather than repeatedly searching the full question. Do not use as a substitute for a true multihop plan once the intermediate has been found, and do not use for short direct lookups, simple one-bridge questions, or explicit relation chains where edge-by-edge decomposition is cleaner.",
+      "reason": "MuSiQue long-context cases show that anchoring is useful mainly as hop targeting and disambiguation, not as a full retrieval plan."
+    },
+    {
+      "skill_id": "bridge-entity-search",
+      "skill_text": "Use when the answer is an attribute of one hidden intermediate entity linked from a named entity by a single bridge clue, and the question has only one branch and only one checkpoint before extraction. First search for the bridge entity using the clue that links the named entity to another page, such as played for, voice actor, featuring, written by, located in, spouse of, or headquarters in; then run a second search for the asked attribute of that confirmed bridge. Verify hop one with an explicit relation, verify hop two on the same bridged target, and preserve answer type when extracting dates, numbers, or spans. Do not use when the chain has two or more hidden checkpoints, when the question is clearer as an explicit ordered relation chain, or when both sides of a comparison must each be bridged before verification.",
+      "reason": "Its old wording risked over-triggering on longer decompositions that need checkpointed planning rather than a single bridge."
+    },
+    {
+      "skill_id": "bridge-disambiguate-then-hop",
+      "skill_text": "Use when a one-branch two-hop question still has a messy hop one because the bridge candidate is alias-heavy, dense with entities, or underspecified by title. Search hop one with 2 to 4 rare anchors from the clue bundle, resolve the bridge candidate with the strongest leftover clue before launching hop two, then search the asked attribute only on that confirmed bridge. Verify both that the chosen bridge matches all key clues and that hop two explicitly states the final relation. Do not use when the bridge entity is already uniquely named, when there are three or more checkpoints to preserve, or when ambiguity appears only after a later hop and should instead be handled by conflict-check or reconstructed-chain-verification.",
+      "reason": "Clarifies that this is a hard two-hop disambiguation skill, not a general long-hop recovery skill."
+    },
+    {
+      "skill_id": "relation-chain-decomposition",
+      "skill_text": "Use when the question states an explicit ordered chain of named relations, such as director of X, father of Y, performer in Z, county of the city where, or state where a film takes place, so the search should follow one labeled edge at a time. Search hop one for the first relation to identify the intermediate entity, then search each next relation or endpoint attribute from the immediately confirmed checkpoint, keeping relation labels separate instead of collapsing all clues into one query. Verify every edge explicitly, preserve modifiers like season, edition, paternal, former, or located in, and answer only when the final entity or value is supported through that same ordered chain. Do not use for loose descriptive bridges with no clear named relations, for derived kinship roles that require an inference join over family structure, or for long clue-heavy paths where the next hop must be re-anchored from leftover context rather than from a clean relation label.",
+      "reason": "MuSiQue relation-chain examples are highly stable and benefit from stronger edge-label preservation and clearer boundaries against long-hop descriptive decomposition."
+    },
+    {
+      "skill_id": "sequential-hop-checkpointing",
+      "skill_text": "Use when solving the question requires more than one intermediate checkpoint, such as a 3-plus-edge chain or two mirrored multi-step branches, and collapsing the query risks skipping hidden steps or drifting to a near-match. Retrieve one edge at a time, record each confirmed intermediate entity as a checkpoint, and launch the next search only from the current verified checkpoint plus the unresolved remainder of the question rather than from the entire original wording. Verify every hop locally before advancing, and if a later hop fails, restart from the last secure checkpoint instead of from scratch. Do not use for ordinary one-intermediate bridges, simple explicit two-hop chains, or direct comparisons where each side already exposes the compared attribute without hidden steps.",
+      "reason": "The new evidence strongly supports checkpoint-led recovery and re-anchoring for longer-hop questions, and this refinement prevents overuse on shorter cases."
+    },
+    {
+      "skill_id": "bridge-comparison-planning",
+      "skill_text": "Use when the question compares or verifies two named subjects, but each side first requires a hidden intermediate entity before the compared attribute can be read, such as film to director to birth date or team to city to rainfall record. Resolve the bridge on side A and side B separately with matched relation labels, then retrieve the final attribute for each resolved intermediate before making the comparison, selection, or yes-no decision. Verify both bridge edges and both endpoint attributes under the same definition, unit, and timeframe before answering. Do not use for direct two-entity comparisons with no hidden intermediate, for one-sided bridge questions, or for longer 3-plus-hop branches that need sequential-hop-checkpointing or re-anchored-long-hop-decomposition before any comparison can be trusted.",
+      "reason": "Comparison and decomposition often interleave in MuSiQue, so the avoid conditions should clearly hand off longer branches to stronger checkpoint skills."
+    },
+    {
+      "skill_id": "multihop-yes-no-verification",
+      "skill_text": "Use for yes-no questions whose truth depends on combining two or more retrieved propositions after the needed entities and attributes have already been gathered, such as same-country checks, founder-of claims, membership claims, or relational comparisons after multihop expansion. Gather each required proposition separately, normalize names or comparable values if needed, and answer yes only when every component is explicitly satisfied under the same definition and timeframe; answer no when any required component is directly contradicted or fails after matched evidence is collected. Verify that the verdict is based on the full set of required facts, not on one supportive snippet, and treat this as the final verification layer rather than as the hop-discovery plan itself. Do not use for open-ended wh-questions, simple one-page yes-no lookups, or before the hidden entities, branches, or checkpoints have been resolved by bridge, chain, or sequential-hop skills.",
+      "reason": "Tightens its role as a final logical aggregator instead of a decomposition planner."
+    },
+    {
+      "skill_id": "temporal-range-extract",
+      "skill_text": "Use when the final answer to extract is a date, year, age, duration, count, population, measurement, rank, or bounded range for an already identified target, including after a completed multihop chain. Search with the resolved target plus the requested metric and any supplied time context, then verify that the value matches the same unit, scope, rank definition, and timeframe in evidence before extracting it. If the question first requires a bridge, explicit relation chain, or longer checkpointed path, finish that targeting step before running this extraction, and prefer the minimal verbatim span that preserves units or date granularity. Do not use when the task is to discover the target entity itself, when a superlative within a set must still be computed, or when a temporal qualifier belongs to an earlier hop and should instead be handled by temporal-anchor-carry-forward.",
+      "reason": "Extends the endpoint extractor to preserve answer typing more reliably in the many numeric and temporal MuSiQue endgames."
+    },
+    {
+      "skill_id": "conflict-check",
+      "skill_text": "Use when retrieval surfaces multiple plausible entities, titles, organizations, dates, or numbers at the current hop, or when a later result seems inconsistent with an earlier checkpoint. Run one targeted disambiguation search anchored on the current candidate plus the asked relation and the question's strongest leftover clue; in multihop cases, resolve hop-one ambiguity before trusting hop two, and if hop-k conflicts with earlier context, back up to the last secure checkpoint and re-search from there. Keep a candidate only if that relation is explicitly confirmed for the exact entity under consideration. Do not use as a default extra search when evidence already agrees, and do not substitute it for a full bridge, chain, or sequential-hop plan.",
+      "reason": "MuSiQue dense-entity questions frequently need local backtracking from the last secure checkpoint, not global restart."
+    },
+    {
+      "skill_id": "answer-grounding-check",
+      "skill_text": "Use after drafting an answer to confirm that the current evidence explicitly supports both the candidate and the asked relation, and for multihop questions confirm that the bridge, chain, comparison, and endpoint links are all explicitly supported. If support is only implicit, off-target, from a near-match entity, or missing one hop in the chain, do one extra targeted search anchored on the draft answer and the unresolved relation or last secure checkpoint before finalizing. For numeric or temporal answers, also confirm the unit, granularity, and timeframe. Do not skip this check when the answer was inferred from multiple passages, and do not treat it as a substitute for reconstructed-chain-verification on long 3-plus-hop questions.",
+      "reason": "Improves final answer typing and makes clear that long-hop cases may need an even stronger end-stage verification."
+    }
+  ],
+  "summary_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/artifacts/skill_expansion_summary.json",
+  "raw_response_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/logs/b4_expand_raw_response.json"
+}

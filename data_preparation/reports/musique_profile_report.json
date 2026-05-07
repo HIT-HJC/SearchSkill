@@ -1,0 +1,47 @@
+{
+  "dataset": "musique",
+  "num_examples": 19938,
+  "num_signatures": 2118,
+  "native_type_distribution": {
+    "decomp_2": 14376,
+    "decomp_3": 4387,
+    "decomp_4": 1175
+  },
+  "hop_distribution": {
+    "2": 14376,
+    "3": 4387,
+    "4": 1175
+  },
+  "wh_distribution": {
+    "what": 5825,
+    "when": 4094,
+    "who": 3855,
+    "other": 3139,
+    "how": 1348,
+    "where": 1048,
+    "which": 496,
+    "whose": 53,
+    "are": 21,
+    "was": 16,
+    "is": 13,
+    "did": 12,
+    "do": 12,
+    "whom": 5,
+    "does": 1
+  },
+  "flag_distribution": {
+    "numeric": 12212,
+    "lookup": 9499,
+    "dense_entities": 9096,
+    "temporal": 7677,
+    "longer_hop": 5562,
+    "comparison": 2755,
+    "time_anchor": 1630,
+    "multi_entity": 1490,
+    "relation_chain": 681,
+    "same_attribute": 247,
+    "verification": 88,
+    "yes_no": 75
+  },
+  "recommended_target_size": 8594
+}

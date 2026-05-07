@@ -1,0 +1,103 @@
+{
+  "strategy": "category_stratified_proportional",
+  "seed": 20260502,
+  "target_sample_size": 1000,
+  "min_per_class": 20,
+  "generated_at": "20260502_210637",
+  "backup_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/_backup_sample_1000_20260502_210637",
+  "datasets": [
+    {
+      "dataset": "nq",
+      "source": "/path/to/hf_data/data/nq/test.jsonl",
+      "source_size": 3610,
+      "sample_size": 1000,
+      "output": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/nq/sample_1000/test.jsonl",
+      "indices_file": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/nq/sample_1000/sample_indices.json",
+      "source_qtype_distribution": {
+        "how": 174,
+        "other": 469,
+        "what": 525,
+        "when": 668,
+        "where": 389,
+        "which": 69,
+        "who": 1316
+      },
+      "sample_qtype_distribution": {
+        "how": 48,
+        "other": 130,
+        "what": 145,
+        "when": 185,
+        "where": 108,
+        "which": 20,
+        "who": 364
+      },
+      "quotas": {
+        "how": 48,
+        "other": 130,
+        "what": 145,
+        "when": 185,
+        "where": 108,
+        "which": 20,
+        "who": 364
+      }
+    },
+    {
+      "dataset": "triviaqa",
+      "source": "/path/to/hf_data/data/triviaqa/test.jsonl",
+      "source_size": 11313,
+      "sample_size": 1000,
+      "output": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/triviaqa/sample_1000/test.jsonl",
+      "indices_file": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/triviaqa/sample_1000/sample_indices.json",
+      "source_qtype_distribution": {
+        "how": 171,
+        "other": 5201,
+        "what": 2443,
+        "when": 51,
+        "where": 116,
+        "which": 2194,
+        "who": 1137
+      },
+      "sample_qtype_distribution": {
+        "how": 16,
+        "other": 455,
+        "what": 212,
+        "when": 16,
+        "where": 16,
+        "which": 189,
+        "who": 96
+      },
+      "quotas": {
+        "how": 16,
+        "other": 455,
+        "what": 212,
+        "when": 16,
+        "where": 16,
+        "which": 189,
+        "who": 96
+      }
+    },
+    {
+      "dataset": "popqa",
+      "source": "/path/to/hf_data/data/popqa/test.jsonl",
+      "source_size": 14267,
+      "sample_size": 1000,
+      "output": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/popqa/sample_1000/test.jsonl",
+      "indices_file": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/benchmarks/singlehop/popqa/sample_1000/sample_indices.json",
+      "source_qtype_distribution": {
+        "other": 1422,
+        "what": 4078,
+        "who": 8767
+      },
+      "sample_qtype_distribution": {
+        "other": 100,
+        "what": 286,
+        "who": 614
+      },
+      "quotas": {
+        "other": 100,
+        "what": 286,
+        "who": 614
+      }
+    }
+  ]
+}

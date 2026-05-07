@@ -1,0 +1,17 @@
+{
+  "round_name": "round_1_singlehop",
+  "bank_name": "round1_skill_bank",
+  "base_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/inputs/seed_skill_bank.md",
+  "samples_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples",
+  "datasets": [
+    "nq",
+    "triviaqa"
+  ],
+  "evolution_mode": "expansive_additions",
+  "trajectory_goal": "Use GPT-5.4 with the explicit SkillBank to generate high-quality single-hop retrieval trajectories before building B1.",
+  "notes": [
+    "B1 should actively add high-quality single-hop skills when the evidence supports distinct reusable retrieval patterns.",
+    "Do not stay overly conservative: allow the teacher model to introduce specialized lookup, verification, and answer-finalization skills when they reduce ambiguity.",
+    "Still preserve compatibility with later multihop rounds and avoid adding near-duplicate skills with fuzzy boundaries."
+  ]
+}

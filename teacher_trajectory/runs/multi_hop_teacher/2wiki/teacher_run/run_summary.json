@@ -1,0 +1,17 @@
+{
+  "manifest_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/2wiki/manifest.jsonl",
+  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "model": "gpt-5.4",
+  "base_url": "https://w.ciykj.cn",
+  "total_requested": 205,
+  "processed": 205,
+  "passed": 87,
+  "failed": 118,
+  "runtime_errors": 0,
+  "datasets": {
+    "2wiki": {
+      "processed": 205,
+      "passed": 87
+    }
+  }
+}

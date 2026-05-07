@@ -1,0 +1,141 @@
+{
+  "canonical": true,
+  "output_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/canonical_teacher_set",
+  "input_sources": {
+    "stage2_hotpotqa": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/hotpotqa/teacher_run",
+    "stage2_2wiki": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/2wiki/teacher_run",
+    "stage2_musique": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/musique/teacher_run",
+    "stage2_nq": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/single_hop_teacher/nq/teacher_run",
+    "stage2_triviaqa": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/single_hop_teacher/triviaqa/teacher_run",
+    "pilot_final": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final"
+  },
+  "source_stats": {
+    "stage2_hotpotqa": {
+      "input_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/hotpotqa/teacher_run",
+      "raw_rows": 170,
+      "latest_unique_rows": 170,
+      "duplicate_rows": 0,
+      "passed_latest_rows": 113,
+      "failed_latest_rows": 57,
+      "runtime_error_latest_rows": 0
+    },
+    "stage2_2wiki": {
+      "input_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/2wiki/teacher_run",
+      "raw_rows": 205,
+      "latest_unique_rows": 205,
+      "duplicate_rows": 0,
+      "passed_latest_rows": 87,
+      "failed_latest_rows": 118,
+      "runtime_error_latest_rows": 0
+    },
+    "stage2_musique": {
+      "input_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/musique/teacher_run",
+      "raw_rows": 315,
+      "latest_unique_rows": 225,
+      "duplicate_rows": 90,
+      "passed_latest_rows": 81,
+      "failed_latest_rows": 144,
+      "runtime_error_latest_rows": 0
+    },
+    "stage2_nq": {
+      "input_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/single_hop_teacher/nq/teacher_run",
+      "raw_rows": 56,
+      "latest_unique_rows": 56,
+      "duplicate_rows": 0,
+      "passed_latest_rows": 18,
+      "failed_latest_rows": 38,
+      "runtime_error_latest_rows": 0
+    },
+    "stage2_triviaqa": {
+      "input_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/single_hop_teacher/triviaqa/teacher_run",
+      "raw_rows": 48,
+      "latest_unique_rows": 48,
+      "duplicate_rows": 0,
+      "passed_latest_rows": 31,
+      "failed_latest_rows": 17,
+      "runtime_error_latest_rows": 0
+    },
+    "pilot_final": {
+      "input_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final",
+      "raw_rows": 58,
+      "latest_unique_rows": 58,
+      "duplicate_rows": 0,
+      "passed_latest_rows": 32,
+      "failed_latest_rows": 26,
+      "runtime_error_latest_rows": 0
+    }
+  },
+  "all_summary": {
+    "total_requested": 757,
+    "processed": 757,
+    "passed": 360,
+    "failed": 397,
+    "runtime_errors": 0,
+    "datasets": {
+      "2wiki": {
+        "processed": 215,
+        "passed": 91
+      },
+      "hotpotqa": {
+        "processed": 184,
+        "passed": 123
+      },
+      "musique": {
+        "processed": 234,
+        "passed": 84
+      },
+      "nq": {
+        "processed": 68,
+        "passed": 24
+      },
+      "triviaqa": {
+        "processed": 56,
+        "passed": 38
+      }
+    },
+    "input_sources": [
+      "stage2_hotpotqa",
+      "stage2_2wiki",
+      "stage2_musique",
+      "stage2_nq",
+      "stage2_triviaqa",
+      "pilot_final"
+    ]
+  },
+  "chosen_source_counts": {
+    "stage2_2wiki": 205,
+    "pilot_final": 54,
+    "stage2_hotpotqa": 170,
+    "stage2_musique": 224,
+    "stage2_nq": 56,
+    "stage2_triviaqa": 48
+  },
+  "chosen_source_counts_by_dataset": {
+    "2wiki": {
+      "stage2_2wiki": 205,
+      "pilot_final": 10
+    },
+    "hotpotqa": {
+      "stage2_hotpotqa": 170,
+      "pilot_final": 14
+    },
+    "musique": {
+      "stage2_musique": 224,
+      "pilot_final": 10
+    },
+    "nq": {
+      "stage2_nq": 56,
+      "pilot_final": 12
+    },
+    "triviaqa": {
+      "stage2_triviaqa": 48,
+      "pilot_final": 8
+    }
+  },
+  "overlap_record_count": 5,
+  "overlap_decision_counts": {
+    "pilot_final<--stage2_musique": 1,
+    "stage2_2wiki<--pilot_final": 2,
+    "stage2_musique<--pilot_final": 2
+  }
+}

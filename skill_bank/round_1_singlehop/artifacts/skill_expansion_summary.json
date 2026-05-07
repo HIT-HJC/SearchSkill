@@ -1,0 +1,1512 @@
+{
+  "generated_at_utc": "2026-04-18T14:33:30.142355+00:00",
+  "packet_count": 2080,
+  "dataset_packet_counts": {
+    "nq": 769,
+    "triviaqa": 1311
+  },
+  "dataset_group_sizes": {
+    "nq": 3000,
+    "triviaqa": 3000
+  },
+  "bucket_summaries": [
+    {
+      "bucket_id": "direct_entity_lookup",
+      "description": "Direct factual lookup with a single primary target. Fast answer when one focused search should surface the fact.",
+      "matched_packet_count": 2080,
+      "matched_group_size": 6000,
+      "datasets": {
+        "nq": 769,
+        "triviaqa": 1311
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "what is denny's real name from grey's anatomy",
+          "primary_answer": "Jeffrey Dean Morgan",
+          "golden_answers": [
+            "Jeffrey Dean Morgan"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what was shaggy's real name in scooby doo cartoon",
+          "primary_answer": "Norville \"Shaggy\" Rogers",
+          "golden_answers": [
+            "Norville \"Shaggy\" Rogers"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what was trigger's real name in only fools and horses",
+          "primary_answer": "Colin \"Trigger\" Ball",
+          "golden_answers": [
+            "Colin \"Trigger\" Ball"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "real name of isha in savitri devi college and hospital",
+          "primary_answer": "Sharan Kaur",
+          "golden_answers": [
+            "Sharan Kaur"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "yeh un dinon ki baat hai cast swati real name",
+          "primary_answer": "Kristina Patel",
+          "golden_answers": [
+            "Kristina Patel"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "ye un dino ki baat hai serial sameer real name",
+          "primary_answer": "Randeep Rai",
+          "golden_answers": [
+            "Randeep Rai"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is the real name of kali in kala teeka",
+          "primary_answer": "Simran Pareenja",
+          "golden_answers": [
+            "Simran Pareenja"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is the real name of karan in kundali bhagya",
+          "primary_answer": "Dheeraj Dhoopar",
+          "golden_answers": [
+            "Dheeraj Dhoopar"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "alias_or_renaming_lookup",
+      "description": "Questions asking for a real name, alternate name, former name, nickname, or renamed entity.",
+      "matched_packet_count": 441,
+      "matched_group_size": 867,
+      "datasets": {
+        "nq": 31,
+        "triviaqa": 410
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "what is denny's real name from grey's anatomy",
+          "primary_answer": "Jeffrey Dean Morgan",
+          "golden_answers": [
+            "Jeffrey Dean Morgan"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what was shaggy's real name in scooby doo cartoon",
+          "primary_answer": "Norville \"Shaggy\" Rogers",
+          "golden_answers": [
+            "Norville \"Shaggy\" Rogers"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what was trigger's real name in only fools and horses",
+          "primary_answer": "Colin \"Trigger\" Ball",
+          "golden_answers": [
+            "Colin \"Trigger\" Ball"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "real name of isha in savitri devi college and hospital",
+          "primary_answer": "Sharan Kaur",
+          "golden_answers": [
+            "Sharan Kaur"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "yeh un dinon ki baat hai cast swati real name",
+          "primary_answer": "Kristina Patel",
+          "golden_answers": [
+            "Kristina Patel"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "ye un dino ki baat hai serial sameer real name",
+          "primary_answer": "Randeep Rai",
+          "golden_answers": [
+            "Randeep Rai"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is the real name of kali in kala teeka",
+          "primary_answer": "Simran Pareenja",
+          "golden_answers": [
+            "Simran Pareenja"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is the real name of karan in kundali bhagya",
+          "primary_answer": "Dheeraj Dhoopar",
+          "golden_answers": [
+            "Dheeraj Dhoopar"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "temporal_attribute_lookup",
+      "description": "Questions asking for a year, date, season, period, or temporal boundary tied to one entity or event.",
+      "matched_packet_count": 512,
+      "matched_group_size": 1165,
+      "datasets": {
+        "nq": 170,
+        "triviaqa": 342
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "who became the first president of the bharti janta party when it was formally established",
+          "primary_answer": "Vajpayee",
+          "golden_answers": [
+            "Vajpayee"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who filled in for ringo starr during a beatles tour when ringo had tonsillitis",
+          "primary_answer": "Jimmie Nicol",
+          "golden_answers": [
+            "Jimmie Nicol"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who has topped the 28th annual world billionaires list of forbes released on 3rd march 2014",
+          "primary_answer": "Bill Gates",
+          "golden_answers": [
+            "Bill Gates"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what carcinogen is known to be produced when high carbohydrate foods are cooked at high temperature",
+          "primary_answer": "Acrylamide",
+          "golden_answers": [
+            "Acrylamide"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is it called when you count money at the end of the day",
+          "primary_answer": "Cashier balancing",
+          "golden_answers": [
+            "Cashier balancing"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what were the names of the two smaller supercontinents that formed when pangaea broke apart",
+          "primary_answer": "Laurasia",
+          "golden_answers": [
+            "Laurasia",
+            "Eurasia"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "when the sounds in a composition are left to chance we call this type of music",
+          "primary_answer": "aleatoric music",
+          "golden_answers": [
+            "aleatoric music"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "when a person believes that his culture is superior to other culture it is called",
+          "primary_answer": "ethnocentrism",
+          "golden_answers": [
+            "ethnocentrism"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "temporal"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "numeric_attribute_lookup",
+      "description": "Questions asking for counts, heights, lengths, populations, rankings, or other numeric attributes.",
+      "matched_packet_count": 904,
+      "matched_group_size": 2371,
+      "datasets": {
+        "nq": 285,
+        "triviaqa": 619
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "how many aircraft carriers did the united states build during world war ii",
+          "primary_answer": "twenty-seven",
+          "golden_answers": [
+            "twenty-seven"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how many times has puerto rico votes to become a state",
+          "primary_answer": "Five",
+          "golden_answers": [
+            "Five"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how many florida state players are in the hall of fame",
+          "primary_answer": "six",
+          "golden_answers": [
+            "six"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "which country has the smallest population in north america",
+          "primary_answer": "Montserrat",
+          "golden_answers": [
+            "Montserrat"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "which country in the uk has the highest population",
+          "primary_answer": "England",
+          "golden_answers": [
+            "England"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "which state has the largest population in the us",
+          "primary_answer": "California",
+          "golden_answers": [
+            "California"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how old do you have to be to get a tattoo in west virginia",
+          "primary_answer": "none specified",
+          "golden_answers": [
+            "none specified"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "numeric"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how many years in a row have the warriors and cavs been in the finals",
+          "primary_answer": "four",
+          "golden_answers": [
+            "four"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "numeric"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "location_targeted_lookup",
+      "description": "Questions asking where something happened, is located, was born, was held, or is based.",
+      "matched_packet_count": 585,
+      "matched_group_size": 1686,
+      "datasets": {
+        "nq": 254,
+        "triviaqa": 331
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "who portrayed the president of the united states in the alien invasion comedy mars attacks",
+          "primary_answer": "Jack Nicholson",
+          "golden_answers": [
+            "Jack Nicholson"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who was the man responsible for bringing new textile machines to the united states",
+          "primary_answer": "Samuel Slater",
+          "golden_answers": [
+            "Samuel Slater"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who was the first african american to serve in the united states house of representatives",
+          "primary_answer": "Hiram Rhodes Revels",
+          "golden_answers": [
+            "Hiram Rhodes Revels"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "the colonies that became the original united states were part of which european nation’s land claims",
+          "primary_answer": "British colonies",
+          "golden_answers": [
+            "British colonies"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "the stated course of action taken by the government to address problems or issues is called",
+          "primary_answer": "Public policy",
+          "golden_answers": [
+            "Public policy"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "the only true city that exhibited an urban lifestyle in kentucky in the late 1800s was",
+          "primary_answer": "Louisville",
+          "golden_answers": [
+            "Louisville"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what brought great wealth and power to italian city states in the 14th century",
+          "primary_answer": "trading",
+          "golden_answers": [
+            "trading"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is the term for a collection of blood located outside the dura mater",
+          "primary_answer": "epidural hematoma",
+          "golden_answers": [
+            "epidural hematoma"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "person_identity_lookup",
+      "description": "Questions asking who or whose, especially person-role and identity resolution questions.",
+      "matched_packet_count": 610,
+      "matched_group_size": 1379,
+      "datasets": {
+        "nq": 201,
+        "triviaqa": 409
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "who portrayed the president of the united states in the alien invasion comedy mars attacks",
+          "primary_answer": "Jack Nicholson",
+          "golden_answers": [
+            "Jack Nicholson"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who was the man responsible for bringing new textile machines to the united states",
+          "primary_answer": "Samuel Slater",
+          "golden_answers": [
+            "Samuel Slater"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who was the first african american to serve in the united states house of representatives",
+          "primary_answer": "Hiram Rhodes Revels",
+          "golden_answers": [
+            "Hiram Rhodes Revels"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who sang it's my party and i'll cry if i want to in the eighties",
+          "primary_answer": "Dave Stewart",
+          "golden_answers": [
+            "Dave Stewart",
+            "Barbara Gaskin"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who sang you're a mean one mr. grinch and the iconic 1966 animated tv short",
+          "primary_answer": "Thurl Ravenscroft",
+          "golden_answers": [
+            "Thurl Ravenscroft"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who were the first singing brothers inducted into the rock 'n' roll hall of fame",
+          "primary_answer": "Phil Everly",
+          "golden_answers": [
+            "Phil Everly",
+            "Don Everly"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who became the first president of the bharti janta party when it was formally established",
+          "primary_answer": "Vajpayee",
+          "golden_answers": [
+            "Vajpayee"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "temporal"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who filled in for ringo starr during a beatles tour when ringo had tonsillitis",
+          "primary_answer": "Jimmie Nicol",
+          "golden_answers": [
+            "Jimmie Nicol"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "temporal"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "organization_attribute_lookup",
+      "description": "Questions centered on teams, companies, universities, institutions, or other organizations.",
+      "matched_packet_count": 328,
+      "matched_group_size": 823,
+      "datasets": {
+        "nq": 171,
+        "triviaqa": 157
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "where is the university of north dakota located",
+          "primary_answer": "Grand Forks",
+          "golden_answers": [
+            "Grand Forks"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "organization"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "where is first hockey club set up in world",
+          "primary_answer": "Cambridge",
+          "golden_answers": [
+            "Cambridge"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "organization"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "where did the houston texans football team come from",
+          "primary_answer": "Houston",
+          "golden_answers": [
+            "Houston"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "organization"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how many players on a cs go team",
+          "primary_answer": "five",
+          "golden_answers": [
+            "five"
+          ],
+          "flags": [
+            "direct_lookup",
+            "numeric",
+            "organization"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how many players in kabaddi in one team",
+          "primary_answer": "seven",
+          "golden_answers": [
+            "seven"
+          ],
+          "flags": [
+            "direct_lookup",
+            "numeric",
+            "organization"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "how many teams can england have in the champions league",
+          "primary_answer": "five",
+          "golden_answers": [
+            "five"
+          ],
+          "flags": [
+            "direct_lookup",
+            "numeric",
+            "organization"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who does jack end up with in three's company",
+          "primary_answer": "Vicky Bradford",
+          "golden_answers": [
+            "Vicky Bradford"
+          ],
+          "flags": [
+            "direct_lookup",
+            "organization",
+            "person",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who played bette midler's son in first wives club",
+          "primary_answer": "Ari Greenberg",
+          "golden_answers": [
+            "Ari Greenberg"
+          ],
+          "flags": [
+            "direct_lookup",
+            "organization",
+            "person",
+            "quoted_span"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "yes_no_targeted_verification",
+      "description": "Binary questions that need one precise grounded verification search before answering yes or no.",
+      "matched_packet_count": 71,
+      "matched_group_size": 168,
+      "datasets": {
+        "nq": 50,
+        "triviaqa": 21
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "is tasmania a state or territory in australia",
+          "primary_answer": "state",
+          "golden_answers": [
+            "state"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is electricity in a house ac or dc",
+          "primary_answer": "AC",
+          "golden_answers": [
+            "AC"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is dubai a country or city wiki answers",
+          "primary_answer": "city",
+          "golden_answers": [
+            "city"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is the process of transferring blood from one person to another",
+          "primary_answer": "Blood transfusion",
+          "golden_answers": [
+            "Blood transfusion"
+          ],
+          "flags": [
+            "direct_lookup",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is an object-oriented language that is sometimes used in web programming",
+          "primary_answer": "HTML",
+          "golden_answers": [
+            "HTML"
+          ],
+          "flags": [
+            "direct_lookup",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is the statue of liberty in new york or new jersey",
+          "primary_answer": "New York City",
+          "golden_answers": [
+            "New York City"
+          ],
+          "flags": [
+            "direct_lookup",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is the taj mahal a tomb or a palace",
+          "primary_answer": "tomb",
+          "golden_answers": [
+            "tomb"
+          ],
+          "flags": [
+            "direct_lookup",
+            "yes_no"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "is the governor of illinois a democrat or a republican",
+          "primary_answer": "Republican",
+          "golden_answers": [
+            "Republican"
+          ],
+          "flags": [
+            "direct_lookup",
+            "yes_no"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "multi_constraint_entity_match",
+      "description": "Single-hop questions with multiple constraints, long wording, or multiple named entities that require careful query anchoring.",
+      "matched_packet_count": 1570,
+      "matched_group_size": 4141,
+      "datasets": {
+        "nq": 382,
+        "triviaqa": 1188
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "who portrayed the president of the united states in the alien invasion comedy mars attacks",
+          "primary_answer": "Jack Nicholson",
+          "golden_answers": [
+            "Jack Nicholson"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who was the man responsible for bringing new textile machines to the united states",
+          "primary_answer": "Samuel Slater",
+          "golden_answers": [
+            "Samuel Slater"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who was the first african american to serve in the united states house of representatives",
+          "primary_answer": "Hiram Rhodes Revels",
+          "golden_answers": [
+            "Hiram Rhodes Revels"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question",
+            "person"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "the colonies that became the original united states were part of which european nation’s land claims",
+          "primary_answer": "British colonies",
+          "golden_answers": [
+            "British colonies"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "the stated course of action taken by the government to address problems or issues is called",
+          "primary_answer": "Public policy",
+          "golden_answers": [
+            "Public policy"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "the only true city that exhibited an urban lifestyle in kentucky in the late 1800s was",
+          "primary_answer": "Louisville",
+          "golden_answers": [
+            "Louisville"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what brought great wealth and power to italian city states in the 14th century",
+          "primary_answer": "trading",
+          "golden_answers": [
+            "trading"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what is the term for a collection of blood located outside the dura mater",
+          "primary_answer": "epidural hematoma",
+          "golden_answers": [
+            "epidural hematoma"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "long_question"
+          ]
+        }
+      ]
+    },
+    {
+      "bucket_id": "exact_span_finalization",
+      "description": "Cases where the answer must preserve exact titles, aliases, units, or quoted spans from evidence.",
+      "matched_packet_count": 1048,
+      "matched_group_size": 2695,
+      "datasets": {
+        "nq": 396,
+        "triviaqa": 652
+      },
+      "examples": [
+        {
+          "dataset": "nq",
+          "question": "what is denny's real name from grey's anatomy",
+          "primary_answer": "Jeffrey Dean Morgan",
+          "golden_answers": [
+            "Jeffrey Dean Morgan"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what was shaggy's real name in scooby doo cartoon",
+          "primary_answer": "Norville \"Shaggy\" Rogers",
+          "golden_answers": [
+            "Norville \"Shaggy\" Rogers"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "what was trigger's real name in only fools and horses",
+          "primary_answer": "Colin \"Trigger\" Ball",
+          "golden_answers": [
+            "Colin \"Trigger\" Ball"
+          ],
+          "flags": [
+            "alias",
+            "direct_lookup",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "where does brian's dad live in the book hatchet",
+          "primary_answer": "Northern Canada",
+          "golden_answers": [
+            "Northern Canada"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "quoted_span",
+            "title_work"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "where is let's make a deal filmed 2018",
+          "primary_answer": "Raleigh Studios Hollywood",
+          "golden_answers": [
+            "Raleigh Studios Hollywood"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "quoted_span",
+            "title_work"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "where is harry potter and the philosopher's stone filmed",
+          "primary_answer": "the United Kingdom",
+          "golden_answers": [
+            "the United Kingdom"
+          ],
+          "flags": [
+            "direct_lookup",
+            "location",
+            "quoted_span",
+            "title_work"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who sang it's my party and i'll cry if i want to in the eighties",
+          "primary_answer": "Dave Stewart",
+          "golden_answers": [
+            "Dave Stewart",
+            "Barbara Gaskin"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "quoted_span"
+          ]
+        },
+        {
+          "dataset": "nq",
+          "question": "who sang you're a mean one mr. grinch and the iconic 1966 animated tv short",
+          "primary_answer": "Thurl Ravenscroft",
+          "golden_answers": [
+            "Thurl Ravenscroft"
+          ],
+          "flags": [
+            "direct_lookup",
+            "long_question",
+            "person",
+            "quoted_span"
+          ]
+        }
+      ]
+    }
+  ],
+  "top_profiles": [
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "what",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "alias",
+        "direct_lookup",
+        "quoted_span"
+      ],
+      "sample_questions": [
+        "what is denny's real name from grey's anatomy",
+        "what was shaggy's real name in scooby doo cartoon",
+        "what was trigger's real name in only fools and horses"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "alias",
+        "direct_lookup"
+      ],
+      "sample_questions": [
+        "real name of isha in savitri devi college and hospital",
+        "yeh un dinon ki baat hai cast swati real name",
+        "ye un dino ki baat hai serial sameer real name"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "what",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "alias",
+        "direct_lookup"
+      ],
+      "sample_questions": [
+        "what is the real name of kali in kala teeka",
+        "what is the real name of karan in kundali bhagya",
+        "what is the real name of the bean in chicago"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "who",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "long_question",
+        "person"
+      ],
+      "sample_questions": [
+        "who portrayed the president of the united states in the alien invasion comedy mars attacks",
+        "who was the man responsible for bringing new textile machines to the united states",
+        "who was the first african american to serve in the united states house of representatives"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "long_question"
+      ],
+      "sample_questions": [
+        "the colonies that became the original united states were part of which european nation’s land claims",
+        "the stated course of action taken by the government to address problems or issues is called",
+        "the only true city that exhibited an urban lifestyle in kentucky in the late 1800s was"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "what",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "long_question"
+      ],
+      "sample_questions": [
+        "what brought great wealth and power to italian city states in the 14th century",
+        "what is the term for a collection of blood located outside the dura mater",
+        "what are the only 2 states that have their state name in their capital"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "where",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "long_question"
+      ],
+      "sample_questions": [
+        "where did the original stage production of the sound of music first take place",
+        "where does geothermal energy come from sunlight the oceans the land inside earth wind",
+        "where the headquarters of each of the six main organs of the un are located"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "which",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "long_question"
+      ],
+      "sample_questions": [
+        "which treaty gave the united states access to the mississippi river and new orleans for trade",
+        "which type of city government is most favored by the large cities in the united states",
+        "which country tops the annual global democracy index compiled by the economist intelligence unit"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "how",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "numeric"
+      ],
+      "sample_questions": [
+        "how many aircraft carriers did the united states build during world war ii",
+        "how many times has puerto rico votes to become a state",
+        "how many florida state players are in the hall of fame"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "which",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "numeric"
+      ],
+      "sample_questions": [
+        "which country has the smallest population in north america",
+        "which country in the uk has the highest population",
+        "which state has the largest population in the us"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "where",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "organization"
+      ],
+      "sample_questions": [
+        "where is the university of north dakota located",
+        "where is first hockey club set up in world",
+        "where did the houston texans football team come from"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "where",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "quoted_span",
+        "title_work"
+      ],
+      "sample_questions": [
+        "where does brian's dad live in the book hatchet",
+        "where is let's make a deal filmed 2018",
+        "where is harry potter and the philosopher's stone filmed"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "is",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "direct_lookup",
+        "location",
+        "yes_no"
+      ],
+      "sample_questions": [
+        "is tasmania a state or territory in australia",
+        "is electricity in a house ac or dc",
+        "is dubai a country or city wiki answers"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "which",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "location"
+      ],
+      "sample_questions": [
+        "which country had access to an ocean in 1830 but is now landlocked",
+        "which agreement settled a boundary dispute between british canada and the united states",
+        "which group immigrated to the united states to work on the transcontinental railroads"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "which",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "medium",
+      "flags": [
+        "direct_lookup",
+        "location"
+      ],
+      "sample_questions": [
+        "which sector dominates developed economies such as the united states",
+        "which layer of the atmosphere is the ozone layer located",
+        "which country has the largest land area in south america"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "how",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "long_question",
+        "numeric"
+      ],
+      "sample_questions": [
+        "how old do you have to be to get a tattoo in west virginia",
+        "how many years in a row have the warriors and cavs been in the finals",
+        "how many games do you have to win in the nba finals to be champions"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "other",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "long_question",
+        "numeric"
+      ],
+      "sample_questions": [
+        "the most common language in the eastern mediterranean during the height of the roman empire was",
+        "the goal of decreasing the number of ill- health and suffering months before death is called",
+        "the collection of statistical methods that require assumptions about the population is known as"
+      ]
+    },
+    {
+      "dataset": "nq",
+      "group_size": 12,
+      "wh_word": "who",
+      "answer_form_hint": "entity_or_short_span",
+      "entity_bin": "single_entity",
+      "token_bin": "long",
+      "flags": [
+        "direct_lookup",
+        "long_question",
+        "person",
+        "quoted_span"
+      ],
+      "sample_questions": [
+        "who sang it's my party and i'll cry if i want to in the eighties",
+        "who sang you're a mean one mr. grinch and the iconic 1966 animated tv short",
+        "who were the first singing brothers inducted into the rock 'n' roll hall of fame"
+      ]
+    }
+  ]
+}

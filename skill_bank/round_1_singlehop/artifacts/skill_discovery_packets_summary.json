@@ -1,0 +1,21 @@
+{
+  "round_name": "round_1_singlehop",
+  "bank_name": "round1_skill_bank",
+  "datasets": {
+    "nq": {
+      "group_count": 769,
+      "representative_examples": 1489,
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/nq/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/nq/train_sample_full.jsonl"
+    },
+    "triviaqa": {
+      "group_count": 1311,
+      "representative_examples": 2134,
+      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/triviaqa/train_sample_light.jsonl",
+      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/triviaqa/train_sample_full.jsonl"
+    }
+  },
+  "total_groups": 2080,
+  "total_examples": 3623,
+  "examples_per_group": 3
+}

@@ -1,0 +1,83 @@
+{
+  "strategy": "repack_stage1_full_data_as_two_stage_final_skill_bank_protocol",
+  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "n_skill_bank_entries": 20,
+  "max_index_desc_chars": 180,
+  "max_card_chars": 900,
+  "train": {
+    "input_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1/train.jsonl",
+    "output_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage2/train.jsonl",
+    "input_rows": 3017,
+    "output_rows": 3017,
+    "dataset_counts": {
+      "2wiki": 784,
+      "hotpotqa": 1058,
+      "musique": 586,
+      "nq": 231,
+      "triviaqa": 358
+    },
+    "drop_reasons": {},
+    "message_count_hist": {
+      "9": 717,
+      "13": 1470,
+      "17": 412,
+      "21": 213,
+      "25": 205
+    },
+    "skill_counts": {
+      "verbatim-evidence-span": 2497,
+      "relation-chain-decomposition": 2201,
+      "parallel-attribute-compare": 2033,
+      "bridge-entity-search": 1571,
+      "temporal-range-extract": 746,
+      "sequential-hop-checkpointing": 737,
+      "single-entity-relation-lookup": 637,
+      "answer-grounding-check": 520,
+      "bridge-comparison-planning": 507,
+      "multi-constraint-query-anchoring": 460,
+      "derived-kinship-inference-join": 305,
+      "bridge-disambiguate-then-hop": 264,
+      "surface-name-resolution": 241,
+      "re-anchored-long-hop-decomposition": 237,
+      "temporal-anchor-carry-forward": 229,
+      "superlative-ranking-match": 169,
+      "multihop-yes-no-verification": 50,
+      "forced-choice-option-resolution": 28
+    }
+  },
+  "eval": {
+    "input_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1/eval.jsonl",
+    "output_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage2/eval.jsonl",
+    "input_rows": 16,
+    "output_rows": 16,
+    "dataset_counts": {
+      "2wiki": 8,
+      "hotpotqa": 4,
+      "musique": 2,
+      "nq": 1,
+      "triviaqa": 1
+    },
+    "drop_reasons": {},
+    "message_count_hist": {
+      "9": 2,
+      "13": 9,
+      "17": 3,
+      "21": 2
+    },
+    "skill_counts": {
+      "verbatim-evidence-span": 14,
+      "relation-chain-decomposition": 13,
+      "sequential-hop-checkpointing": 9,
+      "parallel-attribute-compare": 8,
+      "single-entity-relation-lookup": 6,
+      "temporal-range-extract": 6,
+      "bridge-disambiguate-then-hop": 6,
+      "bridge-entity-search": 5,
+      "derived-kinship-inference-join": 3,
+      "multi-constraint-query-anchoring": 3,
+      "multihop-yes-no-verification": 2,
+      "answer-grounding-check": 2
+    }
+  },
+  "note": "Each original assistant action turn is split into a supervised <select_skill> turn, a selected skill-card user turn, and the original <skill> plus action turn. No Recommended skills line is kept."
+}

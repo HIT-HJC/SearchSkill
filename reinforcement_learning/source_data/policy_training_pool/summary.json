@@ -1,0 +1,33 @@
+{
+  "seed": 20260429,
+  "candidate_path": "reinforcement_learning/source_data/policy_training_pool_candidates/candidates.jsonl",
+  "pilot_dir": "reinforcement_learning/source_data/policy_training_pool_candidates/pilot_rollouts",
+  "n_candidates": 1800,
+  "n_pilot_metrics": 435,
+  "n_train": 1200,
+  "n_dev": 80,
+  "dataset_counts": {
+    "hotpotqa": 368,
+    "2wiki": 327,
+    "musique": 225,
+    "triviaqa": 111,
+    "nq": 169
+  },
+  "bucket_counts": {
+    "comparison_or_forced": 384,
+    "temporal_numeric": 91,
+    "bridge_relation_chain": 361,
+    "singlehop_temporal": 186,
+    "singlehop_lookup": 56,
+    "kinship_or_longhop": 82,
+    "singlehop_name_resolution": 38,
+    "closure_grounding": 2
+  },
+  "selection_tag_counts": {
+    "candidate_fallback": 797,
+    "mixed": 96,
+    "near_mixed": 173,
+    "stable_replay": 134
+  },
+  "principle": "fresh second-stage-policy-performance-selected pool; no previous RL data"
+}

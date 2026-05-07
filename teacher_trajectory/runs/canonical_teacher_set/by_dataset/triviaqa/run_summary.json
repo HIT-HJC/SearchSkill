@@ -1,0 +1,15 @@
+{
+  "canonical": true,
+  "output_scope": "triviaqa",
+  "total_requested": 56,
+  "processed": 56,
+  "passed": 38,
+  "failed": 18,
+  "runtime_errors": 0,
+  "datasets": {
+    "triviaqa": {
+      "processed": 56,
+      "passed": 38
+    }
+  }
+}

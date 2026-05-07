@@ -1,0 +1,16 @@
+{
+  "updated_at": "2026-04-27T06:54:30Z",
+  "record_id": "train_990",
+  "dataset": "triviaqa",
+  "sample_origin": "coverage_supplement_full",
+  "question": "Where in Australia was swashbuckling Errol Flynn born?",
+  "candidate_primary_skills": [
+    "bridge-entity-search",
+    "relation-chain-decomposition",
+    "single-entity-relation-lookup"
+  ],
+  "failure_info": null,
+  "processed_count": 577,
+  "total_requested": 580,
+  "remaining_count": 3
+}

@@ -1,0 +1,195 @@
+{
+  "original_size": 12445,
+  "kept_size": 8178,
+  "kept_ratio": 0.6571313780634793,
+  "unique_signatures_original": 3089,
+  "unique_signatures_kept": 3089,
+  "protect_signature_freq_leq": 3,
+  "cap_per_signature": 4,
+  "rare_label_threshold": 38,
+  "protected_examples": 2542,
+  "protected_by_reason": {
+    "low_freq_signature": 2542,
+    "rare_label": 11
+  },
+  "native_type_original": {
+    "bridge": 10142,
+    "comparison": 2303
+  },
+  "native_type_kept": {
+    "bridge": 6651,
+    "comparison": 1527
+  },
+  "hop_original": {
+    "2": 12445
+  },
+  "hop_kept": {
+    "2": 8178
+  },
+  "entity_original": {
+    "two_entities": 3730,
+    "multi_entity": 4863,
+    "dense_entity": 2464,
+    "single_entity": 1388
+  },
+  "entity_kept": {
+    "two_entities": 2419,
+    "dense_entity": 1653,
+    "multi_entity": 3102,
+    "single_entity": 1004
+  },
+  "top_flags_original": {
+    "dense_entities": 7327,
+    "lookup": 7184,
+    "multi_entity": 6098,
+    "comparison": 5834,
+    "temporal": 5529,
+    "numeric": 4911,
+    "time_anchor": 2748,
+    "yes_no": 1265,
+    "same_attribute": 969,
+    "relation_chain": 832,
+    "verification": 343
+  },
+  "top_flags_kept": {
+    "dense_entities": 4755,
+    "lookup": 4566,
+    "comparison": 4070,
+    "multi_entity": 4063,
+    "temporal": 3851,
+    "numeric": 3257,
+    "time_anchor": 1924,
+    "yes_no": 882,
+    "same_attribute": 721,
+    "relation_chain": 683,
+    "verification": 216
+  },
+  "rare_labels_preserved": {
+    "wh:whom": {
+      "original": 11,
+      "kept": 11
+    }
+  },
+  "high_freq_signature_examples": [
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"medium\", \"wh_word\": \"where\"}",
+      "original": 85,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"dense_entities\", \"lookup\", \"multi_entity\", \"numeric\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 79,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"lookup\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"long\", \"wh_word\": \"other\"}",
+      "original": 75,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [\"comparison\", \"multi_entity\", \"numeric\", \"same_attribute\", \"verification\", \"yes_no\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"are\"}",
+      "original": 66,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"lookup\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"long\", \"wh_word\": \"other\"}",
+      "original": 64,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [\"comparison\", \"lookup\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"other\"}",
+      "original": 14,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [\"comparison\", \"yes_no\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"is\"}",
+      "original": 12,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"dense_entities\", \"lookup\", \"multi_entity\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"multi_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"medium\", \"wh_word\": \"which\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"lookup\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"long\", \"wh_word\": \"what\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"multi_entity\", \"flags\": [\"dense_entities\", \"lookup\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"medium\", \"wh_word\": \"what\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [\"lookup\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"long\", \"wh_word\": \"other\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [\"lookup\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"medium\", \"wh_word\": \"other\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"two_entities\", \"flags\": [\"lookup\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"medium\", \"wh_word\": \"what\"}",
+      "original": 9,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"numeric\", \"same_attribute\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 8,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"numeric\", \"temporal\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 8,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"numeric\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 8,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"numeric\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"long\", \"wh_word\": \"which\"}",
+      "original": 8,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"temporal\", \"time_anchor\"], \"hop_count\": 2, \"native_type\": \"bridge\", \"token_bin\": \"very_long\", \"wh_word\": \"other\"}",
+      "original": 8,
+      "protected": 0,
+      "kept": 4
+    },
+    {
+      "signature": "{\"dataset\": \"hotpotqa\", \"entity_bin\": \"dense_entity\", \"flags\": [\"comparison\", \"dense_entities\", \"lookup\", \"multi_entity\", \"temporal\", \"time_anchor\"], \"hop_count\": 2, \"native_type\": \"comparison\", \"token_bin\": \"long\", \"wh_word\": \"which\"}",
+      "original": 8,
+      "protected": 0,
+      "kept": 4
+    }
+  ]
+}

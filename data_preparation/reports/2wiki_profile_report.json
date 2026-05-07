@@ -1,0 +1,44 @@
+{
+  "dataset": "2wiki",
+  "num_examples": 15000,
+  "num_signatures": 410,
+  "native_type_distribution": {
+    "compositional": 6757,
+    "comparison": 4676,
+    "bridge_comparison": 3170,
+    "inference": 397
+  },
+  "hop_distribution": {
+    "2": 11830,
+    "4": 3170
+  },
+  "wh_distribution": {
+    "are": 3149,
+    "which": 2564,
+    "what": 2456,
+    "when": 1625,
+    "where": 1594,
+    "who": 1415,
+    "do": 1407,
+    "did": 268,
+    "were": 263,
+    "other": 99,
+    "does": 85,
+    "was": 75
+  },
+  "flag_distribution": {
+    "dense_entities": 9007,
+    "comparison": 7961,
+    "multi_entity": 7937,
+    "numeric": 7526,
+    "temporal": 5577,
+    "yes_no": 5247,
+    "same_attribute": 5174,
+    "verification": 5169,
+    "lookup": 5048,
+    "relation_chain": 5004,
+    "longer_hop": 3170,
+    "time_anchor": 2555
+  },
+  "recommended_target_size": 8300
+}

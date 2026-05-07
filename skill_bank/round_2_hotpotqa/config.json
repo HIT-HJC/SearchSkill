@@ -1,0 +1,16 @@
+{
+  "round_name": "round_2_hotpotqa",
+  "bank_name": "round2_skill_bank",
+  "base_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_1_singlehop/outputs/round1_skill_bank.md",
+  "samples_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples",
+  "datasets": [
+    "hotpotqa"
+  ],
+  "evolution_mode": "expansive_multihop_additions",
+  "trajectory_goal": "Use GPT-5.4 to expand B1 with strong reusable hotpot-style multihop retrieval skills before later trajectory generation and SFT.",
+  "notes": [
+    "B2 should preserve the useful B1 single-hop spine while adding bridge, comparison, and multihop verification skills supported by HotpotQA.",
+    "New multihop skills should have strict avoid conditions so they do not over-trigger on single-hop questions that B1 already handles well.",
+    "Prefer additions or targeted refinements that change search planning, evidence combination, or verification behavior in a reusable way."
+  ]
+}

@@ -1,6 +1,6 @@
 # SearchSkill Code
 
-This package contains the cleaned release version of the SearchSkill experimental pipeline. It is organized around the method stages rather than internal trial numbers, so a new user can follow the project from data preparation to the final reinforcement-learning run without cloning Search-R1 separately.
+This package contains the cleaned release version of the SearchSkill experimental pipeline. It is organized around the method stages rather than internal trial numbers, so a new user can follow the project from data preparation and SkillBank construction to supervised fine-tuning, reinforcement learning, evaluation, and analysis.
 
 ## Layout
 

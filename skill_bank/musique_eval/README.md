@@ -10,5 +10,5 @@ This directory holds a lightweight evaluation pipeline for comparing
   existing Slurm allocation, one GPU per skill bank.
 
 The actual evaluator reuses
-`/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/nq_eval/eval_nq_qwen_skillbank.py`
+`skill_bank/nq_eval/eval_nq_qwen_skillbank.py`
 because the evaluation logic is dataset-agnostic.

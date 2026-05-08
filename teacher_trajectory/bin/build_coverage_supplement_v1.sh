@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory}"
+ROOT="${ROOT:-teacher_trajectory}"
 PYTHON_BIN="${PYTHON_BIN:-${PYTHON_BIN:-/path/to/conda/env/bin/python}}"
 OUTPUT_DIR="${OUTPUT_DIR:-$ROOT/runs/coverage_supplement}"
 

@@ -8,7 +8,7 @@ TOPK=3
 # —— 你的共享盘路径 ——
 SEARCHR1_ROOT="${SEARCHR1_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 DATASET_PATH="${DATASET_PATH:-$SEARCHR1_ROOT/data/${DATA_NAME}}"
-INDEX_PATH=/online1/ycsc_chenk/hitici_11/e5_data            # 内含 e5_Flat.index
+INDEX_PATH=/path/to/e5_data            # 内含 e5_Flat.index
 CORPUS_PATH="${CORPUS_PATH:-$INDEX_PATH/wiki-18jsonl}"
 MODEL_PATH="${MODEL_PATH:-${HF_MODELS:-/path/to/hf_models}/e5-base-v2}"
 

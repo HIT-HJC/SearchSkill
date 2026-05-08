@@ -1,8 +1,8 @@
 {
   "strategy": "v3_replay_plus_full_cleaned_coverage_supplement_with_closure",
-  "v3_data_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/sft_v3",
-  "supplement_run_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way",
-  "output_dir": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1",
+  "v3_data_dir": "supervised_finetuning/data/sft_v3",
+  "supplement_run_root": "teacher_trajectory/runs/coverage_supplement/teacher_run_3way",
+  "output_dir": "supervised_finetuning/data/stage1",
   "v3_train_examples": 1445,
   "v3_eval_examples": 16,
   "raw_supplement_lines": 971,
@@ -23,15 +23,15 @@
   "source_shards": {
     "shard_0": {
       "filtered_lines": 332,
-      "path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_0/trajectories.filtered.jsonl"
+      "path": "teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_0/trajectories.filtered.jsonl"
     },
     "shard_1": {
       "filtered_lines": 331,
-      "path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_1/trajectories.filtered.jsonl"
+      "path": "teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_1/trajectories.filtered.jsonl"
     },
     "shard_2": {
       "filtered_lines": 308,
-      "path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_2/trajectories.filtered.jsonl"
+      "path": "teacher_trajectory/runs/coverage_supplement/teacher_run_3way/shard_2/trajectories.filtered.jsonl"
     }
   },
   "raw_dataset_counts": {

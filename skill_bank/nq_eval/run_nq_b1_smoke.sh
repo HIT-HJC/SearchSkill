@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/nq_b0_b1"
+ROOT="eval/nq_b0_b1"
 DATA_PATH="$ROOT/data/nq_dev_sample100_seed42.jsonl"
-SCRIPT="/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/nq_eval/eval_nq_qwen_skillbank.py"
+SCRIPT="skill_bank/nq_eval/eval_nq_qwen_skillbank.py"
 MODEL_PATH="${HF_MODELS:-/path/to/hf_models}/Qwen2.5-7B-Instruct"
-B1_BANK="/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_1_singlehop/outputs/round1_skill_bank.md"
-CONDA_SH="/online1/public/support/amd/Ananconda3/2023.3/etc/profile.d/conda.sh"
-CONDA_ENV="/online1/ycsc_chenkh/hitici_11/.conda/envs/searchr1"
+B1_BANK="skill_bank/round_1_singlehop/outputs/round1_skill_bank.md"
+CONDA_SH="/path/to/conda/etc/profile.d/conda.sh"
+CONDA_ENV="/path/to/conda/envs/searchr1"
 
 mkdir -p "$ROOT/b1"
 

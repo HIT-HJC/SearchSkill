@@ -17,7 +17,7 @@
       "verbatim-evidence-span"
     ],
     "error_tag": "verifier_as_planner",
-    "trace_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/nq_b0_b1/b1/nq_b1_trace.jsonl"
+    "trace_path": "eval/nq_b0_b1/b1/nq_b1_trace.jsonl"
   },
   "processed_count": 55,
   "total_requested": 56,

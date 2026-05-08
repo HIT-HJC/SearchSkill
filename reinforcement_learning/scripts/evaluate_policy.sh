@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code}"
+ROOT="${ROOT:-/path/to/SearchSkill Code}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 PYTHON_BIN="${PYTHON_BIN:-${PYTHON_BIN:-/path/to/conda/env/bin/python}}"
 SLURM_JOB_ID_TARGET="${SLURM_JOB_ID_TARGET:-1313822}"
@@ -12,7 +12,7 @@ MODEL_PATH="${MODEL_PATH:-}"
 RUN_NAME="${RUN_NAME:-policy_eval_$(date +%m%d_%H%M)}"
 EVAL_ROOT="${EVAL_ROOT:-$ROOT/eval/$RUN_NAME}"
 
-RETRIEVER_HOST="${RETRIEVER_HOST:-gpu031}"
+RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
 RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
 TEMPERATURE="${TEMPERATURE:-0.0}"
 TOP_P="${TOP_P:-0.95}"

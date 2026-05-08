@@ -11,7 +11,7 @@ import pandas as pd
 
 
 DEFAULT_SKILL_BANK = Path(
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md"
+    "skill_bank/round_4_musique/outputs/final_skill_bank.md"
 )
 
 SYSTEM_PROMPT = (

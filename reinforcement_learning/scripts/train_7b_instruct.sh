@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code}"
+export ROOT="${ROOT:-/path/to/SearchSkill Code}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 export GPUS=4
 export CUDA_VISIBLE_DEVICES=0,1,2,3
@@ -22,7 +22,7 @@ export DATA_DIR="$SEARCHSKILL_ROOT"/reinforcement_learning/data/policy_7b_instru
 export LOG_DIR="$SEARCHSKILL_ROOT"/reinforcement_learning/logs
 export LR=1e-6
 export KL=0.001
-export RETRIEVER_HOST=gpu031
+export RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
 export RETRIEVER_PORT=8000
 
 cd "$ROOT"

@@ -1,12 +1,12 @@
 {
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "medium",
   "max_steps": 5,
   "retriever_host": "gpu031",
   "retriever_port": "8000",
   "shards": 3,
-  "manifest_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/shards_3way",
-  "output_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/coverage_supplement/teacher_run_3way",
+  "manifest_root": "teacher_trajectory/runs/coverage_supplement/shards_3way",
+  "output_root": "teacher_trajectory/runs/coverage_supplement/teacher_run_3way",
   "launcher": "direct_srun_wait_extend_full_1006"
 }

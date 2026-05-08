@@ -10,7 +10,7 @@ from typing import Any, Dict, Iterable, List, Sequence
 
 
 DEFAULT_SKILL_BANK_PATH = Path(
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md"
+    "skill_bank/round_4_musique/outputs/final_skill_bank.md"
 )
 
 SKILL_RE = re.compile(r"<skill>(.*?)</skill>", re.DOTALL | re.IGNORECASE)
@@ -53,18 +53,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--input-train",
         type=Path,
-        default=Path("/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1/train.jsonl"),
+        default=Path("supervised_finetuning/data/stage1/train.jsonl"),
     )
     parser.add_argument(
         "--input-eval",
         type=Path,
-        default=Path("/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1/eval.jsonl"),
+        default=Path("supervised_finetuning/data/stage1/eval.jsonl"),
     )
     parser.add_argument("--skill-bank-path", type=Path, default=DEFAULT_SKILL_BANK_PATH)
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage2"),
+        default=Path("supervised_finetuning/data/stage2"),
     )
     parser.add_argument("--max-index-desc-chars", type=int, default=180)
     parser.add_argument("--max-card-chars", type=int, default=900)

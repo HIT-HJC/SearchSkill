@@ -71,7 +71,7 @@ def main() -> None:
         "--trace",
         type=Path,
         default=Path(
-            "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/reinforcement_learning/previous_policy/"
+            "reinforcement_learning/previous_policy/"
             "runs/previous_policy_action_samples/sample_traces.jsonl"
         ),
     )
@@ -79,7 +79,7 @@ def main() -> None:
     parser.add_argument(
         "--out",
         type=Path,
-        default=Path("/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/reinforcement_learning/reward_alignment_v9_2_vs_final.jsonl"),
+        default=Path("reinforcement_learning/reward_alignment_v9_2_vs_final.jsonl"),
     )
     args = parser.parse_args()
 

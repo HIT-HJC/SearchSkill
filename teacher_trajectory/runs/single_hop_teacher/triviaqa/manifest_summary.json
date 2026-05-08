@@ -1,5 +1,5 @@
 {
-  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "skill_bank_path": "skill_bank/round_4_musique/outputs/final_skill_bank.md",
   "total_examples": 48,
   "train_datasets": [
     "triviaqa"

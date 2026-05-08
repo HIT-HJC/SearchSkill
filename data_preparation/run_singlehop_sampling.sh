@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR=""${SEARCHSKILL_ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code}"/data_preparation"
+ROOT_DIR="${ROOT_DIR:-${SEARCHSKILL_ROOT:-$(pwd)}/data_preparation}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 
 mkdir -p "${ROOT_DIR}/logs"

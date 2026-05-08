@@ -3,8 +3,8 @@ import json
 from pathlib import Path
 
 
-p3 = Path("/online1/ycsc_chenkh/hitici_11/SearchSkill/zerosearch_qwen25_3b_base_localretriever_standard_20260430/singlehop_benchmark1000/popqa/popqa_zerosearch_qwen25_3b_base_t00_categoryhard70_gpu025_g0_job1319639.trace.jsonl")
-p7 = Path("/online1/ycsc_chenkh/hitici_11/SearchSkill/zerosearch_qwen25_7b_base_localretriever_standard_20260430/singlehop_categoryhard70/popqa/popqa_zerosearch_qwen25_7b_base_t00_categoryhard70_gpu025_g0_job1319639.trace.jsonl")
+p3 = Path("outputs/zerosearch_qwen25_3b_base_localretriever_standard_20260430/singlehop_benchmark1000/popqa/popqa_zerosearch_qwen25_3b_base_t00_categoryhard70_gpu025_g0_job1319639.trace.jsonl")
+p7 = Path("outputs/zerosearch_qwen25_7b_base_localretriever_standard_20260430/singlehop_categoryhard70/popqa/popqa_zerosearch_qwen25_7b_base_t00_categoryhard70_gpu025_g0_job1319639.trace.jsonl")
 
 
 def load(path: Path):

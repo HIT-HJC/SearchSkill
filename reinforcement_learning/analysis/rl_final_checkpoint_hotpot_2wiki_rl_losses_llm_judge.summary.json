@@ -1,6 +1,6 @@
 {
-  "trace": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/reinforcement_learning/analysis/rl_step135_hotpot_2wiki_rl_losses_for_judge.jsonl",
-  "judge_out": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/reinforcement_learning/analysis/rl_step135_hotpot_2wiki_rl_losses_llm_judge.jsonl",
+  "trace": "reinforcement_learning/analysis/rl_step135_hotpot_2wiki_rl_losses_for_judge.jsonl",
+  "judge_out": "reinforcement_learning/analysis/rl_step135_hotpot_2wiki_rl_losses_llm_judge.jsonl",
   "model": "gpt-4o-mini",
   "n_examples": 28,
   "em_correct": 0,

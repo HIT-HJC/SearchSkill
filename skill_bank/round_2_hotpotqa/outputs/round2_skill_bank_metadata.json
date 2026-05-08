@@ -1,7 +1,7 @@
 {
   "generated_at_utc": "2026-04-18T16:09:29.105246+00:00",
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "high",
   "verbosity": "medium",
   "usage": {
@@ -84,6 +84,6 @@
       "reason": "Final answer validation in multihop QA must check the full chain, not only the last span, so the grounding skill should explicitly cover missing-hop failures."
     }
   ],
-  "summary_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_2_hotpotqa/artifacts/skill_expansion_summary.json",
-  "raw_response_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_2_hotpotqa/logs/b2_expand_raw_response.json"
+  "summary_path": "skill_bank/round_2_hotpotqa/artifacts/skill_expansion_summary.json",
+  "raw_response_path": "skill_bank/round_2_hotpotqa/logs/b2_expand_raw_response.json"
 }

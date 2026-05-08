@@ -2,17 +2,17 @@
 set -euo pipefail
 
 # ===== 路径都放到 online1（共享盘） =====
-file_path=~/online1/e5_data
+file_path=/path/to/e5_data
 index_file=$file_path/e5_Flat.index
 corpus_file=$file_path/wiki-18.jsonl
 
 # 本地 e5 模型目录（登录节点已预下载）
 retriever_name=e5
-retriever_path=~/online1/hf_models/e5-base-v2
+retriever_path=/path/to/hf_models/e5-base-v2
 
 # 可选：把 HF/Transformers 缓存指到共享盘（即使计算节点离线也没关系）
-export HF_HOME=~/online1/.cache/huggingface
-export TRANSFORMERS_CACHE=~/online1/.cache/huggingface/transformers
+export HF_HOME=/path/to/hf_cache
+export TRANSFORMERS_CACHE=/path/to/hf_cache/transformers
 mkdir -p "$TRANSFORMERS_CACHE"
 
 # 检查必需文件

@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
-ROOT=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory
+ROOT=teacher_trajectory
 RUN_ROOT=$ROOT/runs/coverage_supplement
 SHARD_ROOT=$RUN_ROOT/api1_remaining_after_api2/shards_3way
 OUT_ROOT=$RUN_ROOT/teacher_run_3way
 LOG_ROOT=$OUT_ROOT/logs
 PYTHON_BIN=${PYTHON_BIN:-/path/to/conda/env/bin/python}
-SKILL_BANK_PATH=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md
-OPENAI_ENV_PATH=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/config/.openai_searchskill_env
+SKILL_BANK_PATH=skill_bank/round_4_musique/outputs/final_skill_bank.md
+OPENAI_ENV_PATH=config/.openai_searchskill_env
 source "$OPENAI_ENV_PATH"
 export PYTHONUNBUFFERED=1
-export NO_PROXY="${NO_PROXY:-localhost,127.0.0.1,gpu031,gpu028}"
+export NO_PROXY="${NO_PROXY:-localhost,127.0.0.1}"
 export no_proxy="${no_proxy:-$NO_PROXY}"
 if [[ -z "${OPENAI_API_KEY:-}" ]]; then
   echo "OPENAI_API_KEY missing" >&2
@@ -19,7 +19,7 @@ fi
 cat > "$OUT_ROOT/run_config.json" <<JSON
 {
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "medium",
   "max_steps": 5,
   "retriever_host": "gpu031",
@@ -40,7 +40,7 @@ for shard_id in 0 1 2; do
     --manifest-path "$manifest" \
     --output-dir "$shard_out" \
     --skill-bank-path "$SKILL_BANK_PATH" \
-    --base-url "https://w.ciykj.cn" \
+    --base-url "https://api.openai.com/v1" \
     --model "gpt-5.4" \
     --reasoning-effort "medium" \
     --verbosity "medium" \

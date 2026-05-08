@@ -17,7 +17,7 @@
       "verbatim-evidence-span"
     ],
     "error_tag": "verifier_as_planner",
-    "trace_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/hotpot_b1_b2/b2/hotpot_b2_trace.jsonl"
+    "trace_path": "eval/hotpot_b1_b2/b2/hotpot_b2_trace.jsonl"
   },
   "processed_count": 169,
   "total_requested": 170,

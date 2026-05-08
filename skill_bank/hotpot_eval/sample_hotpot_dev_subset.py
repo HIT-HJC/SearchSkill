@@ -10,10 +10,10 @@ from typing import Any, Dict, List
 
 DEFAULT_INPUT_PATH = Path("/path/to/hf_data/data/hotpotqa/test.jsonl")
 DEFAULT_OUTPUT_PATH = Path(
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/hotpot_b1_b2/data/hotpotqa_dev_sample200_seed42.jsonl"
+    "eval/hotpot_b1_b2/data/hotpotqa_dev_sample200_seed42.jsonl"
 )
 DEFAULT_SUMMARY_PATH = Path(
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/hotpot_b1_b2/data/hotpotqa_dev_sample200_seed42_summary.json"
+    "eval/hotpot_b1_b2/data/hotpotqa_dev_sample200_seed42_summary.json"
 )
 
 

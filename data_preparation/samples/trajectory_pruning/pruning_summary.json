@@ -1,6 +1,6 @@
 {
-  "root_dir": "/online1/ycsc_chenkh/hitici_11/SearchSkill/data_preparation/samples",
-  "out_root": "/online1/ycsc_chenkh/hitici_11/SearchSkill/data_preparation/samples/trajectory_pruning",
+  "root_dir": "outputs/data_preparation/samples",
+  "out_root": "outputs/data_preparation/samples/trajectory_pruning",
   "datasets": {
     "hotpotqa": {
       "original_size": 12445,

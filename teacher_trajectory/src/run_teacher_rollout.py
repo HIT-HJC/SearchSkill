@@ -25,7 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-path", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--skill-bank-path", type=Path, required=True)
-    parser.add_argument("--base-url", type=str, default="https://w.ciykj.cn")
+    parser.add_argument("--base-url", type=str, default="https://api.openai.com/v1")
     parser.add_argument("--model", type=str, default="gpt-5.4")
     parser.add_argument("--reasoning-effort", type=str, default="xhigh")
     parser.add_argument("--verbosity", type=str, default="medium")

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code}"
+ROOT="${ROOT:-/path/to/SearchSkill Code}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 SEARCHR1_ROOT="${SEARCHR1_ROOT:-$ROOT/external/SearchR1}"
 PY="${PY:-${PYTHON_BIN:-/path/to/conda/env/bin/python}}"
@@ -15,7 +15,7 @@ RUN_NAME="${RUN_NAME:-rl_from_stage2_$(date +%m%d_%H%M)}"
 OUT_DIR="${OUT_DIR:-$ROOT/reinforcement_learning/runs/$RUN_NAME}"
 LOG_DIR="${LOG_DIR:-$ROOT/reinforcement_learning/logs}"
 
-RETRIEVER_HOST="${RETRIEVER_HOST:-gpu031}"
+RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
 RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
 TRAIN_BATCH_SIZE="${TRAIN_BATCH_SIZE:-16}"
 VAL_BATCH_SIZE="${VAL_BATCH_SIZE:-80}"
@@ -69,8 +69,8 @@ export RAY_NUM_CPUS="${RAY_NUM_CPUS:-32}"
 export RAY_NUM_GPUS="${RAY_NUM_GPUS:-$GPUS}"
 export RAY_TMPDIR="${RAY_TMPDIR:-/tmp/rlfinal_${RUN_NAME:0:24}}"
 mkdir -p "$RAY_TMPDIR"
-export NO_PROXY="${NO_PROXY:-},localhost,127.0.0.1,::1,gpu028,gpu031,gpu025"
-export no_proxy="${no_proxy:-},localhost,127.0.0.1,::1,gpu028,gpu031,gpu025"
+export NO_PROXY="${NO_PROXY:-},localhost,127.0.0.1,::1"
+export no_proxy="${no_proxy:-},localhost,127.0.0.1,::1"
 
 "$PY" -m verl.trainer.main_ppo_searchskill \
   data.train_files="$DATA_DIR/train.parquet" \

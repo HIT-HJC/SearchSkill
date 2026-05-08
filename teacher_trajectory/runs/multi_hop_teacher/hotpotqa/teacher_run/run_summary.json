@@ -1,8 +1,8 @@
 {
-  "manifest_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/hotpotqa/manifest.jsonl",
-  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "manifest_path": "teacher_trajectory/runs/multi_hop_teacher/hotpotqa/manifest.jsonl",
+  "skill_bank_path": "skill_bank/round_4_musique/outputs/final_skill_bank.md",
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "total_requested": 170,
   "processed": 170,
   "passed": 113,

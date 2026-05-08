@@ -1,6 +1,0 @@
-Requirement already satisfied: Cython in /online1/ycsc_chenkh/hitici_11/.conda/envs/searchr1/lib/python3.9/site-packages (0.29.37)
-Collecting 3
-  Downloading 3-0.0.0-py3-none-any.whl.metadata (862 bytes)
-Downloading 3-0.0.0-py3-none-any.whl (1.6 kB)
-Installing collected packages: 3
-Successfully installed 3-0.0.0

@@ -1,7 +1,7 @@
 {
   "generated_at_utc": "2026-04-18T17:28:41.454104+00:00",
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "medium",
   "verbosity": "medium",
   "usage": {
@@ -106,6 +106,6 @@
       "reason": "Improves final answer typing and makes clear that long-hop cases may need an even stronger end-stage verification."
     }
   ],
-  "summary_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/artifacts/skill_expansion_summary.json",
-  "raw_response_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/logs/b4_expand_raw_response.json"
+  "summary_path": "skill_bank/round_4_musique/artifacts/skill_expansion_summary.json",
+  "raw_response_path": "skill_bank/round_4_musique/logs/b4_expand_raw_response.json"
 }

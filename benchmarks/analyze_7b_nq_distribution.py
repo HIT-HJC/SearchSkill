@@ -136,8 +136,8 @@ def safe_answers(obj):
 
 def main():
     files = [
-        Path("/online1/ycsc_chenkh/hitici_11/SearchSkill/zerosearch_qwen25_7b_base_localretriever_standard_20260430/singlehop/nq/nq_zerosearch_qwen25_7b_base_t00_gpu031_g0_job1313825.trace.jsonl"),
-        Path("/online1/ycsc_chenkh/hitici_11/SearchSkill/zerosearch_qwen25_7b_base_localretriever_standard_20260430/singlehop/nq_resume_3117_3610/nq_zerosearch_qwen25_7b_base_t00_resume_3117_3610_gpu031_g0_job1319636.trace.jsonl"),
+        Path("outputs/zerosearch_qwen25_7b_base_localretriever_standard_20260430/singlehop/nq/nq_zerosearch_qwen25_7b_base_t00_gpu031_g0_job1313825.trace.jsonl"),
+        Path("outputs/zerosearch_qwen25_7b_base_localretriever_standard_20260430/singlehop/nq_resume_3117_3610/nq_zerosearch_qwen25_7b_base_t00_resume_3117_3610_gpu031_g0_job1319636.trace.jsonl"),
     ]
 
     rows = []

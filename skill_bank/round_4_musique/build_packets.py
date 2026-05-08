@@ -10,7 +10,7 @@ from typing import Any, Dict, Iterable, List
 
 
 DEFAULT_CONFIG = Path(
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/config.json"
+    "skill_bank/round_4_musique/config.json"
 )
 
 

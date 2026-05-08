@@ -1,7 +1,7 @@
 {
   "generated_at_utc": "2026-04-18T17:26:00.029357+00:00",
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "medium",
   "verbosity": "medium",
   "usage": {
@@ -80,6 +80,6 @@
       "reason": "Makes the dependency on prior target resolution explicit and aligns better with many 2Wiki temporal endpoints."
     }
   ],
-  "summary_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_3_2wiki/artifacts/skill_expansion_summary.json",
-  "raw_response_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_3_2wiki/logs/b3_expand_raw_response.json"
+  "summary_path": "skill_bank/round_3_2wiki/artifacts/skill_expansion_summary.json",
+  "raw_response_path": "skill_bank/round_3_2wiki/logs/b3_expand_raw_response.json"
 }

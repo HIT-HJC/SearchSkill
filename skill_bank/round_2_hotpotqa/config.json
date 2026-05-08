@@ -1,8 +1,8 @@
 {
   "round_name": "round_2_hotpotqa",
   "bank_name": "round2_skill_bank",
-  "base_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_1_singlehop/outputs/round1_skill_bank.md",
-  "samples_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples",
+  "base_bank_path": "skill_bank/round_1_singlehop/outputs/round1_skill_bank.md",
+  "samples_root": "data_preparation/samples",
   "datasets": [
     "hotpotqa"
   ],

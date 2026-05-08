@@ -1262,7 +1262,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-workers", type=int, default=6)
     parser.add_argument("--candidate-buffer-ratio", type=float, default=1.0)
     parser.add_argument("--model", default="gpt-5.4")
-    parser.add_argument("--model-base-url", default="https://w.ciykj.cn")
+    parser.add_argument("--model-base-url", default="https://api.openai.com/v1")
     parser.add_argument("--reasoning-effort", default="xhigh")
     parser.add_argument("--overwrite-existing", action="store_true")
     return parser.parse_args()

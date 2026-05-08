@@ -1,12 +1,12 @@
 {
   "strategy": "repack_stage1_full_data_as_two_stage_final_skill_bank_protocol",
-  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "skill_bank_path": "skill_bank/round_4_musique/outputs/final_skill_bank.md",
   "n_skill_bank_entries": 20,
   "max_index_desc_chars": 180,
   "max_card_chars": 900,
   "train": {
-    "input_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1/train.jsonl",
-    "output_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage2/train.jsonl",
+    "input_path": "supervised_finetuning/data/stage1/train.jsonl",
+    "output_path": "supervised_finetuning/data/stage2/train.jsonl",
     "input_rows": 3017,
     "output_rows": 3017,
     "dataset_counts": {
@@ -46,8 +46,8 @@
     }
   },
   "eval": {
-    "input_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage1/eval.jsonl",
-    "output_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/stage2/eval.jsonl",
+    "input_path": "supervised_finetuning/data/stage1/eval.jsonl",
+    "output_path": "supervised_finetuning/data/stage2/eval.jsonl",
     "input_rows": 16,
     "output_rows": 16,
     "dataset_counts": {

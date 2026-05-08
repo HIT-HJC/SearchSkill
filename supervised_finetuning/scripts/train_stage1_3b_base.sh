@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code}"
+ROOT="${ROOT:-/path/to/SearchSkill Code}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 
 cd "$SEARCHSKILL_ROOT"
@@ -29,7 +29,7 @@ export HUGGINGFACE_HUB_CACHE="${HUGGINGFACE_HUB_CACHE:-$CACHE_ROOT/hub}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$CACHE_ROOT/xdg}"
 export PYTHONUNBUFFERED=1
 export TOKENIZERS_PARALLELISM=false
-export NO_PROXY="${NO_PROXY:-localhost,127.0.0.1,::1,gpu031}"
+export NO_PROXY="${NO_PROXY:-localhost,127.0.0.1,::1}"
 export no_proxy="${no_proxy:-$NO_PROXY}"
 export GLOO_SOCKET_IFNAME=lo
 export NCCL_SOCKET_IFNAME=lo

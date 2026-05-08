@@ -5,8 +5,8 @@
     "musique": {
       "group_count": 2117,
       "representative_examples": 4188,
-      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/musique/train_sample_light.jsonl",
-      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/musique/train_sample_full.jsonl"
+      "light_path": "data_preparation/samples/musique/train_sample_light.jsonl",
+      "full_path": "data_preparation/samples/musique/train_sample_full.jsonl"
     }
   },
   "total_groups": 2117,

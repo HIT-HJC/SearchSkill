@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
 
-ROOT_DIR = Path("/online1/ycsc_chenkh/hitici_11/SearchSkill/data_preparation/samples")
+ROOT_DIR = Path("outputs/data_preparation/samples")
 DATASET_CONFIGS: Dict[str, Dict[str, Any]] = {
     "hotpotqa": {
         "cap_per_signature": 4,

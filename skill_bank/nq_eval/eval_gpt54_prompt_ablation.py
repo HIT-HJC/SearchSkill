@@ -12,7 +12,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import requests
 
-COMMON_HELPER_DIR = "/online1/ycsc_chenkh/hitici_11/SearchSkill/qwen3_8b_hotpotqa_eval_20260323"
+COMMON_HELPER_DIR = "outputs/qwen3_8b_hotpotqa_eval_20260323"
 if COMMON_HELPER_DIR not in sys.path:
     sys.path.insert(0, COMMON_HELPER_DIR)
 
@@ -27,8 +27,8 @@ from hotpotqa_eval_common import (  # noqa: E402
 )
 
 
-DEFAULT_SKILL_BANK_PATH = "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md"
-DEFAULT_BASE_URL = "https://w.ciykj.cn"
+DEFAULT_SKILL_BANK_PATH = "skill_bank/round_4_musique/outputs/final_skill_bank.md"
+DEFAULT_BASE_URL = "https://api.openai.com/v1"
 DEFAULT_MODEL = "gpt-5.4"
 
 SYSTEM_PROMPT_WITH_SKILLS = (

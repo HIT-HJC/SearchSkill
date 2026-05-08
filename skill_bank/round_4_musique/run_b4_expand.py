@@ -79,7 +79,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-meta-path", type=Path, default=DEFAULT_OUTPUT_META_PATH)
     parser.add_argument("--raw-response-path", type=Path, default=DEFAULT_RAW_RESPONSE_PATH)
     parser.add_argument("--request-path", type=Path, default=DEFAULT_REQUEST_PATH)
-    parser.add_argument("--base-url", type=str, default="https://w.ciykj.cn")
+    parser.add_argument("--base-url", type=str, default="https://api.openai.com/v1")
     parser.add_argument("--model", type=str, default="gpt-5.4")
     parser.add_argument("--reasoning-effort", type=str, default="xhigh")
     parser.add_argument("--verbosity", type=str, default="high")

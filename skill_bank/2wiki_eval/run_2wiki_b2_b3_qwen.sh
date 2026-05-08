@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/2wiki_b2_b3}"
-DATA_PATH="${DATA_PATH:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/eval/2wiki_b2_b3/data/2wiki_dev_sample200_seed42.jsonl}"
-SCRIPT="${SCRIPT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/nq_eval/eval_nq_qwen_skillbank.py}"
+ROOT="${ROOT:-eval/2wiki_b2_b3}"
+DATA_PATH="${DATA_PATH:-eval/2wiki_b2_b3/data/2wiki_dev_sample200_seed42.jsonl}"
+SCRIPT="${SCRIPT:-skill_bank/nq_eval/eval_nq_qwen_skillbank.py}"
 MODEL_PATH="${MODEL_PATH:-${HF_MODELS:-/path/to/hf_models}/Qwen2.5-7B-Instruct}"
-B2_BANK="${B2_BANK:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_2_hotpotqa/outputs/round2_skill_bank.md}"
-B3_BANK="${B3_BANK:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_3_2wiki/outputs/round3_skill_bank.md}"
-CONDA_SH="${CONDA_SH:-/online1/public/support/amd/Ananconda3/2023.3/etc/profile.d/conda.sh}"
-CONDA_ENV="${CONDA_ENV:-/online1/ycsc_chenkh/hitici_11/.conda/envs/searchr1}"
+B2_BANK="${B2_BANK:-skill_bank/round_2_hotpotqa/outputs/round2_skill_bank.md}"
+B3_BANK="${B3_BANK:-skill_bank/round_3_2wiki/outputs/round3_skill_bank.md}"
+CONDA_SH="${CONDA_SH:-/path/to/conda/etc/profile.d/conda.sh}"
+CONDA_ENV="${CONDA_ENV:-/path/to/conda/envs/searchr1}"
 RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
 RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
 SLURM_JOB_ID_TARGET="${SLURM_JOB_ID_TARGET:-1306001}"

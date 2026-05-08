@@ -1,8 +1,8 @@
 {
   "round_name": "round_1_singlehop",
   "bank_name": "round1_skill_bank",
-  "base_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/inputs/seed_skill_bank.md",
-  "samples_root": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples",
+  "base_bank_path": "skill_bank/inputs/seed_skill_bank.md",
+  "samples_root": "data_preparation/samples",
   "datasets": [
     "nq",
     "triviaqa"

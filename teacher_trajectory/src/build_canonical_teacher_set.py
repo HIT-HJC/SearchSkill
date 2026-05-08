@@ -9,12 +9,12 @@ from common import dump_json, dump_jsonl, load_jsonl
 
 
 DEFAULT_INPUT_SPECS = [
-    "stage2_hotpotqa=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/hotpotqa/teacher_run",
-    "stage2_2wiki=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/2wiki/teacher_run",
-    "stage2_musique=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/multi_hop_teacher/musique/teacher_run",
-    "stage2_nq=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/single_hop_teacher/nq/teacher_run",
-    "stage2_triviaqa=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/single_hop_teacher/triviaqa/teacher_run",
-    "pilot_final=/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final",
+    "stage2_hotpotqa=teacher_trajectory/runs/multi_hop_teacher/hotpotqa/teacher_run",
+    "stage2_2wiki=teacher_trajectory/runs/multi_hop_teacher/2wiki/teacher_run",
+    "stage2_musique=teacher_trajectory/runs/multi_hop_teacher/musique/teacher_run",
+    "stage2_nq=teacher_trajectory/runs/single_hop_teacher/nq/teacher_run",
+    "stage2_triviaqa=teacher_trajectory/runs/single_hop_teacher/triviaqa/teacher_run",
+    "pilot_final=teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final",
 ]
 
 

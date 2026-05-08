@@ -2,7 +2,7 @@
   "script": "build_manifest_coverage_supplement.py",
   "purpose": "supplemental train-only coverage manifest for teacher trajectory generation",
   "output_dir": "runs/coverage_supplement",
-  "skill_bank_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/skill_bank/round_4_musique/outputs/final_skill_bank.md",
+  "skill_bank_path": "skill_bank/round_4_musique/outputs/final_skill_bank.md",
   "seed": 20260426,
   "multihop_source": "full",
   "total_examples": 1740,
@@ -22,51 +22,51 @@
   },
   "source_stats": {
     "hotpotqa": {
-      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/hotpotqa/train_sample_light.jsonl",
-      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/hotpotqa/train_sample_full.jsonl",
+      "light_path": "data_preparation/samples/hotpotqa/train_sample_light.jsonl",
+      "full_path": "data_preparation/samples/hotpotqa/train_sample_full.jsonl",
       "loaded": 12283,
       "skipped_existing_id": 162,
       "skipped_existing_question": 0
     },
     "2wiki": {
-      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/2wiki/train_sample_light.jsonl",
-      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/2wiki/train_sample_full.jsonl",
+      "light_path": "data_preparation/samples/2wiki/train_sample_light.jsonl",
+      "full_path": "data_preparation/samples/2wiki/train_sample_full.jsonl",
       "loaded": 8110,
       "skipped_existing_id": 190,
       "skipped_existing_question": 0
     },
     "musique": {
-      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/musique/train_sample_light.jsonl",
-      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/musique/train_sample_full.jsonl",
+      "light_path": "data_preparation/samples/musique/train_sample_light.jsonl",
+      "full_path": "data_preparation/samples/musique/train_sample_full.jsonl",
       "loaded": 8385,
       "skipped_existing_id": 209,
       "skipped_existing_question": 0
     },
     "nq": {
-      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/nq/train_sample_light.jsonl",
-      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/nq/train_sample_full.jsonl",
+      "light_path": "data_preparation/samples/nq/train_sample_light.jsonl",
+      "full_path": "data_preparation/samples/nq/train_sample_full.jsonl",
       "loaded": 2944,
       "skipped_existing_id": 56,
       "skipped_existing_question": 0
     },
     "triviaqa": {
-      "light_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/triviaqa/train_sample_light.jsonl",
-      "full_path": "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/data_preparation/samples/triviaqa/train_sample_full.jsonl",
+      "light_path": "data_preparation/samples/triviaqa/train_sample_light.jsonl",
+      "full_path": "data_preparation/samples/triviaqa/train_sample_full.jsonl",
       "loaded": 2944,
       "skipped_existing_id": 56,
       "skipped_existing_question": 0
     }
   },
   "exclusion_stats": {
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory/runs/canonical_teacher_set/all/trajectories.raw.jsonl": {
+    "teacher_trajectory/runs/canonical_teacher_set/all/trajectories.raw.jsonl": {
       "exists": true,
       "rows": 757
     },
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/sft_v3/selected_trajectories.jsonl": {
+    "supervised_finetuning/data/sft_v3/selected_trajectories.jsonl": {
       "exists": true,
       "rows": 327
     },
-    "/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/supervised_finetuning/data/sft_v3_qwen2.5_7b_base/selected_trajectories.jsonl": {
+    "supervised_finetuning/data/sft_v3_qwen2.5_7b_base/selected_trajectories.jsonl": {
       "exists": true,
       "rows": 327
     }

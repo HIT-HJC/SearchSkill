@@ -1,7 +1,7 @@
 {
   "generated_at_utc": "2026-04-18T14:38:14.791184+00:00",
   "model": "gpt-5.4",
-  "base_url": "https://w.ciykj.cn",
+  "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "xhigh",
   "verbosity": "high",
   "usage": {

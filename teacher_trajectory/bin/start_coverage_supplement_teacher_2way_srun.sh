@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/online1/ycsc_chenkh/hitici_11/HJCproject/SearchSkill Code/teacher_trajectory}"
+ROOT="${ROOT:-teacher_trajectory}"
 OUT_ROOT="$ROOT/runs/coverage_supplement/teacher_run_2way"
 mkdir -p "$OUT_ROOT"
 

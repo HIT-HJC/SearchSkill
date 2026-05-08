@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="/online1/ycsc_chenkh/hitici_11/SearchSkill/data_preparation"
+ROOT_DIR="${ROOT_DIR:-${SEARCHSKILL_ROOT:-$(pwd)}/data_preparation}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 
 mkdir -p "${ROOT_DIR}/logs"
@@ -16,7 +16,7 @@ mkdir -p "${ROOT_DIR}/logs"
   --max-gpt-groups 0 \
   --candidate-buffer-ratio 1.0 \
   --model gpt-5.4 \
-  --model-base-url https://w.ciykj.cn \
+  --model-base-url "${OPENAI_BASE_URL:-https://api.openai.com/v1}" \
   --reasoning-effort xhigh \
   --overwrite-existing \
   | tee "${ROOT_DIR}/logs/run_multihop_sampling.log"

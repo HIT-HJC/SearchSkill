@@ -28,7 +28,7 @@ export HF_CACHE="/path/to/hf_cache"
 export PYTHON_BIN="/path/to/python"
 ```
 
-The scripts expect local mirrors of the original datasets. Paths inside the scripts are placeholders by design; adjust them for your dataset layout.
+The scripts expect local mirrors of the original datasets. `sample_singlehop_train.py` reads JSONL mirrors from `HF_DATA` or `--hf-data-root`; `sample_multihop_train.py` reads JSONL mirrors from `HF_DATA` and FlashRAG `.arrow` cache files from `HF_CACHE` or explicit `--hf-data-root` / `--hf-cache-root` arguments.
 
 ## Reuse Path
 
@@ -55,6 +55,8 @@ If you enable teacher-assisted grouping in `sample_multihop_train.py`, also set:
 export OPENAI_API_KEY="your_key"
 export OPENAI_BASE_URL="https://api.openai.com/v1"
 ```
+
+The model API URL may include or omit the trailing `/v1`.
 
 ## Outputs For Next Stage
 

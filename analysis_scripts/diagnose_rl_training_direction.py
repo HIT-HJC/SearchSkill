@@ -12,20 +12,20 @@ from typing import Any
 
 DATASET_PATHS = {
     "hotpotqa": (
-        "hotpot_toolstar_stage2_7b_base_gpu021_2gpu/merged/hotpot_toolstar_stage2_7b_base_gpu021_2gpu_trace.jsonl",
-        "rl_v9_base_step0060_eval7_gpu028_4gpu_rerun_0501/hotpotqa/merged/hotpotqa_trace.jsonl",
+        "sft_stage2_7b_base_eval/hotpotqa/merged/hotpotqa_trace.jsonl",
+        "rl_stage2_7b_base_eval/hotpotqa/merged/hotpotqa_trace.jsonl",
     ),
     "2wiki": (
-        "2wiki_toolstar_stage2_7b_base_gpu021_2gpu/merged/2wiki_toolstar_stage2_7b_base_gpu021_2gpu_trace.jsonl",
-        "rl_v9_base_step0060_eval7_gpu028_4gpu_rerun_0501/2wiki/merged/2wiki_trace.jsonl",
+        "sft_stage2_7b_base_eval/2wiki/merged/2wiki_trace.jsonl",
+        "rl_stage2_7b_base_eval/2wiki/merged/2wiki_trace.jsonl",
     ),
     "musique": (
-        "musique_toolstar_stage2_7b_base_gpu021_2gpu/merged/musique_toolstar_stage2_7b_base_gpu021_2gpu_trace.jsonl",
-        "rl_v9_base_step0060_eval7_gpu028_4gpu_rerun_0501/musique/merged/musique_trace.jsonl",
+        "sft_stage2_7b_base_eval/musique/merged/musique_trace.jsonl",
+        "rl_stage2_7b_base_eval/musique/merged/musique_trace.jsonl",
     ),
     "bamboogle": (
-        "bamboogle_toolstar_stage2_7b_base_gpu021_2gpu/merged/bamboogle_toolstar_stage2_7b_base_gpu021_2gpu_trace.jsonl",
-        "rl_v9_base_step0060_eval7_gpu028_4gpu_rerun_0501/bamboogle/merged/bamboogle_trace.jsonl",
+        "sft_stage2_7b_base_eval/bamboogle/merged/bamboogle_trace.jsonl",
+        "rl_stage2_7b_base_eval/bamboogle/merged/bamboogle_trace.jsonl",
     ),
 }
 

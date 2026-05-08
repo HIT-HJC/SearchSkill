@@ -45,7 +45,7 @@ export OPENAI_API_KEY="your_key"
 export OPENAI_BASE_URL="https://api.openai.com/v1"
 ```
 
-Expected model directories under `HF_MODELS` are the Qwen2.5 3B/7B base and instruct checkpoints used by the launch scripts. The retriever should expose a Search-R1-compatible `/retrieve` endpoint over HTTP.
+Expected model directories under `HF_MODELS` are the Qwen2.5 3B/7B base and instruct checkpoints used by the launch scripts. The API scripts accept `OPENAI_BASE_URL` with or without a trailing `/v1`. The retriever should expose a Search-R1-compatible `/retrieve` endpoint over HTTP.
 
 ## Quick Smoke Checks
 
@@ -103,5 +103,5 @@ PY
 
 - All known local absolute paths and private endpoint defaults have been replaced with relative paths or placeholders.
 - `.gitignore` excludes checkpoints, model binaries, caches, logs, Ray state, `wandb/`, and environment files.
-- Large JSONL data files are included for reproducibility. Some exceed GitHub's 50 MB recommendation but are below the hard 100 MB file limit.
+- Large JSONL data files are included for reproducibility. Some exceed GitHub's 50 MB recommendation but are below the hard 100 MB file limit; move them to Git LFS or an external artifact release if your publication policy requires that.
 - The vendored runtime is included so users do not need to reconstruct local runtime patches before running the SearchSkill RL trainer.

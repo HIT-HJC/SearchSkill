@@ -45,6 +45,24 @@ DATASET_SPECS = {
 }
 
 
+def apply_data_roots(hf_data_root: str, hf_cache_root: str) -> None:
+    hf_data_root = hf_data_root.rstrip("/\\")
+    hf_cache_root = hf_cache_root.rstrip("/\\")
+    for spec in DATASET_SPECS.values():
+        spec["train_paths"] = [
+            path.replace("/path/to/hf_cache", hf_cache_root).replace("/path/to/hf_data", hf_data_root)
+            for path in spec["train_paths"]
+        ]
+        spec["eval_path"] = spec["eval_path"].replace("/path/to/hf_data", hf_data_root)
+
+
+def responses_url(base_url: str) -> str:
+    base = base_url.rstrip("/")
+    if base.endswith("/v1"):
+        return f"{base}/responses"
+    return f"{base}/v1/responses"
+
+
 REASONING_LABELS = [
     "bridge_reasoning",
     "comparison_reasoning",
@@ -479,7 +497,7 @@ def build_groups(examples: list[dict[str, Any]], representatives: int, seed: int
 
 def responses_request(base_url: str, api_key: str, model: str, reasoning_effort: str, system_prompt: str, user_prompt: str) -> dict[str, Any]:
     response = requests.post(
-        f"{base_url.rstrip('/')}/v1/responses",
+        responses_url(base_url),
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
@@ -1263,6 +1281,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--candidate-buffer-ratio", type=float, default=1.0)
     parser.add_argument("--model", default="gpt-5.4")
     parser.add_argument("--model-base-url", default="https://api.openai.com/v1")
+    parser.add_argument("--hf-data-root", default=os.environ.get("HF_DATA", "/path/to/hf_data"))
+    parser.add_argument("--hf-cache-root", default=os.environ.get("HF_CACHE", "/path/to/hf_cache"))
     parser.add_argument("--reasoning-effort", default="xhigh")
     parser.add_argument("--overwrite-existing", action="store_true")
     return parser.parse_args()
@@ -1270,6 +1290,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    apply_data_roots(args.hf_data_root, args.hf_cache_root)
     ensure_dir(args.root_dir)
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     summary_path = args.root_dir / "reports" / "sampling_summary.json"

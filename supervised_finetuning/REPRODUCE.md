@@ -48,4 +48,4 @@ Use `scripts/merge_lora.py` to merge adapters into a checkpoint usable by RL:
 python supervised_finetuning/scripts/merge_lora.py --help
 ```
 
-The merged checkpoint path should be passed to RL through `MODEL_PATH`.
+By default, merging uses CPU. For a 7B checkpoint, prefer `--device cuda` when GPU memory allows. The merged checkpoint path should be passed to RL through `MODEL_PATH`.

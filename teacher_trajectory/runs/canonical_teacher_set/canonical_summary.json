@@ -7,7 +7,7 @@
     "stage2_musique": "teacher_trajectory/runs/multi_hop_teacher/musique/teacher_run",
     "stage2_nq": "teacher_trajectory/runs/single_hop_teacher/nq/teacher_run",
     "stage2_triviaqa": "teacher_trajectory/runs/single_hop_teacher/triviaqa/teacher_run",
-    "pilot_final": "teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final"
+    "pilot_final": "teacher_trajectory/runs/pilot_public_v1/teacher_run_final"
   },
   "source_stats": {
     "stage2_hotpotqa": {
@@ -56,7 +56,7 @@
       "runtime_error_latest_rows": 0
     },
     "pilot_final": {
-      "input_dir": "teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final",
+      "input_dir": "teacher_trajectory/runs/pilot_public_v1/teacher_run_final",
       "raw_rows": 58,
       "latest_unique_rows": 58,
       "duplicate_rows": 0,

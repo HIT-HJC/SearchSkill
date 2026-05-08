@@ -9,6 +9,8 @@ PYTHON_BIN=${PYTHON_BIN:-/path/to/conda/env/bin/python}
 SKILL_BANK_PATH=skill_bank/round_4_musique/outputs/final_skill_bank.md
 OPENAI_ENV_PATH=config/.openai_searchskill_env
 source "$OPENAI_ENV_PATH"
+RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
+RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
 export PYTHONUNBUFFERED=1
 export NO_PROXY="${NO_PROXY:-localhost,127.0.0.1}"
 export no_proxy="${no_proxy:-$NO_PROXY}"
@@ -22,8 +24,8 @@ cat > "$OUT_ROOT/run_config.json" <<JSON
   "base_url": "https://api.openai.com/v1",
   "reasoning_effort": "medium",
   "max_steps": 5,
-  "retriever_host": "gpu031",
-  "retriever_port": "8000",
+  "retriever_host": "$RETRIEVER_HOST",
+  "retriever_port": "$RETRIEVER_PORT",
   "shards": 3,
   "manifest_root": "$SHARD_ROOT",
   "output_root": "$OUT_ROOT",
@@ -49,8 +51,8 @@ for shard_id in 0 1 2; do
     --timeout-seconds 180 \
     --api-max-retries 4 \
     --api-retry-backoff 8 \
-    --retriever-host "gpu031" \
-    --retriever-port 8000 \
+    --retriever-host "$RETRIEVER_HOST" \
+    --retriever-port "$RETRIEVER_PORT" \
     --retriever-topk 3 \
     --retriever-timeout 45 \
     --max-steps 5 \

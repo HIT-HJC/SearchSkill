@@ -24,11 +24,10 @@ MAX_SAMPLES_SINGLE="${MAX_SAMPLES_SINGLE:-}"
 DATASET_ARG="${1:-all}"
 
 if [[ -z "$MODEL_PATH" ]]; then
-  if [[ -f "$ROOT/RL_v4/runs/latest_run_path.txt" ]]; then
-    LATEST_RUN="$(cat "$ROOT/RL_v4/runs/latest_run_path.txt")"
-    MODEL_PATH="$LATEST_RUN/checkpoint-step0120"
+  if [[ -f "$ROOT/reinforcement_learning/runs/latest_run_path.txt" ]]; then
+    MODEL_PATH="$(cat "$ROOT/reinforcement_learning/runs/latest_run_path.txt")"
   else
-    echo "MODEL_PATH is empty and latest_run_path.txt is missing" >&2
+    echo "MODEL_PATH is empty and reinforcement_learning/runs/latest_run_path.txt is missing" >&2
     exit 2
   fi
 fi

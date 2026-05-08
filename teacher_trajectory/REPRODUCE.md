@@ -28,19 +28,44 @@ export RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
 export PYTHON_BIN="$(command -v python)"
 ```
 
-Build manifests and run rollouts with the scripts in `src/`. Because manifest options are experiment-specific, inspect arguments first:
+Minimal runnable recipe:
 
 ```bash
-python teacher_trajectory/src/build_manifest.py --help
-python teacher_trajectory/src/run_teacher_rollout.py --help
+python teacher_trajectory/src/build_manifest.py \
+  --output-dir teacher_trajectory/runs/example/manifest \
+  --train-datasets hotpotqa \
+  --hotpot-count 20 \
+  --nq-count 0 \
+  --triviaqa-count 0 \
+  --2wiki-count 0 \
+  --musique-count 0 \
+  --failure-count 0
+
+python teacher_trajectory/src/run_teacher_rollout.py \
+  --manifest-path teacher_trajectory/runs/example/manifest/manifest.jsonl \
+  --output-dir teacher_trajectory/runs/example/rollout \
+  --skill-bank-path skill_bank/round_4_musique/outputs/final_skill_bank.md \
+  --base-url "$OPENAI_BASE_URL" \
+  --retriever-host "$RETRIEVER_HOST" \
+  --retriever-port "$RETRIEVER_PORT" \
+  --max-examples 20 \
+  --resume
 ```
 
 After rollout, merge and select canonical trajectories:
 
 ```bash
-python teacher_trajectory/src/merge_rollout_outputs.py --help
-python teacher_trajectory/src/build_canonical_teacher_set.py --help
-python teacher_trajectory/src/pack_sft.py --help
+python teacher_trajectory/src/merge_rollout_outputs.py \
+  --input-dirs teacher_trajectory/runs/example/rollout \
+  --output-dir teacher_trajectory/runs/example/merged
+
+python teacher_trajectory/src/build_canonical_teacher_set.py \
+  --input-spec example=teacher_trajectory/runs/example/merged \
+  --output-dir teacher_trajectory/runs/example/canonical
+
+python teacher_trajectory/src/pack_sft.py \
+  --filtered-path teacher_trajectory/runs/example/canonical/trajectories.filtered.jsonl \
+  --output-path teacher_trajectory/runs/example/sft/train.jsonl
 ```
 
-Use `bin/*.sh` as launch examples, not universal scripts. Replace any Slurm, API, retriever, or path settings for your environment.
+Use `bin/*.sh` as launch examples, not universal scripts. The released canonical set was assembled from the same `src/` pipeline, then filtered into `runs/canonical_teacher_set/all/trajectories.filtered.jsonl`. Replace any Slurm, API, retriever, or path settings for your environment.

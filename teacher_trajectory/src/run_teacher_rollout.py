@@ -25,7 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-path", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--skill-bank-path", type=Path, required=True)
-    parser.add_argument("--base-url", type=str, default="https://api.openai.com/v1")
+    parser.add_argument("--base-url", type=str, default=os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1"))
     parser.add_argument("--model", type=str, default="gpt-5.4")
     parser.add_argument("--reasoning-effort", type=str, default="xhigh")
     parser.add_argument("--verbosity", type=str, default="medium")
@@ -34,8 +34,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timeout-seconds", type=int, default=180)
     parser.add_argument("--api-max-retries", type=int, default=4)
     parser.add_argument("--api-retry-backoff", type=float, default=8.0)
-    parser.add_argument("--retriever-host", type=str, default="gpu031")
-    parser.add_argument("--retriever-port", type=int, default=8000)
+    parser.add_argument("--retriever-host", type=str, default=os.environ.get("RETRIEVER_HOST", "127.0.0.1"))
+    parser.add_argument("--retriever-port", type=int, default=int(os.environ.get("RETRIEVER_PORT", "8000")))
     parser.add_argument("--retriever-topk", type=int, default=3)
     parser.add_argument("--retriever-timeout", type=int, default=45)
     parser.add_argument("--max-steps", type=int, default=6)
@@ -146,7 +146,8 @@ def call_responses_api(
         ],
     }
     session = requests.Session()
-    url = base_url.rstrip("/") + "/v1/responses"
+    base = base_url.rstrip("/")
+    url = f"{base}/responses" if base.endswith("/v1") else f"{base}/v1/responses"
     last_error: Exception | None = None
     for attempt in range(1, max_retries + 1):
         try:

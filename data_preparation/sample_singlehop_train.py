@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -27,6 +28,13 @@ DATASET_SPECS: Dict[str, Dict[str, Any]] = {
         "protect_signature_freq_leq": 3,
     },
 }
+
+
+def apply_data_roots(hf_data_root: str) -> None:
+    hf_data_root = hf_data_root.rstrip("/\\")
+    for spec in DATASET_SPECS.values():
+        spec["train_path"] = spec["train_path"].replace("/path/to/hf_data", hf_data_root)
+        spec["eval_path"] = spec["eval_path"].replace("/path/to/hf_data", hf_data_root)
 
 
 WH_WORDS = [
@@ -479,8 +487,10 @@ def main() -> None:
     parser.add_argument("--root-dir", type=Path, required=True)
     parser.add_argument("--datasets", nargs="+", choices=sorted(DATASET_SPECS), required=True)
     parser.add_argument("--target-size", default="auto")
+    parser.add_argument("--hf-data-root", default=os.environ.get("HF_DATA", "/path/to/hf_data"))
     parser.add_argument("--overwrite-existing", action="store_true")
     args = parser.parse_args()
+    apply_data_roots(args.hf_data_root)
 
     root_dir = args.root_dir
     ensure_dir(root_dir)

@@ -400,6 +400,8 @@ def call_responses_api(
     max_output_tokens: int,
     timeout_seconds: int,
 ) -> Dict[str, Any]:
+    base = base_url.rstrip("/")
+    url = f"{base}/responses" if base.endswith("/v1") else f"{base}/v1/responses"
     payload = {
         "model": model,
         "store": False,
@@ -419,7 +421,7 @@ def call_responses_api(
         ],
     }
     response = requests.post(
-        base_url.rstrip("/") + "/v1/responses",
+        url,
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",

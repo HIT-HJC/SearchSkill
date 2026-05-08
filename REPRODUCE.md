@@ -11,7 +11,7 @@ export ROOT="$(pwd)"
 export SEARCHSKILL_ROOT="$ROOT"
 ```
 
-Create a Linux CUDA environment for training and evaluation. The exact package versions depend on your CUDA, PyTorch, vLLM, and cluster setup, but the repository expects Python 3.9 or 3.10, PyTorch with CUDA, HuggingFace Transformers, Datasets, pandas, pyarrow, Ray, vLLM, and the vendored VERL/Search-R1 runtime.
+Create a Linux CUDA environment for training and evaluation. The released scripts were written for Python 3.9/3.10 on Linux with CUDA GPUs, PyTorch CUDA builds, HuggingFace Transformers/Datasets, pandas, pyarrow, Ray, vLLM, and the vendored VERL/Search-R1 runtime. Windows is fine for inspecting files, but SFT/RL launch scripts expect a Linux shell and CUDA runtime.
 
 Minimum setup for data checks:
 
@@ -37,6 +37,8 @@ The repository does not include these assets:
 - Original full datasets: NQ, TriviaQA, PopQA, HotpotQA, 2Wiki, and MuSiQue mirrors.
 - API credentials: only needed when regenerating SkillBank expansions or teacher trajectories.
 
+Recommended model identifiers are `Qwen/Qwen2.5-3B`, `Qwen/Qwen2.5-3B-Instruct`, `Qwen/Qwen2.5-7B`, and `Qwen/Qwen2.5-7B-Instruct`. If you use local mirrors, keep the same directory names under `HF_MODELS`.
+
 Set the common environment:
 
 ```bash
@@ -49,6 +51,21 @@ export OPENAI_BASE_URL="https://api.openai.com/v1"
 ```
 
 Set `OPENAI_API_KEY` only for stages that call a teacher or skill-expansion model.
+
+Common variables:
+
+| Variable | Required for | Default/meaning |
+| --- | --- | --- |
+| `SEARCHSKILL_ROOT`, `ROOT` | all shell wrappers | repository root |
+| `PYTHON_BIN`, `PY` | scripts | current `python` or an explicit environment binary |
+| `HF_MODELS` | SFT/RL/eval | base model mirror root |
+| `HF_DATA`, `HF_CACHE` | data prep | dataset JSONL and HuggingFace cache roots |
+| `OPENAI_API_KEY`, `OPENAI_BASE_URL` | SkillBank and teacher regeneration | API key plus responses-compatible base URL, with or without `/v1` |
+| `RETRIEVER_HOST`, `RETRIEVER_PORT` | teacher/RL/eval | HTTP retriever endpoint, default `127.0.0.1:8000` |
+| `MODEL_PATH` | SFT merge/RL/eval | merged checkpoint or dense checkpoint |
+| `DATA_DIR`, `RUN_NAME`, `OUT_DIR`, `LOG_DIR` | RL | override wrapper defaults |
+| `CUDA_VISIBLE_DEVICES`, `GPUS`, `RAY_NUM_CPUS`, `RAY_NUM_GPUS`, `RAY_TMPDIR` | RL | hardware and Ray placement controls |
+| `SHARD_COUNT`, `GPU_IDS_CSV`, `EVAL_ROOT`, `SLURM_JOB_ID_TARGET` | evaluation | shard count, GPU list, output root, optional Slurm job |
 
 ## 3. Artifact-Reuse Path
 
@@ -83,6 +100,7 @@ python supervised_finetuning/scripts/merge_lora.py \
   --base-model-path "$HF_MODELS/Qwen2.5-7B-Instruct" \
   --adapter-path supervised_finetuning/models/stage2 \
   --output-dir supervised_finetuning/models/stage2_7b_instruct_merged \
+  --device cuda \
   --overwrite
 ```
 
@@ -92,6 +110,8 @@ python supervised_finetuning/scripts/merge_lora.py \
 export MODEL_PATH="$SEARCHSKILL_ROOT/supervised_finetuning/models/stage2_7b_instruct_merged"
 bash reinforcement_learning/scripts/train_7b_instruct.sh
 ```
+
+The backbone wrappers rebuild or refresh their matching parquet directory before training, for example `data/policy_7b_instruct`. To train from a custom prebuilt parquet directory, call `scripts/launch_training.sh` directly with `DATA_DIR`.
 
 4. Evaluate a checkpoint:
 
@@ -115,25 +135,18 @@ bash data_preparation/run_multihop_sampling.sh
 
 ```bash
 python skill_bank/round_1_singlehop/build_packets.py
-python skill_bank/round_1_singlehop/run_b1_expand.py
+python skill_bank/round_1_singlehop/run_b1_expand.py --base-url "$OPENAI_BASE_URL"
 python skill_bank/round_2_hotpotqa/build_packets.py
-python skill_bank/round_2_hotpotqa/run_b2_expand.py
+python skill_bank/round_2_hotpotqa/run_b2_expand.py --base-url "$OPENAI_BASE_URL"
 python skill_bank/round_3_2wiki/build_packets.py
-python skill_bank/round_3_2wiki/run_b3_expand.py
+python skill_bank/round_3_2wiki/run_b3_expand.py --base-url "$OPENAI_BASE_URL"
 python skill_bank/round_4_musique/build_packets.py
-python skill_bank/round_4_musique/run_b4_expand.py
+python skill_bank/round_4_musique/run_b4_expand.py --base-url "$OPENAI_BASE_URL"
 ```
 
 3. Rebuild teacher trajectories:
 
-```bash
-python teacher_trajectory/src/build_manifest.py --help
-python teacher_trajectory/src/run_teacher_rollout.py --help
-python teacher_trajectory/src/build_canonical_teacher_set.py --help
-python teacher_trajectory/src/pack_sft.py --help
-```
-
-The checked-in `bin/*.sh` scripts show the intended launch pattern, but cluster-specific Slurm options should be adjusted for your machines.
+Follow the runnable minimal recipe in `teacher_trajectory/REPRODUCE.md`. The checked-in `bin/*.sh` scripts show the intended launch pattern, but cluster-specific Slurm options should be adjusted for your machines.
 
 4. Rebuild SFT data:
 
@@ -167,7 +180,7 @@ Before publishing new changes or asking another user to reproduce:
 
 ```bash
 git status --short
-git grep -n -I -E '(/online1/|HJCproject|ycsc_|hitici_|D:\\|C:\\Users|sk-[A-Za-z0-9_-]{20,}|ghp_|hf_[A-Za-z0-9]{20,})' -- .
+git grep -n -I -E '(/your/private/path|your-internal-user|your-internal-host|[A-Z]:\\Users\\|sk-[A-Za-z0-9_-]{20,}|ghp_|hf_[A-Za-z0-9]{20,})' -- .
 python - <<'PY'
 import json
 from pathlib import Path
@@ -182,4 +195,4 @@ print("json/jsonl validation passed")
 PY
 ```
 
-The grep command should return no private local paths or secrets. It may still find ordinary experiment names such as `gpu021` inside relative output labels; those are not required for reproduction.
+Replace the placeholder scanner terms with private path, username, hostname, and job-label patterns from your own environment. The grep command should return no private local paths or secrets before release.

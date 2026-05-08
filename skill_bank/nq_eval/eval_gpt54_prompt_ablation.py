@@ -423,7 +423,8 @@ def call_responses_api(
         "input": convert_messages_for_api(messages),
     }
     session = requests.Session()
-    url = base_url.rstrip("/") + "/v1/responses"
+    base = base_url.rstrip("/")
+    url = f"{base}/responses" if base.endswith("/v1") else f"{base}/v1/responses"
     last_error: Exception | None = None
     for attempt in range(1, max_retries + 1):
         try:

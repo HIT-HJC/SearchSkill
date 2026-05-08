@@ -14,7 +14,7 @@ DEFAULT_INPUT_SPECS = [
     "stage2_musique=teacher_trajectory/runs/multi_hop_teacher/musique/teacher_run",
     "stage2_nq=teacher_trajectory/runs/single_hop_teacher/nq/teacher_run",
     "stage2_triviaqa=teacher_trajectory/runs/single_hop_teacher/triviaqa/teacher_run",
-    "pilot_final=teacher_trajectory/runs/pilot_gpu031_v1/teacher_run_final",
+    "pilot_final=teacher_trajectory/runs/pilot_public_v1/teacher_run_final",
 ]
 
 

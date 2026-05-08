@@ -34,6 +34,15 @@ python reinforcement_learning/scripts/build_policy_dataset.py \
   --output-dir reinforcement_learning/data/policy_data
 ```
 
+Backbone wrappers use these default data directories:
+
+| Wrapper | Default `DATA_DIR` |
+| --- | --- |
+| `train_3b_base.sh` | `reinforcement_learning/data/policy_3b_base` |
+| `train_3b_instruct.sh` | `reinforcement_learning/data/policy_3b_instruct` |
+| `train_7b_base.sh` | `reinforcement_learning/data/policy_7b_base` |
+| `train_7b_instruct.sh` | `reinforcement_learning/data/policy_7b_instruct` |
+
 ## Train
 
 Use a wrapper for the target backbone:
@@ -41,6 +50,8 @@ Use a wrapper for the target backbone:
 ```bash
 bash reinforcement_learning/scripts/train_7b_instruct.sh
 ```
+
+Wrappers provide defaults but respect existing environment values for `MODEL_PATH`, `DATA_DIR`, `RUN_NAME`, `OUT_DIR`, `GPUS`, `CUDA_VISIBLE_DEVICES`, and batch-size controls.
 
 Or customize:
 
@@ -60,4 +71,14 @@ MODEL_PATH="/path/to/checkpoint_or_merged_model" \
 bash reinforcement_learning/scripts/evaluate_policy.sh
 ```
 
-The evaluator expects benchmark data and a working retriever. Update dataset paths in the script if your benchmark files live elsewhere.
+The evaluator expects benchmark data and a working retriever. The default dataset paths point to checked-in files under `benchmarks/`.
+
+Examples:
+
+```bash
+MODEL_PATH="/path/to/checkpoint_or_merged_model" bash reinforcement_learning/scripts/evaluate_policy.sh singlehop
+MODEL_PATH="/path/to/checkpoint_or_merged_model" bash reinforcement_learning/scripts/evaluate_policy.sh hotpotqa
+MODEL_PATH="/path/to/checkpoint_or_merged_model" SHARD_COUNT=2 GPU_IDS_CSV=0,1 bash reinforcement_learning/scripts/evaluate_policy.sh all
+```
+
+If `MODEL_PATH` is omitted, the evaluator reads `reinforcement_learning/runs/latest_run_path.txt` when present.

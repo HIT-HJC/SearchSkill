@@ -39,13 +39,22 @@ Use checked-in parquet data:
 test -s reinforcement_learning/data/policy_7b_instruct/train.parquet
 ```
 
-Launch with:
+The backbone wrappers use their matching checked-in parquet directory, then rebuild or refresh it before training. Launch with:
 
 ```bash
 export MODEL_PATH="$SEARCHSKILL_ROOT/supervised_finetuning/models/stage2_7b_instruct_merged"
 export RETRIEVER_HOST="127.0.0.1"
 export RETRIEVER_PORT="8000"
 bash reinforcement_learning/scripts/train_7b_instruct.sh
+```
+
+To train from an already prepared custom parquet directory without using a backbone wrapper, call the configurable launcher directly:
+
+```bash
+MODEL_PATH="/path/to/model" \
+DATA_DIR="reinforcement_learning/data/policy_data" \
+RUN_NAME="my_searchskill_rl_run" \
+bash reinforcement_learning/scripts/launch_training.sh
 ```
 
 ## Regeneration Path
@@ -58,4 +67,4 @@ python reinforcement_learning/scripts/build_policy_dataset.py \
   --output-dir reinforcement_learning/data/policy_data
 ```
 
-Then launch `scripts/launch_training.sh` or a backbone-specific wrapper.
+Then launch `scripts/launch_training.sh` or a backbone-specific wrapper. Wrapper defaults are overrideable with environment variables such as `MODEL_PATH`, `DATA_DIR`, `RUN_NAME`, `OUT_DIR`, `GPUS`, and `CUDA_VISIBLE_DEVICES`.

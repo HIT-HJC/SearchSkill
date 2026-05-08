@@ -4,9 +4,8 @@ set -euo pipefail
 ROOT="${ROOT:-/path/to/SearchSkill Code}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 PYTHON_BIN="${PYTHON_BIN:-${PYTHON_BIN:-/path/to/conda/env/bin/python}}"
-SLURM_JOB_ID_TARGET="${SLURM_JOB_ID_TARGET:-1313822}"
+SLURM_JOB_ID_TARGET="${SLURM_JOB_ID_TARGET:-}"
 SCRIPT="$ROOT/skill_bank/nq_eval/eval_qwen_skillbank_v3.py"
-MERGE_SCRIPT="$ROOT/eval/hotpot_sft_full_v1_toolstar200/merge_hotpot_shards.py"
 SKILL_BANK_PATH="${SKILL_BANK_PATH:-$ROOT/skill_bank/round_4_musique/outputs/final_skill_bank.md}"
 MODEL_PATH="${MODEL_PATH:-}"
 RUN_NAME="${RUN_NAME:-policy_eval_$(date +%m%d_%H%M)}"
@@ -49,20 +48,25 @@ mkdir -p "$EVAL_ROOT"
 cd "$ROOT"
 
 preflight_retriever() {
-  srun --jobid "$SLURM_JOB_ID_TARGET" --overlap --ntasks=1 --cpus-per-task=2 --cpu-bind=none \
+  if [[ -n "$SLURM_JOB_ID_TARGET" ]] && command -v srun >/dev/null 2>&1; then
+    srun --jobid "$SLURM_JOB_ID_TARGET" --overlap --ntasks=1 --cpus-per-task=2 --cpu-bind=none \
+      env RETRIEVER_HOST="$RETRIEVER_HOST" RETRIEVER_PORT="$RETRIEVER_PORT" \
+      "$PYTHON_BIN" -c 'import os, requests; s=requests.Session(); s.trust_env=False; host=os.environ["RETRIEVER_HOST"]; port=os.environ["RETRIEVER_PORT"]; r=s.post(f"http://{host}:{port}/retrieve", json={"queries":["Barack Obama birthplace"], "topk":1, "return_scores":True}, timeout=30); r.raise_for_status(); print(f"retriever_ok host={host} status={r.status_code}")'
+  else
     env RETRIEVER_HOST="$RETRIEVER_HOST" RETRIEVER_PORT="$RETRIEVER_PORT" \
-    "$PYTHON_BIN" -c 'import os, requests; s=requests.Session(); s.trust_env=False; host=os.environ["RETRIEVER_HOST"]; port=os.environ["RETRIEVER_PORT"]; r=s.post(f"http://{host}:{port}/retrieve", json={"queries":["Barack Obama birthplace"], "topk":1, "return_scores":True}, timeout=30); r.raise_for_status(); print(f"retriever_ok host={host} status={r.status_code}")'
+      "$PYTHON_BIN" -c 'import os, requests; s=requests.Session(); s.trust_env=False; host=os.environ["RETRIEVER_HOST"]; port=os.environ["RETRIEVER_PORT"]; r=s.post(f"http://{host}:{port}/retrieve", json={"queries":["Barack Obama birthplace"], "topk":1, "return_scores":True}, timeout=30); r.raise_for_status(); print(f"retriever_ok host={host} status={r.status_code}")'
+  fi
 }
 
 data_src_for() {
   case "$1" in
-    hotpotqa) echo "$ROOT/eval/hotpot_toolstar_stage2_final_skill_bank_gpu028_4gpu/data/hotpotqa_toolstar_test200.jsonl" ;;
-    2wiki) echo "$ROOT/eval/2wiki_toolstar_stage2_final_skill_bank_gpu028_4gpu/data/2wiki_toolstar_test200.jsonl" ;;
-    musique) echo "$ROOT/eval/musique_toolstar_stage1_skillctx_two_stage_strict_gpu028_4gpu/data/musique_toolstar_test200.jsonl" ;;
-    bamboogle) echo "$ROOT/eval/bamboogle_toolstar_stage1_skillctx_two_stage_strict_gpu028_4gpu/data/bamboogle_toolstar_test125.jsonl" ;;
-    nq) echo "${HF_DATA:-/path/to/hf_data}/data/nq/test.jsonl" ;;
-    triviaqa) echo "${HF_DATA:-/path/to/hf_data}/data/triviaqa/test.jsonl" ;;
-    popqa) echo "${HF_DATA:-/path/to/hf_data}/data/popqa/test.jsonl" ;;
+    hotpotqa) echo "$ROOT/benchmarks/multihop_toolstar/hotpotqa/test.jsonl" ;;
+    2wiki) echo "$ROOT/benchmarks/multihop_toolstar/2wiki/test.jsonl" ;;
+    musique) echo "$ROOT/benchmarks/multihop_toolstar/musique/test.jsonl" ;;
+    bamboogle) echo "$ROOT/benchmarks/multihop_toolstar/bamboogle/test.jsonl" ;;
+    nq) echo "$ROOT/benchmarks/singlehop/nq/sample_1000/test.jsonl" ;;
+    triviaqa) echo "$ROOT/benchmarks/singlehop/triviaqa/sample_1000/test.jsonl" ;;
+    popqa) echo "$ROOT/benchmarks/singlehop/popqa/sample_1000/test.jsonl" ;;
     *) return 1 ;;
   esac
 }
@@ -135,9 +139,12 @@ PY
     local shard_root="$root/results/shard_${shard_id}"
     local gpu_id="${GPU_IDS[$shard_id]}"
     mkdir -p "$shard_root"
-    nohup srun --jobid "$SLURM_JOB_ID_TARGET" --overlap --ntasks=1 --cpus-per-task=8 --cpu-bind=none \
-      env CUDA_VISIBLE_DEVICES="$gpu_id" TOKENIZERS_PARALLELISM=false \
-      "$PYTHON_BIN" "$SCRIPT" \
+    local launch_prefix=()
+    if [[ -n "$SLURM_JOB_ID_TARGET" ]] && command -v srun >/dev/null 2>&1; then
+      launch_prefix=(srun --jobid "$SLURM_JOB_ID_TARGET" --overlap --ntasks=1 --cpus-per-task=8 --cpu-bind=none)
+    fi
+    nohup "${launch_prefix[@]}" env CUDA_VISIBLE_DEVICES="$gpu_id" TOKENIZERS_PARALLELISM=false \
+        "$PYTHON_BIN" "$SCRIPT" \
         --data-path "$shard_path" \
         --dataset-tag "$dataset_tag" \
         --skill-bank-path "$SKILL_BANK_PATH" \
@@ -156,7 +163,7 @@ PY
         --strict-em-only \
         --skill-context-mode ids \
         --trust-remote-code \
-      > "$shard_root/launcher.out" 2>&1 < /dev/null &
+        > "$shard_root/launcher.out" 2>&1 < /dev/null &
     pids+=("$!")
     echo "launched ${dataset_tag} shard_${shard_id} on CUDA_VISIBLE_DEVICES=${gpu_id}"
   done
@@ -172,12 +179,55 @@ PY
     exit 3
   fi
 
-  "$PYTHON_BIN" "$MERGE_SCRIPT" \
-    --input-dir "$root/results" \
-    --output-jsonl "$root/merged/${dataset_tag}_trace.jsonl" \
-    --output-json "$root/merged/${dataset_tag}_trace.json" \
-    --summary-json "$root/merged/${dataset_tag}_summary.json" \
-    --source-data-path "$data_path"
+  RESULT_ROOT="$root/results" DATA_PATH="$data_path" DATASET_TAG="$dataset_tag" MERGED_ROOT="$root/merged" \
+    "$PYTHON_BIN" - <<'PY'
+import json
+import os
+from pathlib import Path
+
+result_root = Path(os.environ["RESULT_ROOT"])
+data_path = Path(os.environ["DATA_PATH"])
+dataset_tag = os.environ["DATASET_TAG"]
+merged_root = Path(os.environ["MERGED_ROOT"])
+merged_root.mkdir(parents=True, exist_ok=True)
+
+records = []
+summaries = []
+for shard_dir in sorted(result_root.glob("shard_*")):
+    trace_jsonl = shard_dir / "trace.jsonl"
+    if trace_jsonl.exists():
+        with trace_jsonl.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if line.strip():
+                    records.append(json.loads(line))
+    summary_path = shard_dir / "summary.json"
+    if summary_path.exists():
+        summaries.append(json.loads(summary_path.read_text(encoding="utf-8")))
+
+out_jsonl = merged_root / f"{dataset_tag}_trace.jsonl"
+with out_jsonl.open("w", encoding="utf-8") as handle:
+    for record in records:
+        handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+(merged_root / f"{dataset_tag}_trace.json").write_text(
+    json.dumps(records, ensure_ascii=False, indent=2),
+    encoding="utf-8",
+)
+n_examples = sum(int(item.get("n_examples", 0)) for item in summaries) or len(records)
+n_correct = sum(int(item.get("n_correct", 0)) for item in summaries)
+summary = {
+    "dataset": dataset_tag,
+    "data_path": str(data_path),
+    "n_examples": n_examples,
+    "n_correct": n_correct,
+    "em": n_correct / max(1, n_examples),
+    "shard_summaries": summaries,
+}
+(merged_root / f"{dataset_tag}_summary.json").write_text(
+    json.dumps(summary, ensure_ascii=False, indent=2),
+    encoding="utf-8",
+)
+PY
 
   "$PYTHON_BIN" - <<PY
 import json

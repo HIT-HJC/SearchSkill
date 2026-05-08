@@ -1,30 +1,51 @@
-# Supervised Fine-Tuning
+# Reproducing Supervised Fine-Tuning
 
-This module contains the two-stage SFT setup used before reinforcement learning.
+For the full project flow, start with `../REPRODUCE.md`. This file only covers SFT.
 
-## Data
+## Stable Path
 
-- `data/stage1/`: stage-one skill-context training and evaluation messages.
-- `data/stage2/`: stage-two two-phase SkillBank training and evaluation messages.
+The SFT datasets are checked in:
 
-## Main Scripts
+```bash
+python - <<'PY'
+from pathlib import Path
+for p in [
+    "supervised_finetuning/data/stage1/train.jsonl",
+    "supervised_finetuning/data/stage2/train.jsonl",
+]:
+    if not Path(p).exists():
+        raise SystemExit(f"missing {p}")
+print("SFT data is present")
+PY
+```
 
-- `scripts/build_stage1_dataset.py`: builds stage-one data from canonical teacher trajectories.
-- `scripts/build_stage2_dataset.py`: repacks stage-one data into the two-phase SkillBank protocol.
-- `scripts/train_lora.py`: LoRA SFT trainer.
-- `scripts/merge_lora.py`: merges LoRA adapters into deployable checkpoints.
-- `scripts/train_stage1_*.sh`: stage-one training wrappers for the four target backbones.
-- `scripts/train_stage2_*.sh`: stage-two training wrappers for the four target backbones.
+## Train
 
-## Expected Model Outputs
+Set common paths:
 
-The scripts write to `supervised_finetuning/models/`, which is ignored by git. Downstream RL scripts expect merged stage-two checkpoints such as:
+```bash
+export SEARCHSKILL_ROOT="/path/to/SearchSkill Code"
+export ROOT="$SEARCHSKILL_ROOT"
+export PYTHON_BIN="$(command -v python)"
+export HF_MODELS="/path/to/hf_models"
+export HF_CACHE="/path/to/hf_cache"
+```
 
-- `supervised_finetuning/models/stage2_3b_base_merged`
-- `supervised_finetuning/models/stage2_3b_instruct_merged`
-- `supervised_finetuning/models/stage2_7b_base_merged`
-- `supervised_finetuning/models/stage2_7b_instruct_merged`
+Run the backbone-specific wrappers you need:
 
-## Replace Before Running
+```bash
+bash supervised_finetuning/scripts/train_stage1_7b_instruct.sh
+bash supervised_finetuning/scripts/train_stage2_7b_instruct.sh
+```
 
-Set `ROOT`, `SEARCHSKILL_ROOT`, `PYTHON_BIN`, `HF_MODELS`, and `HF_CACHE`. The scripts default to Qwen 2.5 3B/7B base and instruct model names under `HF_MODELS`.
+For other backbones, use the matching `train_stage*_3b_base.sh`, `train_stage*_3b_instruct.sh`, or `train_stage*_7b_base.sh` scripts.
+
+## Merge
+
+Use `scripts/merge_lora.py` to merge adapters into a checkpoint usable by RL:
+
+```bash
+python supervised_finetuning/scripts/merge_lora.py --help
+```
+
+The merged checkpoint path should be passed to RL through `MODEL_PATH`.

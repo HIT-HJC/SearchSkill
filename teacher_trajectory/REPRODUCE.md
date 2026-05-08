@@ -1,25 +1,46 @@
-# Teacher Trajectory Construction
+# Reproducing Teacher Trajectories
 
-This module builds teacher trajectories, filters them, and prepares the canonical examples used by supervised fine-tuning.
+For the full project flow, start with `../REPRODUCE.md`. This file only covers teacher trajectory generation.
 
-## Main Scripts
+## Stable Path
 
-- `src/build_manifest.py`: builds rollout manifests from sampled data.
-- `src/run_teacher_rollout.py`: calls the teacher model and records search trajectories.
-- `src/merge_rollout_outputs.py`: merges shard outputs.
-- `src/build_canonical_teacher_set.py`: builds the canonical teacher set.
-- `src/pack_sft.py`: packs trajectories into SFT-ready messages.
-- `bin/*.sh`: launch helpers for API and Slurm runs.
+Use the released canonical trajectory set:
 
-## Included Runs
+```bash
+python - <<'PY'
+from pathlib import Path
+path = Path("teacher_trajectory/runs/canonical_teacher_set/all/trajectories.filtered.jsonl")
+if not path.exists() or path.stat().st_size == 0:
+    raise SystemExit("missing canonical teacher trajectories")
+print("canonical teacher trajectories are present")
+PY
+```
 
-- `runs/canonical_teacher_set/`: selected canonical trajectories.
-- `runs/coverage_supplement/`: supplemental coverage trajectories.
-- `runs/multi_hop_teacher/`: multi-hop teacher rollouts.
-- `runs/single_hop_teacher/`: single-hop teacher rollouts.
+## Full Regeneration
 
-Failed trajectory dumps and transient logs were removed from the release package.
+Set:
 
-## Replace Before Running
+```bash
+export OPENAI_API_KEY="your_key"
+export OPENAI_BASE_URL="${OPENAI_BASE_URL:-https://api.openai.com/v1}"
+export RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
+export RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
+export PYTHON_BIN="$(command -v python)"
+```
 
-Set `OPENAI_API_KEY`, teacher model/API options, `PYTHON_BIN`, and any Slurm node or partition settings in `bin/*.sh`.
+Build manifests and run rollouts with the scripts in `src/`. Because manifest options are experiment-specific, inspect arguments first:
+
+```bash
+python teacher_trajectory/src/build_manifest.py --help
+python teacher_trajectory/src/run_teacher_rollout.py --help
+```
+
+After rollout, merge and select canonical trajectories:
+
+```bash
+python teacher_trajectory/src/merge_rollout_outputs.py --help
+python teacher_trajectory/src/build_canonical_teacher_set.py --help
+python teacher_trajectory/src/pack_sft.py --help
+```
+
+Use `bin/*.sh` as launch examples, not universal scripts. Replace any Slurm, API, retriever, or path settings for your environment.

@@ -11,6 +11,12 @@ Round goal:
 - sharpen the boundaries between medium-length multihop skills and the
   longer MuSiQue-specific decomposition skills
 
+Inputs:
+
+- `skill_bank/round_3_2wiki/outputs/round3_skill_bank.md`
+- `data_preparation/samples/musique/train_sample_light.jsonl`
+- `data_preparation/samples/musique/train_sample_full.jsonl`
+
 Expected artifacts:
 
 - `artifacts/`: grouped packets, packet summaries, intermediate GPT outputs
@@ -26,3 +32,12 @@ Planned workflow:
 4. Ask `GPT-5.4` to expand B3 with high-quality long-hop skills and
    targeted refinements
 5. Use `final_skill_bank` for later trajectory generation and SFT
+
+Reproduction commands:
+
+```bash
+python skill_bank/round_4_musique/build_packets.py
+python skill_bank/round_4_musique/run_b4_expand.py
+```
+
+`run_b4_expand.py` requires `OPENAI_API_KEY` and an OpenAI-compatible `OPENAI_BASE_URL`. The final downstream artifact is `outputs/final_skill_bank.md`.

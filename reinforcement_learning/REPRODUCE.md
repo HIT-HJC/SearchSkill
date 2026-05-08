@@ -1,27 +1,63 @@
-# Reinforcement Learning
+# Reproducing Reinforcement Learning
 
-This module contains the final SearchSkill policy optimization setup.
+For the full project flow, start with `../REPRODUCE.md`. This file only covers RL.
 
-## Data
+## Prerequisites
 
-- `source_data/policy_training_pool/`: train/dev JSONL source data for policy optimization.
-- `data/policy_3b_base/`: parquet data for the 3B base policy run.
-- `data/policy_3b_instruct/`: parquet data for the 3B instruct policy run.
-- `data/policy_7b_base/`: parquet data for the 7B base policy run.
-- `data/policy_7b_instruct/`: parquet data for the 7B instruct policy run.
+- A merged SFT checkpoint, passed as `MODEL_PATH`.
+- A live retriever endpoint at `RETRIEVER_HOST:RETRIEVER_PORT`.
+- CUDA GPUs. The default wrappers are configured for multi-GPU runs.
+- The vendored runtime installed with `python -m pip install -e external/SearchR1`.
 
-## Main Scripts
+## Check Environment
 
-- `scripts/build_policy_dataset.py`: builds VERL-compatible parquet files.
-- `scripts/launch_training.sh`: canonical RL launch script.
-- `scripts/train_3b_base.sh`, `scripts/train_3b_instruct.sh`, `scripts/train_7b_base.sh`, `scripts/train_7b_instruct.sh`: model-specific wrappers.
-- `scripts/evaluate_policy.sh`: evaluation helper.
-- `scripts/check_reward_alignment.py`: reward sanity check.
+```bash
+export SEARCHSKILL_ROOT="/path/to/SearchSkill Code"
+export ROOT="$SEARCHSKILL_ROOT"
+export PYTHON_BIN="$(command -v python)"
+export MODEL_PATH="/path/to/merged_sft_checkpoint"
+export RETRIEVER_HOST="${RETRIEVER_HOST:-127.0.0.1}"
+export RETRIEVER_PORT="${RETRIEVER_PORT:-8000}"
 
-## External Code
+bash reinforcement_learning/scripts/check_gpu.sh
+```
 
-`external/SearchR1/` is included and already contains the required SearchSkill trainer and reward code. The launch script defaults to this checkout through `SEARCHR1_ROOT`.
+## Build Or Reuse RL Data
 
-## Replace Before Running
+The repository includes parquet data for the released runs. To rebuild:
 
-Set `ROOT`, `SEARCHSKILL_ROOT`, `PYTHON_BIN`, `HF_MODELS`, `MODEL_PATH` if overriding defaults, `RETRIEVER_HOST`, and `RETRIEVER_PORT`. Policy runs require a live retriever endpoint.
+```bash
+python reinforcement_learning/scripts/build_policy_dataset.py \
+  --train-jsonl reinforcement_learning/source_data/policy_training_pool/train.jsonl \
+  --dev-jsonl reinforcement_learning/source_data/policy_training_pool/dev.jsonl \
+  --skill-bank-path skill_bank/round_4_musique/outputs/final_skill_bank.md \
+  --output-dir reinforcement_learning/data/policy_data
+```
+
+## Train
+
+Use a wrapper for the target backbone:
+
+```bash
+bash reinforcement_learning/scripts/train_7b_instruct.sh
+```
+
+Or customize:
+
+```bash
+MODEL_PATH="/path/to/model" \
+DATA_DIR="reinforcement_learning/data/policy_data" \
+RUN_NAME="my_searchskill_rl_run" \
+bash reinforcement_learning/scripts/launch_training.sh
+```
+
+Outputs go under ignored `reinforcement_learning/runs/` and `reinforcement_learning/logs/`.
+
+## Evaluate
+
+```bash
+MODEL_PATH="/path/to/checkpoint_or_merged_model" \
+bash reinforcement_learning/scripts/evaluate_policy.sh
+```
+
+The evaluator expects benchmark data and a working retriever. Update dataset paths in the script if your benchmark files live elsewhere.

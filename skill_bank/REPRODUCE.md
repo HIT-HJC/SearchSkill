@@ -1,21 +1,46 @@
-# Skill Bank
+# Reproducing SkillBank Construction
 
-This module evolves a seed SkillBank into the final SkillBank used by the two-stage policy and reinforcement-learning runs.
+For the full project flow, start with `../REPRODUCE.md`. This file only covers SkillBank construction.
 
-## Flow
+## Stable Path
 
-1. `inputs/seed_skill_bank.md`: seed skills.
-2. `round_1_singlehop/`: single-hop skill expansion.
-3. `round_2_hotpotqa/`: bridge and comparison skill expansion.
-4. `round_3_2wiki/`: multi-hop relation and disambiguation expansion.
-5. `round_4_musique/`: compositional expansion and final SkillBank export.
-
-The final artifact is:
+The final SkillBank is already included:
 
 ```bash
-skill_bank/round_4_musique/outputs/final_skill_bank.md
+test -s skill_bank/round_4_musique/outputs/final_skill_bank.md
 ```
 
-## Replace Before Running
+Downstream stages should use this file unless you intentionally rerun SkillBank evolution.
 
-Skill expansion scripts require `OPENAI_API_KEY` if closed-model expansion is used. Evaluation scripts require a local model path via `MODEL_PATH`, plus retriever host and port if retrieval is enabled.
+## Full Regeneration
+
+Set API credentials:
+
+```bash
+export OPENAI_API_KEY="your_key"
+export OPENAI_BASE_URL="${OPENAI_BASE_URL:-https://api.openai.com/v1}"
+```
+
+Run each round in order:
+
+```bash
+python skill_bank/round_1_singlehop/build_packets.py
+python skill_bank/round_1_singlehop/run_b1_expand.py
+
+python skill_bank/round_2_hotpotqa/build_packets.py
+python skill_bank/round_2_hotpotqa/run_b2_expand.py
+
+python skill_bank/round_3_2wiki/build_packets.py
+python skill_bank/round_3_2wiki/run_b3_expand.py
+
+python skill_bank/round_4_musique/build_packets.py
+python skill_bank/round_4_musique/run_b4_expand.py
+```
+
+After rerunning, compare:
+
+```bash
+git diff -- skill_bank/round_4_musique/outputs/final_skill_bank.md
+```
+
+Only commit a changed SkillBank after checking that the new skills remain stable, non-duplicative, and compatible with the two-stage SFT protocol.

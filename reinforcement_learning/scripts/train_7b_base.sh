@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export ROOT="${ROOT:-/path/to/SearchSkill Code}"
+export ROOT="${ROOT:-$(pwd)}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 export GPUS="${GPUS:-4}"
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3}"

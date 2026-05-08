@@ -25,22 +25,22 @@ from tqdm import tqdm
 DATASET_SPECS = {
     "hotpotqa": {
         "train_paths": [
-            "/path/to/hf_cache/datasets/RUC-NLPIR___flash_rag_datasets/hotpotqa/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train-00000-of-00002.arrow",
-            "/path/to/hf_cache/datasets/RUC-NLPIR___flash_rag_datasets/hotpotqa/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train-00001-of-00002.arrow",
+            "__HF_CACHE_ROOT__/datasets/RUC-NLPIR___flash_rag_datasets/hotpotqa/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train-00000-of-00002.arrow",
+            "__HF_CACHE_ROOT__/datasets/RUC-NLPIR___flash_rag_datasets/hotpotqa/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train-00001-of-00002.arrow",
         ],
-        "eval_path": "/path/to/hf_data/data/hotpotqa/test.jsonl",
+        "eval_path": "__HF_DATA_ROOT__/data/hotpotqa/test.jsonl",
     },
     "2wiki": {
         "train_paths": [
-            "/path/to/hf_cache/datasets/RUC-NLPIR___flash_rag_datasets/2wikimultihopqa/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train.arrow",
+            "__HF_CACHE_ROOT__/datasets/RUC-NLPIR___flash_rag_datasets/2wikimultihopqa/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train.arrow",
         ],
-        "eval_path": "/path/to/hf_data/data/2wiki/test.jsonl",
+        "eval_path": "__HF_DATA_ROOT__/data/2wiki/test.jsonl",
     },
     "musique": {
         "train_paths": [
-            "/path/to/hf_cache/datasets/RUC-NLPIR___flash_rag_datasets/musique/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train.arrow",
+            "__HF_CACHE_ROOT__/datasets/RUC-NLPIR___flash_rag_datasets/musique/0.0.0/bcafb8dd07d453be3cbeeeb3f78be1841bddf92c/flash_rag_datasets-train.arrow",
         ],
-        "eval_path": "/path/to/hf_data/data/musique/test.jsonl",
+        "eval_path": "__HF_DATA_ROOT__/data/musique/test.jsonl",
     },
 }
 
@@ -50,10 +50,10 @@ def apply_data_roots(hf_data_root: str, hf_cache_root: str) -> None:
     hf_cache_root = hf_cache_root.rstrip("/\\")
     for spec in DATASET_SPECS.values():
         spec["train_paths"] = [
-            path.replace("/path/to/hf_cache", hf_cache_root).replace("/path/to/hf_data", hf_data_root)
+            path.replace("__HF_CACHE_ROOT__", hf_cache_root).replace("__HF_DATA_ROOT__", hf_data_root)
             for path in spec["train_paths"]
         ]
-        spec["eval_path"] = spec["eval_path"].replace("/path/to/hf_data", hf_data_root)
+        spec["eval_path"] = spec["eval_path"].replace("__HF_DATA_ROOT__", hf_data_root)
 
 
 def responses_url(base_url: str) -> str:
@@ -1281,8 +1281,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--candidate-buffer-ratio", type=float, default=1.0)
     parser.add_argument("--model", default="gpt-5.4")
     parser.add_argument("--model-base-url", default="https://api.openai.com/v1")
-    parser.add_argument("--hf-data-root", default=os.environ.get("HF_DATA", "/path/to/hf_data"))
-    parser.add_argument("--hf-cache-root", default=os.environ.get("HF_CACHE", "/path/to/hf_cache"))
+    parser.add_argument("--hf-data-root", default=os.environ.get("HF_DATA", "__HF_DATA_ROOT__"))
+    parser.add_argument("--hf-cache-root", default=os.environ.get("HF_CACHE", "__HF_CACHE_ROOT__"))
     parser.add_argument("--reasoning-effort", default="xhigh")
     parser.add_argument("--overwrite-existing", action="store_true")
     return parser.parse_args()

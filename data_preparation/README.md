@@ -22,10 +22,10 @@ This stage builds and documents the sampled training pools used by SearchSkill. 
 Set these variables before rerunning:
 
 ```bash
-export SEARCHSKILL_ROOT="/path/to/SearchSkill Code"
-export HF_DATA="/path/to/hf_data"
-export HF_CACHE="/path/to/hf_cache"
-export PYTHON_BIN="/path/to/python"
+export SEARCHSKILL_ROOT="$(pwd)"
+export HF_DATA="<hf_data_root>"
+export HF_CACHE="<hf_cache_root>"
+export PYTHON_BIN="$(command -v python)"
 ```
 
 The scripts expect local mirrors of the original datasets. `sample_singlehop_train.py` reads JSONL mirrors from `HF_DATA` or `--hf-data-root`; `sample_multihop_train.py` reads JSONL mirrors from `HF_DATA` and FlashRAG `.arrow` cache files from `HF_CACHE` or explicit `--hf-data-root` / `--hf-cache-root` arguments.

@@ -1,31 +1,35 @@
 # Benchmarks
 
-This folder contains fixed benchmark subsets and utilities used to evaluate SearchSkill policies.
+This directory only contains JSONL test files used for quick public evaluation.
 
-## Contents
-
-- `singlehop/`: NQ, TriviaQA, and PopQA benchmark subsets plus sample indices.
-- `multihop_toolstar/`: multi-hop evaluation files for HotpotQA, 2Wiki, MuSiQue, and Bamboogle.
-- `sample_1000_manifest.json`: provenance for the 1,000-example single-hop subsets.
-- `resample_*.py`: utilities for rebuilding benchmark subsets from local dataset mirrors.
-- `analyze_*.py` and `compare_*.py`: distribution and comparison scripts for evaluation outputs.
-
-## Reuse Path
-
-The checked-in benchmark files are ready to use with the evaluation scripts. They do not require regeneration.
-
-## Regeneration Path
-
-Provide a local dataset mirror and run the relevant resampling script, for example:
-
-```bash
-python benchmarks/resample_singlehop_balanced_harder.py \
-  --data-root "$HF_DATA/data" \
-  --output-root benchmarks/singlehop
+```text
+benchmarks/
+  dev/
+    nq.jsonl
+    triviaqa.jsonl
+    popqa.jsonl
+    hotpotqa.jsonl
+    2wiki.jsonl
+    musique.jsonl
+    bamboogle.jsonl
+  full/
+    nq.jsonl
+    triviaqa.jsonl
+    popqa.jsonl
+    hotpotqa.jsonl
+    2wiki.jsonl
+    musique.jsonl
+    bamboogle.jsonl
 ```
 
-Do not commit temporary backups or ad-hoc output folders. Keep new benchmark manifests if you intentionally change the benchmark set.
+Run dev tests:
 
-## Notes
+```bash
+MODEL_PATH="<model_or_checkpoint>" BENCHMARK_SPLIT=dev bash reinforcement_learning/scripts/evaluate_policy.sh nq
+```
 
-Some analysis scripts contain relative paths to expected evaluation outputs under `outputs/` or `eval/`. Update those paths to match your run directory before using them.
+Run full tests:
+
+```bash
+MODEL_PATH="<model_or_checkpoint>" BENCHMARK_SPLIT=full bash reinforcement_learning/scripts/evaluate_policy.sh all
+```

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/path/to/SearchSkill Code}"
+ROOT="${ROOT:-$(pwd)}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
-SEARCHR1_ROOT="${SEARCHR1_ROOT:-$ROOT/external/SearchR1}"
-PY="${PY:-${PYTHON_BIN:-/path/to/conda/env/bin/python}}"
+RUNTIME_ROOT="${RUNTIME_ROOT:-$ROOT/external/runtime}"
+PY="${PY:-${PYTHON_BIN:-python}}"
 
 MODEL_PATH="${MODEL_PATH:-$ROOT/supervised_finetuning/models/stage2_7b_instruct_merged}"
 TRAIN_JSONL="${TRAIN_JSONL:-$ROOT/reinforcement_learning/source_data/policy_training_pool/train.jsonl}"
@@ -49,8 +49,14 @@ mkdir -p "$DATA_DIR" "$OUT_DIR" "$LOG_DIR"
   --skill-bank-path "$SKILL_BANK_PATH" \
   --output-dir "$DATA_DIR" | tee "$OUT_DIR/data_build.log"
 
-cd "$SEARCHR1_ROOT"
-export PYTHONPATH="$SEARCHR1_ROOT:${PYTHONPATH:-}"
+if [[ ! -d "$RUNTIME_ROOT" ]]; then
+  echo "RUNTIME_ROOT does not exist: $RUNTIME_ROOT" >&2
+  echo "Install your RL runtime there or set RUNTIME_ROOT to its path. See external/README.md." >&2
+  exit 2
+fi
+
+cd "$RUNTIME_ROOT"
+export PYTHONPATH="$RUNTIME_ROOT:${PYTHONPATH:-}"
 export SEARCHSKILL_SKILL_BANK_PATH="$SKILL_BANK_PATH"
 export TOKENIZERS_PARALLELISM=false
 export VLLM_ATTENTION_BACKEND=XFORMERS

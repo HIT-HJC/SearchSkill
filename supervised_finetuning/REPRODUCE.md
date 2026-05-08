@@ -24,11 +24,11 @@ PY
 Set common paths:
 
 ```bash
-export SEARCHSKILL_ROOT="/path/to/SearchSkill Code"
+export SEARCHSKILL_ROOT="$(pwd)"
 export ROOT="$SEARCHSKILL_ROOT"
 export PYTHON_BIN="$(command -v python)"
-export HF_MODELS="/path/to/hf_models"
-export HF_CACHE="/path/to/hf_cache"
+export HF_MODELS="<hf_model_root>"
+export HF_CACHE="<hf_cache_root>"
 ```
 
 Run the backbone-specific wrappers you need:

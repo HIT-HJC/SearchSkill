@@ -26,9 +26,9 @@ PY
 ## Full Regeneration
 
 ```bash
-export SEARCHSKILL_ROOT="/path/to/SearchSkill Code"
-export HF_DATA="/path/to/hf_data"
-export HF_CACHE="/path/to/hf_cache"
+export SEARCHSKILL_ROOT="$(pwd)"
+export HF_DATA="<hf_data_root>"
+export HF_CACHE="<hf_cache_root>"
 export PYTHON_BIN="$(command -v python)"
 
 python -m pip install -r data_preparation/requirements.txt

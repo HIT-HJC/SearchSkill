@@ -256,7 +256,7 @@ def build_rollout_prompts(
     latest_information: str,
 ) -> tuple[str, str]:
     system_prompt = (
-        "You are an expert retrieval teacher generating high-quality executable supervision traces for a smaller Search-R1 student. "
+        "You are an expert retrieval teacher generating high-quality executable supervision traces for a smaller retrieval student. "
         "Return one JSON object only. "
         "Choose exactly one primary_skill from the provided retrieval skill bank. "
         "Support skills are optional, but they must stay secondary and never replace the main planning skill. "

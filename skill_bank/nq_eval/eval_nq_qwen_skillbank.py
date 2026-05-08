@@ -32,12 +32,12 @@ from hotpotqa_eval_common import (  # noqa: E402
 )
 
 
-DEFAULT_MODEL_PATH = "/path/to/hf_models/Qwen2.5-7B-Instruct"
+DEFAULT_MODEL_PATH = ""
 DEFAULT_DATA_PATH = "eval/nq_b0_b1/data/nq_dev_sample100_seed42.jsonl"
 DEFAULT_SKILL_BANK_PATH = "skill_bank/inputs/seed_skill_bank.md"
 
 SYSTEM_PROMPT = (
-    "You are participating in a Search-R1 style tool-use evaluation. "
+    "You are participating in a retrieval tool-use evaluation. "
     "You do not have direct access to search results. "
     "Never fabricate or simulate an <information> block yourself. "
     "If you need retrieval, emit a <search>...</search> tag and stop immediately after the first </search>. "

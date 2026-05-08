@@ -92,6 +92,6 @@
       "reason": "With more specialized retrieval skills in B1, a final grounding rule remains important to stop unsupported guesses and near-match errors."
     }
   ],
-  "summary_path": "C:\\Users\\HITSZ\\Desktop\\SearchSkill\\skill_bank\\round_1_singlehop\\artifacts\\skill_expansion_summary.json",
-  "raw_response_path": "C:\\Users\\HITSZ\\Desktop\\SearchSkill\\skill_bank\\round_1_singlehop\\logs\\b1_expand_raw_response.json"
+  "summary_path": "skill_bank/round_1_singlehop/artifacts/skill_expansion_summary.json",
+  "raw_response_path": "skill_bank/round_1_singlehop/logs/b1_expand_raw_response.json"
 }

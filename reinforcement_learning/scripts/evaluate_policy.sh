@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/path/to/SearchSkill Code}"
+ROOT="${ROOT:-$(pwd)}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
-PYTHON_BIN="${PYTHON_BIN:-${PYTHON_BIN:-/path/to/conda/env/bin/python}}"
+PYTHON_BIN="${PYTHON_BIN:-python}"
 SLURM_JOB_ID_TARGET="${SLURM_JOB_ID_TARGET:-}"
-SCRIPT="$ROOT/skill_bank/nq_eval/eval_qwen_skillbank_v3.py"
+SCRIPT="$ROOT/skill_bank/nq_eval/eval_nq_qwen_skillbank.py"
 SKILL_BANK_PATH="${SKILL_BANK_PATH:-$ROOT/skill_bank/round_4_musique/outputs/final_skill_bank.md}"
 MODEL_PATH="${MODEL_PATH:-}"
 RUN_NAME="${RUN_NAME:-policy_eval_$(date +%m%d_%H%M)}"
@@ -22,6 +22,7 @@ GPU_IDS_CSV="${GPU_IDS_CSV:-0,1,2,3}"
 MAX_SAMPLES_MULTI="${MAX_SAMPLES_MULTI:-}"
 MAX_SAMPLES_SINGLE="${MAX_SAMPLES_SINGLE:-}"
 DATASET_ARG="${1:-all}"
+BENCHMARK_SPLIT="${BENCHMARK_SPLIT:-dev}"
 
 if [[ -z "$MODEL_PATH" ]]; then
   if [[ -f "$ROOT/reinforcement_learning/runs/latest_run_path.txt" ]]; then
@@ -59,13 +60,13 @@ preflight_retriever() {
 
 data_src_for() {
   case "$1" in
-    hotpotqa) echo "$ROOT/benchmarks/multihop_toolstar/hotpotqa/test.jsonl" ;;
-    2wiki) echo "$ROOT/benchmarks/multihop_toolstar/2wiki/test.jsonl" ;;
-    musique) echo "$ROOT/benchmarks/multihop_toolstar/musique/test.jsonl" ;;
-    bamboogle) echo "$ROOT/benchmarks/multihop_toolstar/bamboogle/test.jsonl" ;;
-    nq) echo "$ROOT/benchmarks/singlehop/nq/sample_1000/test.jsonl" ;;
-    triviaqa) echo "$ROOT/benchmarks/singlehop/triviaqa/sample_1000/test.jsonl" ;;
-    popqa) echo "$ROOT/benchmarks/singlehop/popqa/sample_1000/test.jsonl" ;;
+    hotpotqa) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/hotpotqa.jsonl" ;;
+    2wiki) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/2wiki.jsonl" ;;
+    musique) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/musique.jsonl" ;;
+    bamboogle) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/bamboogle.jsonl" ;;
+    nq) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/nq.jsonl" ;;
+    triviaqa) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/triviaqa.jsonl" ;;
+    popqa) echo "$ROOT/benchmarks/$BENCHMARK_SPLIT/popqa.jsonl" ;;
     *) return 1 ;;
   esac
 }

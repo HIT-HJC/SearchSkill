@@ -54,7 +54,7 @@ MULTIHOP_DATASETS = {"hotpotqa", "2wiki", "musique"}
 SINGLEHOP_DATASETS = {"nq", "triviaqa"}
 
 SYSTEM_PROMPT = (
-    "You are participating in a Search-R1 style tool-use evaluation. "
+    "You are participating in a retrieval tool-use evaluation. "
     "You do not have direct access to search results. "
     "Never fabricate or simulate an <information> block yourself. "
     "If you need retrieval, emit a <search>...</search> tag and stop immediately after the first </search>. "
@@ -101,7 +101,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=20260420)
     parser.add_argument("--eval-count", type=int, default=32)
-    parser.add_argument("--format-style", choices=("json_action", "searchr1_tags"), default="searchr1_tags")
+    parser.add_argument("--format-style", choices=("json_action", "retrieval_tags"), default="retrieval_tags")
     parser.add_argument("--sampling-profile", choices=("focus_dataset", "benchmark_balanced_v2"), default="focus_dataset")
     parser.add_argument("--max-retrieved-chars", type=int, default=4000)
     parser.add_argument("--focus-dataset", type=str, default="hotpotqa")
@@ -264,7 +264,7 @@ def extract_step_answer(step: Dict[str, Any], row: Dict[str, Any]) -> str:
     return (row.get("final_answer") or "").strip()
 
 
-def render_searchr1_turn(step: Dict[str, Any], row: Dict[str, Any], max_skill_tags: int) -> str:
+def render_retrieval_turn(step: Dict[str, Any], row: Dict[str, Any], max_skill_tags: int) -> str:
     skill_text = "|".join(select_skill_tags(step, max_skill_tags))
     action = normalized_teacher_action(step)
     if action == "search":
@@ -322,7 +322,7 @@ def build_messages(
         },
     ]
     for step in row.get("steps") or []:
-        messages.append({"role": "assistant", "content": render_searchr1_turn(step, row, max_skill_tags)})
+        messages.append({"role": "assistant", "content": render_retrieval_turn(step, row, max_skill_tags)})
         retrieved = (step.get("retrieved") or "").strip()
         if retrieved:
             messages.append(

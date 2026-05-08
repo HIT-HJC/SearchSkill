@@ -27,7 +27,7 @@ def parse_args() -> argparse.Namespace:
         action="append",
         dest="input_specs",
         default=[],
-        help="Input source as label=/absolute/path/to/teacher_run. Can be repeated.",
+        help="Input source as label=<teacher_run_dir>. Can be repeated.",
     )
     parser.add_argument("--output-dir", type=Path, required=True)
     return parser.parse_args()

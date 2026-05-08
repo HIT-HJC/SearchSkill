@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/path/to/SearchSkill Code}"
+ROOT="${ROOT:-$(pwd)}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 
 cd "$SEARCHSKILL_ROOT"
@@ -30,11 +30,11 @@ export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 export MASTER_ADDR=127.0.0.1
 export MASTER_PORT="${MASTER_PORT:-29729}"
 
-exec ${PYTHON_BIN:-/path/to/conda/env/bin/python} -m torch.distributed.run \
+exec ${PYTHON_BIN:-python} -m torch.distributed.run \
   --nproc_per_node="${NPROC_PER_NODE:-4}" \
   --master_port "$MASTER_PORT" \
   "$SEARCHSKILL_ROOT"/supervised_finetuning/scripts/train_lora.py \
-  --model-path ${HF_MODELS:-/path/to/hf_models}/Qwen2.5-7B-Instruct \
+  --model-path ${HF_MODELS:?Set HF_MODELS to your local model root}/Qwen2.5-7B-Instruct \
   --init-adapter-path "$SEARCHSKILL_ROOT"/supervised_finetuning/models/stage1 \
   --train-path "$TRAIN_PATH" \
   --eval-path "$EVAL_PATH" \

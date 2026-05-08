@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/path/to/SearchSkill Code}"
+ROOT="${ROOT:-$(pwd)}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 
 cd "$SEARCHSKILL_ROOT"
@@ -16,7 +16,7 @@ fi
 
 test -s "$TRAIN_PATH"
 test -s "$EVAL_PATH"
-test -s ${HF_MODELS:-/path/to/hf_models}/Qwen2.5-7B/config.json
+test -s ${HF_MODELS:?Set HF_MODELS to your local model root}/Qwen2.5-7B/config.json
 mkdir -p "$MODEL_DIR"
 
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1}"
@@ -30,11 +30,11 @@ export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 export MASTER_ADDR=127.0.0.1
 export MASTER_PORT="${MASTER_PORT:-29761}"
 
-exec ${PYTHON_BIN:-/path/to/conda/env/bin/python} -m torch.distributed.run \
+exec ${PYTHON_BIN:-python} -m torch.distributed.run \
   --nproc_per_node="${NPROC_PER_NODE:-2}" \
   --master_port "$MASTER_PORT" \
   "$SEARCHSKILL_ROOT"/supervised_finetuning/scripts/train_lora.py \
-  --model-path ${HF_MODELS:-/path/to/hf_models}/Qwen2.5-7B \
+  --model-path ${HF_MODELS:?Set HF_MODELS to your local model root}/Qwen2.5-7B \
   --train-path "$TRAIN_PATH" \
   --eval-path "$EVAL_PATH" \
   --output-dir "$MODEL_DIR" \

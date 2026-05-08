@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/path/to/SearchSkill Code}"
+ROOT="${ROOT:-$(pwd)}"
 export SEARCHSKILL_ROOT="${SEARCHSKILL_ROOT:-$ROOT}"
 
 cd "$SEARCHSKILL_ROOT"
@@ -10,8 +10,8 @@ MODEL_DIR="$SEARCHSKILL_ROOT"/supervised_finetuning/models/stage2_3b_base
 INIT_ADAPTER="$SEARCHSKILL_ROOT"/supervised_finetuning/models/stage1_3b_base
 TRAIN_PATH="$SEARCHSKILL_ROOT"/supervised_finetuning/data/stage2/train.jsonl
 EVAL_PATH="$SEARCHSKILL_ROOT"/supervised_finetuning/data/stage2/eval.jsonl
-BASE_MODEL=${HF_MODELS:-/path/to/hf_models}/Qwen2.5-3B
-CACHE_ROOT=${HF_CACHE:-/path/to/hf_cache}
+BASE_MODEL=${HF_MODELS:?Set HF_MODELS to your local model root}/Qwen2.5-3B
+CACHE_ROOT=${HF_CACHE:?Set HF_CACHE to your local cache root}
 
 if [[ "${CLEAN_MODEL_DIR:-0}" == "1" ]]; then
   rm -rf "$MODEL_DIR"
@@ -42,7 +42,7 @@ export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:T
 export MASTER_ADDR=127.0.0.1
 export MASTER_PORT="${MASTER_PORT:-29764}"
 
-exec ${PYTHON_BIN:-/path/to/conda/env/bin/python} -m torch.distributed.run \
+exec ${PYTHON_BIN:-python} -m torch.distributed.run \
   --nproc_per_node="${NPROC_PER_NODE:-2}" \
   --master_port "$MASTER_PORT" \
   "$SEARCHSKILL_ROOT"/supervised_finetuning/scripts/train_lora.py \

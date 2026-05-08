@@ -14,15 +14,15 @@ from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
 DATASET_SPECS: Dict[str, Dict[str, Any]] = {
     "nq": {
-        "train_path": "/path/to/hf_data/data/nq/train.jsonl",
-        "eval_path": "/path/to/hf_data/data/nq/test.jsonl",
+        "train_path": "__HF_DATA_ROOT__/data/nq/train.jsonl",
+        "eval_path": "__HF_DATA_ROOT__/data/nq/test.jsonl",
         "default_target_size": 3000,
         "cap_per_signature": 12,
         "protect_signature_freq_leq": 3,
     },
     "triviaqa": {
-        "train_path": "/path/to/hf_data/data/triviaqa/train.jsonl",
-        "eval_path": "/path/to/hf_data/data/triviaqa/test.jsonl",
+        "train_path": "__HF_DATA_ROOT__/data/triviaqa/train.jsonl",
+        "eval_path": "__HF_DATA_ROOT__/data/triviaqa/test.jsonl",
         "default_target_size": 3000,
         "cap_per_signature": 12,
         "protect_signature_freq_leq": 3,
@@ -33,8 +33,8 @@ DATASET_SPECS: Dict[str, Dict[str, Any]] = {
 def apply_data_roots(hf_data_root: str) -> None:
     hf_data_root = hf_data_root.rstrip("/\\")
     for spec in DATASET_SPECS.values():
-        spec["train_path"] = spec["train_path"].replace("/path/to/hf_data", hf_data_root)
-        spec["eval_path"] = spec["eval_path"].replace("/path/to/hf_data", hf_data_root)
+        spec["train_path"] = spec["train_path"].replace("__HF_DATA_ROOT__", hf_data_root)
+        spec["eval_path"] = spec["eval_path"].replace("__HF_DATA_ROOT__", hf_data_root)
 
 
 WH_WORDS = [
@@ -487,7 +487,7 @@ def main() -> None:
     parser.add_argument("--root-dir", type=Path, required=True)
     parser.add_argument("--datasets", nargs="+", choices=sorted(DATASET_SPECS), required=True)
     parser.add_argument("--target-size", default="auto")
-    parser.add_argument("--hf-data-root", default=os.environ.get("HF_DATA", "/path/to/hf_data"))
+    parser.add_argument("--hf-data-root", default=os.environ.get("HF_DATA", "__HF_DATA_ROOT__"))
     parser.add_argument("--overwrite-existing", action="store_true")
     args = parser.parse_args()
     apply_data_roots(args.hf_data_root)

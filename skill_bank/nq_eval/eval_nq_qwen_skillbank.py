@@ -330,14 +330,23 @@ def extract_prediction_from_trace(full_transcript: str, final_turn_output: str) 
     return extract_answer_from_output(final_turn_output)
 
 
-def build_initial_prompt(question: str, skill_bank_text: str, available_skill_ids: Sequence[str]) -> str:
+def build_initial_prompt(
+    question: str,
+    skill_bank_text: str,
+    available_skill_ids: Sequence[str],
+    *,
+    recommend_skills: bool,
+) -> str:
     value = question.strip()
     if value and not value.endswith("?"):
         value += "?"
+    recommended_skills = "(none)"
+    if recommend_skills:
+        recommended_skills = ", ".join(select_initial_skills(value, available_skill_ids)) or "(none)"
     return USER_PROMPT_TEMPLATE.format(
         question=value,
         skill_bank=skill_bank_text,
-        recommended_skills=", ".join(select_initial_skills(value, available_skill_ids)) or "(none)",
+        recommended_skills=recommended_skills,
     )
 
 
@@ -391,7 +400,15 @@ def evaluate_example(
 ) -> Tuple[str, List[Dict[str, Any]]]:
     messages: List[Dict[str, str]] = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": build_initial_prompt(question, skill_bank_text, available_skill_ids)},
+        {
+            "role": "user",
+            "content": build_initial_prompt(
+                question,
+                skill_bank_text,
+                available_skill_ids,
+                recommend_skills=args.recommend_skills,
+            ),
+        },
     ]
     trace_steps: List[Dict[str, Any]] = []
     assistant_transcript = ""
@@ -491,6 +508,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--disable-thinking", action="store_true")
     parser.add_argument("--max-samples", type=int, default=None)
     parser.add_argument("--print-every", type=int, default=10)
+    parser.add_argument(
+        "--recommend-skills",
+        action="store_true",
+        help="Enable rule-based recommended skill hints in the prompt. Leave disabled for clean SkillBank evaluation.",
+    )
     return parser.parse_args()
 
 
@@ -553,6 +575,7 @@ def main() -> None:
                 "skill_bank_path": args.skill_bank_path,
                 "retriever_host": args.retriever_host,
                 "retriever_port": args.retriever_port,
+                "recommend_skills": args.recommend_skills,
             }
             records.append(record)
             fout.write(json.dumps(record, ensure_ascii=False) + "\n")

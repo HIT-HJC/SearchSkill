@@ -68,3 +68,4 @@ Review generated outputs before replacing the checked-in final SkillBank.
 - `hotpot_eval/`, `2wiki_eval/`, `musique_eval/`: round-to-round comparison helpers.
 
 These helpers require a local model path, a live retriever endpoint, and dataset-specific dev/test files.
+`nq_eval/eval_nq_qwen_skillbank.py` does not inject rule-based skill recommendations by default; pass `--recommend-skills` only for a separate routing-hint ablation.

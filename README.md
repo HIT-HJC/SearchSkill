@@ -15,6 +15,18 @@
 
 SearchSkill teaches language models to use search tools through an evolving SkillBank. This repository keeps the code and data needed to inspect the pipeline, rebuild training data, train SFT/RL policies, and evaluate on the included dev/full benchmark splits.
 
+## Main Results
+
+SearchSkill improves multi-hop exact match with the same Qwen2.5 backbones after two-stage SFT. The figures below compare against search-agent baselines on HotpotQA, 2WikiMultiHopQA, MuSiQue, and Bamboogle; `Avg.` is the macro average over these four multi-hop benchmarks.
+
+<div align="center">
+  <img src="assets/results/sft_7b_instruct_main_results.svg" alt="7B-Instruct multi-hop results" width="49%">
+  <img src="assets/results/sft_7b_base_main_results.svg" alt="7B-Base multi-hop results" width="49%">
+  <br>
+  <img src="assets/results/sft_3b_instruct_main_results.svg" alt="3B-Instruct multi-hop results" width="49%">
+  <img src="assets/results/sft_3b_base_main_results.svg" alt="3B-Base multi-hop results" width="49%">
+</div>
+
 ## Repository Layout
 
 - `data_preparation/`: sampled training data, profiling reports, and sampling scripts.

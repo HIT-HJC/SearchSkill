@@ -34,6 +34,15 @@ export RETRIEVER_HOST="127.0.0.1"
 export RETRIEVER_PORT="8000"
 ```
 
+Start the retriever before teacher rollout, RL training, or evaluation:
+
+```bash
+export E5_INDEX_PATH="<retriever_index_dir>"
+export E5_CORPUS_PATH="<retriever_corpus_jsonl>"
+export FAISS_GPU=0
+bash data_preparation/samples/trajectory_pruning/start_local_retriever.sh
+```
+
 For evaluation only, install PyTorch for your CUDA version and then:
 
 ```bash
@@ -149,7 +158,7 @@ python reinforcement_learning/scripts/build_policy_dataset.py \
   --train-jsonl reinforcement_learning/source_data/policy_training_pool/train.jsonl \
   --dev-jsonl reinforcement_learning/source_data/policy_training_pool/dev.jsonl \
   --skill-bank-path skill_bank/round_4_musique/outputs/final_skill_bank.md \
-  --output-dir reinforcement_learning/data/policy_data
+  --output-dir reinforcement_learning/data/policy_7b_instruct
 ```
 
 Train:
@@ -168,4 +177,4 @@ MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=dev bash reinforcement_learni
 MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=full bash reinforcement_learning/scripts/evaluate_policy.sh all
 ```
 
-`MODEL_PATH` can be a local dense checkpoint directory or a Hugging Face model id after the public weights are available. `BENCHMARK_SPLIT` must be `dev` or `full`. Start the retriever server first; the eval launcher defaults to one GPU and can be expanded with `SHARD_COUNT` and `GPU_IDS_CSV`.
+`MODEL_PATH` can be a local dense checkpoint directory or a released Hugging Face model id from [https://huggingface.co/HJCHJC](https://huggingface.co/HJCHJC). `BENCHMARK_SPLIT` must be `dev` or `full`. Start the retriever server first; the eval launcher defaults to one GPU and can be expanded with `SHARD_COUNT` and `GPU_IDS_CSV`.

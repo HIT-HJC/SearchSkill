@@ -24,10 +24,14 @@ Released model weights are available from the SearchSkill Hugging Face model hub
 
 ## Installation
 
-Create an environment with Python 3.10 or newer. Install PyTorch separately for your CUDA version, then install the released project dependencies:
+Create and activate a conda environment, then install PyTorch for your CUDA version and the released project dependencies:
 
 ```bash
+conda create -n searchskill python=3.10 -y
+conda activate searchskill
 python -m pip install --upgrade pip
+# Install the PyTorch build matching your CUDA version, for example:
+# python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 python -m pip install -r requirements.txt
 ```
 
@@ -35,9 +39,12 @@ For evaluation-only use, `requirements-eval.txt` is a smaller subset. RL trainin
 
 ## Quick Evaluation
 
-For eval-only environments, install PyTorch for your CUDA version and then:
+For eval-only environments:
 
 ```bash
+conda create -n searchskill-eval python=3.10 -y
+conda activate searchskill-eval
+# Install the PyTorch build matching your CUDA version first.
 python -m pip install -r requirements-eval.txt
 ```
 

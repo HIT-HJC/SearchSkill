@@ -12,9 +12,14 @@ export PYTHON_BIN="$(command -v python)"
 
 ## 1. Environment
 
-Install PyTorch for your CUDA version, then install the public reproduction dependencies:
+Create and activate a conda environment, then install PyTorch for your CUDA version and the public reproduction dependencies:
 
 ```bash
+conda create -n searchskill python=3.10 -y
+conda activate searchskill
+python -m pip install --upgrade pip
+# Install the PyTorch build matching your CUDA version, for example:
+# python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 python -m pip install -r requirements.txt
 ```
 
@@ -32,6 +37,9 @@ export RETRIEVER_PORT="8000"
 For evaluation only, install PyTorch for your CUDA version and then:
 
 ```bash
+conda create -n searchskill-eval python=3.10 -y
+conda activate searchskill-eval
+# Install the PyTorch build matching your CUDA version first.
 python -m pip install -r requirements-eval.txt
 ```
 

@@ -38,7 +38,7 @@ Set common paths:
 export SEARCHSKILL_ROOT="$(pwd)"
 export ROOT="$SEARCHSKILL_ROOT"
 export PYTHON_BIN="$(command -v python)"
-export HF_MODELS="<local_or_hf_model_root>"
+export HF_MODELS="<directory_containing_Qwen2.5_models_and_e5-base-v2>"
 export HF_DATA="<dataset_mirror_root>"
 export HF_CACHE="<hf_cache_root>"
 ```
@@ -65,7 +65,7 @@ export FAISS_GPU=0  # set to 1 for a GPU FAISS index
 bash data_preparation/samples/trajectory_pruning/start_local_retriever.sh
 ```
 
-The retriever corpus should contain either a `contents` field formatted as `title\ntext`, or separate `title` and `text` fields. The evaluation launcher checks `/retrieve` before running.
+The retriever corpus should contain either a `contents` field formatted as `title\ntext`, or separate `title` and `text` fields. The retriever wrapper loads `$HF_MODELS/e5-base-v2`; install a GPU-enabled FAISS build separately if you set `FAISS_GPU=1`. The evaluation launcher checks `/retrieve` before running.
 
 Key retriever files:
 

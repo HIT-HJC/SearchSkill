@@ -27,7 +27,7 @@ For evaluation-only use, `requirements-eval.txt` is a smaller subset. RL trainin
 
 ```bash
 export RUNTIME_ROOT="<rl_runtime>"
-export HF_MODELS="<hf_model_root>"
+export HF_MODELS="<directory_containing_Qwen2.5_models_and_e5-base-v2>"
 export HF_DATA="<hf_data_root>"
 export HF_CACHE="<hf_cache_root>"
 export RETRIEVER_HOST="127.0.0.1"

@@ -21,7 +21,7 @@ python reinforcement_learning/scripts/build_policy_dataset.py \
   --train-jsonl reinforcement_learning/source_data/policy_training_pool/train.jsonl \
   --dev-jsonl reinforcement_learning/source_data/policy_training_pool/dev.jsonl \
   --skill-bank-path skill_bank/round_4_musique/outputs/final_skill_bank.md \
-  --output-dir reinforcement_learning/data/policy_data
+  --output-dir reinforcement_learning/data/policy_7b_instruct
 ```
 
 ## Train
@@ -38,7 +38,7 @@ All wrapper defaults can be overridden with environment variables such as `DATA_
 
 ## Test
 
-Install `requirements-eval.txt`, start the retriever server from the root README, and set `MODEL_PATH` to a local dense checkpoint or Hugging Face model id after public weights are available. The launcher defaults to one GPU; override `SHARD_COUNT` and `GPU_IDS_CSV` for multi-GPU evaluation.
+Install `requirements-eval.txt`, start the retriever server from the root README, and set `MODEL_PATH` to a local dense checkpoint or a released Hugging Face model id from [https://huggingface.co/HJCHJC](https://huggingface.co/HJCHJC). The launcher defaults to one GPU; override `SHARD_COUNT` and `GPU_IDS_CSV` for multi-GPU evaluation.
 
 ```bash
 MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=dev bash reinforcement_learning/scripts/evaluate_policy.sh nq

@@ -1,8 +1,19 @@
-# SearchSkill
+<div align="center">
+
+<h1>SearchSkill: Teaching LLMs to Use Search Tools with Evolving Skill Banks</h1>
+
+[![arXiv](https://img.shields.io/badge/arXiv-2605.09038-b31b1b.svg)](https://arxiv.org/abs/2605.09038)
+[![Models](https://img.shields.io/badge/Hugging%20Face-Models-ffcc4d.svg)](https://huggingface.co/HJCHJC)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](#1-install)
+
+[SearchSkill-SFT-7B-Instruct](https://huggingface.co/HJCHJC/SearchSkill-SFT-7B-Instruct) |
+[SearchSkill-SFT-7B-Base](https://huggingface.co/HJCHJC/SearchSkill-SFT-7B-Base) |
+[SearchSkill-RL-7B-Instruct-GRPO](https://huggingface.co/HJCHJC/SearchSkill-RL-7B-Instruct-GRPO) |
+[SearchSkill-RL-7B-Base-GRPO](https://huggingface.co/HJCHJC/SearchSkill-RL-7B-Base-GRPO)
+
+</div>
 
 SearchSkill teaches language models to use search tools through an evolving SkillBank. This repository keeps the code and data needed to inspect the pipeline, rebuild training data, train SFT/RL policies, and evaluate on the included dev/full benchmark splits.
-
-Released model weights are available from the SearchSkill Hugging Face model hub: [https://huggingface.co/HJCHJC](https://huggingface.co/HJCHJC).
 
 ## Repository Layout
 

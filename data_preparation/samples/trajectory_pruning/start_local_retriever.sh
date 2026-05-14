@@ -11,11 +11,17 @@ export HF_HOME="${HF_CACHE:?Set HF_CACHE}"
 export HF_DATASETS_CACHE="${HF_DATASETS_CACHE:-$HF_HOME/datasets}"
 export TRANSFORMERS_CACHE="${TRANSFORMERS_CACHE:-$HF_HOME/transformers}"
 
-python outputs/qwen3_8b_hotpotqa_eval_20260323/qwen_skillbank_retrieval_server_fixed.py \
+ROOT="${ROOT:-$(pwd)}"
+FAISS_GPU_ARGS=()
+if [[ "${FAISS_GPU:-0}" == "1" ]]; then
+  FAISS_GPU_ARGS=(--faiss_gpu)
+fi
+
+"${PYTHON_BIN:-python}" "$ROOT/external/runtime_patch/search_r1/search/retrieval_server.py" \
   --index_path "${E5_INDEX_PATH:?Set E5_INDEX_PATH}" \
   --corpus_path "${E5_CORPUS_PATH:?Set E5_CORPUS_PATH}" \
   --topk 3 \
   --retriever_name e5 \
   --retriever_model "${HF_MODELS:?Set HF_MODELS}/e5-base-v2" \
-  --port 8000 \
-  --faiss_gpu
+  --port "${RETRIEVER_PORT:-8000}" \
+  "${FAISS_GPU_ARGS[@]}"

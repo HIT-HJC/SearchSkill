@@ -1,0 +1,13 @@
+# Install PyTorch separately for your CUDA version:
+# https://pytorch.org/get-started/locally/
+accelerate>=0.33.0
+datasets>=2.20.0
+faiss-cpu>=1.8.0
+fastapi>=0.111.0
+numpy>=1.26.0
+peft>=0.12.0
+pydantic>=2.7.0
+requests>=2.31.0
+tqdm>=4.66.0
+transformers>=4.44.0
+uvicorn>=0.30.0

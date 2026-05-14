@@ -13,11 +13,11 @@ import requests
 import torch
 import transformers
 
-COMMON_HELPER_DIR = "outputs/qwen3_8b_hotpotqa_eval_20260323"
-if COMMON_HELPER_DIR not in sys.path:
-    sys.path.insert(0, COMMON_HELPER_DIR)
+CURRENT_DIR = Path(__file__).resolve().parent
+if str(CURRENT_DIR) not in sys.path:
+    sys.path.insert(0, str(CURRENT_DIR))
 
-from hotpotqa_eval_common import (  # noqa: E402
+from eval_common import (  # noqa: E402
     build_chat_prompt,
     build_summary,
     clean_prediction,
@@ -145,10 +145,17 @@ class RetrieverClient:
 
         passages: List[str] = []
         for idx, doc_item in enumerate(results, start=1):
-            content = doc_item["document"]["contents"]
-            parts = content.split("\n")
+            document = doc_item.get("document", doc_item)
+            content = document.get("contents")
+            if content is None:
+                title_value = document.get("title", "")
+                text_value = document.get("text", document.get("content", ""))
+                if isinstance(text_value, list):
+                    text_value = " ".join(str(item) for item in text_value)
+                content = f"{title_value}\n{text_value}".strip()
+            parts = str(content).split("\n", 1)
             title = parts[0]
-            text = "\n".join(parts[1:])
+            text = parts[1] if len(parts) > 1 else ""
             passages.append(f"Doc {idx}(Title: {title}) {text}")
         return "\n".join(passages)
 
@@ -508,6 +515,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--disable-thinking", action="store_true")
     parser.add_argument("--max-samples", type=int, default=None)
     parser.add_argument("--print-every", type=int, default=10)
+    parser.add_argument("--dataset-tag", type=str, default=None)
+    parser.add_argument("--strict-em-only", action="store_true")
+    parser.add_argument("--skill-context-mode", type=str, default="full", choices=("full", "ids"))
     parser.add_argument(
         "--recommend-skills",
         action="store_true",

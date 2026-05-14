@@ -4,10 +4,7 @@ This stage builds teacher search trajectories, filters them, and prepares canoni
 
 ## Included Artifacts
 
-- `runs/canonical_teacher_set/`: selected canonical trajectories used by SFT.
-- `runs/coverage_supplement/`: supplemental coverage trajectories.
-- `runs/multi_hop_teacher/`: multi-hop teacher rollout records.
-- `runs/single_hop_teacher/`: single-hop teacher rollout records.
+- `data/canonical_trajectories.jsonl`: selected canonical trajectories used by SFT.
 
 Failed dumps, raw logs, API keys, and transient run directories are intentionally excluded.
 
@@ -18,14 +15,13 @@ Failed dumps, raw logs, API keys, and transient run directories are intentionall
 - `src/merge_rollout_outputs.py`: merges shard outputs.
 - `src/build_canonical_teacher_set.py`: builds the canonical trajectory set.
 - `src/pack_sft.py`: packs trajectories into SFT-ready messages.
-- `bin/*.sh`: launch helpers for API and Slurm-style runs.
 
 ## Reuse Path
 
 Use the checked-in canonical trajectories directly:
 
 ```bash
-test -s teacher_trajectory/runs/canonical_teacher_set/all/trajectories.filtered.jsonl
+test -s teacher_trajectory/data/canonical_trajectories.jsonl
 ```
 
 Then build SFT data with `supervised_finetuning/scripts/build_stage1_dataset.py`, or use the already included SFT data under `supervised_finetuning/data/`.
@@ -49,8 +45,6 @@ python teacher_trajectory/src/build_canonical_teacher_set.py --help
 python teacher_trajectory/src/pack_sft.py --help
 ```
 
-The `bin/*.sh` scripts show the original launch shape. Treat Slurm job IDs, partitions, and machine names as local settings to replace.
-
 ## Outputs For Next Stage
 
-The SFT stage consumes `teacher_trajectory/runs/canonical_teacher_set/all/trajectories.filtered.jsonl`.
+The SFT stage consumes `teacher_trajectory/data/canonical_trajectories.jsonl`.

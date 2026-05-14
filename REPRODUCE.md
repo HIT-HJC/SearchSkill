@@ -12,13 +12,13 @@ export PYTHON_BIN="$(command -v python)"
 
 ## 1. Environment
 
-Install normal Python/CUDA packages for your machine. Data processing needs:
+Install PyTorch for your CUDA version, then install the public reproduction dependencies:
 
 ```bash
-python -m pip install -r data_preparation/requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-SFT/RL additionally needs PyTorch, Transformers, Datasets, pandas, pyarrow, Ray, vLLM, PEFT, and your RL runtime. Copy or overlay the files in `external/runtime_patch/` into that runtime, then set:
+For evaluation-only use, `requirements-eval.txt` is a smaller subset. RL training additionally needs a compatible VERL-style runtime. Copy or overlay the files in `external/runtime_patch/` into that runtime, then set:
 
 ```bash
 export RUNTIME_ROOT="<rl_runtime>"
@@ -27,6 +27,12 @@ export HF_DATA="<hf_data_root>"
 export HF_CACHE="<hf_cache_root>"
 export RETRIEVER_HOST="127.0.0.1"
 export RETRIEVER_PORT="8000"
+```
+
+For evaluation only, install PyTorch for your CUDA version and then:
+
+```bash
+python -m pip install -r requirements-eval.txt
 ```
 
 Set `OPENAI_API_KEY` only for SkillBank or teacher-trajectory regeneration:
@@ -154,4 +160,4 @@ MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=dev bash reinforcement_learni
 MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=full bash reinforcement_learning/scripts/evaluate_policy.sh all
 ```
 
-`BENCHMARK_SPLIT` must be `dev` or `full`.
+`MODEL_PATH` can be a local dense checkpoint directory or a Hugging Face model id after the public weights are available. `BENCHMARK_SPLIT` must be `dev` or `full`. Start the retriever server first; the eval launcher defaults to one GPU and can be expanded with `SHARD_COUNT` and `GPU_IDS_CSV`.

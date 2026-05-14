@@ -9,7 +9,7 @@ Use the released canonical trajectory set:
 ```bash
 python - <<'PY'
 from pathlib import Path
-path = Path("teacher_trajectory/runs/canonical_teacher_set/all/trajectories.filtered.jsonl")
+path = Path("teacher_trajectory/data/canonical_trajectories.jsonl")
 if not path.exists() or path.stat().st_size == 0:
     raise SystemExit("missing canonical teacher trajectories")
 print("canonical teacher trajectories are present")
@@ -68,4 +68,4 @@ python teacher_trajectory/src/pack_sft.py \
   --output-path teacher_trajectory/runs/example/sft/train.jsonl
 ```
 
-Use `bin/*.sh` as launch examples, not universal scripts. The released canonical set was assembled from the same `src/` pipeline, then filtered into `runs/canonical_teacher_set/all/trajectories.filtered.jsonl`. Replace any Slurm, API, retriever, or path settings for your environment.
+The released canonical set was assembled from the same `src/` pipeline, then exported to `teacher_trajectory/data/canonical_trajectories.jsonl`. Replace any API, retriever, or path settings for your environment.

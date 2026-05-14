@@ -8,6 +8,7 @@ SLURM_JOB_ID_TARGET="${SLURM_JOB_ID_TARGET:-}"
 SCRIPT="$ROOT/skill_bank/nq_eval/eval_nq_qwen_skillbank.py"
 SKILL_BANK_PATH="${SKILL_BANK_PATH:-$ROOT/skill_bank/round_4_musique/outputs/final_skill_bank.md}"
 MODEL_PATH="${MODEL_PATH:-}"
+ADAPTER_PATH="${ADAPTER_PATH:-}"
 RUN_NAME="${RUN_NAME:-policy_eval_$(date +%m%d_%H%M)}"
 EVAL_ROOT="${EVAL_ROOT:-$ROOT/eval/$RUN_NAME}"
 
@@ -17,8 +18,8 @@ TEMPERATURE="${TEMPERATURE:-0.0}"
 TOP_P="${TOP_P:-0.95}"
 DTYPE="${DTYPE:-bfloat16}"
 PRINT_EVERY="${PRINT_EVERY:-10}"
-SHARD_COUNT="${SHARD_COUNT:-4}"
-GPU_IDS_CSV="${GPU_IDS_CSV:-0,1,2,3}"
+SHARD_COUNT="${SHARD_COUNT:-1}"
+GPU_IDS_CSV="${GPU_IDS_CSV:-0}"
 MAX_SAMPLES_MULTI="${MAX_SAMPLES_MULTI:-}"
 MAX_SAMPLES_SINGLE="${MAX_SAMPLES_SINGLE:-}"
 DATASET_ARG="${1:-all}"
@@ -39,7 +40,7 @@ if [[ "${#GPU_IDS[@]}" -ne "$SHARD_COUNT" ]]; then
   exit 1
 fi
 
-if [[ ! -f "$MODEL_PATH/model.safetensors.index.json" && ! -f "$MODEL_PATH/model.safetensors" ]]; then
+if [[ -d "$MODEL_PATH" && ! -f "$MODEL_PATH/model.safetensors.index.json" && ! -f "$MODEL_PATH/model.safetensors" ]]; then
   echo "Missing dense model checkpoint under MODEL_PATH=$MODEL_PATH" >&2
   exit 2
 fi
@@ -143,12 +144,17 @@ PY
     if [[ -n "$SLURM_JOB_ID_TARGET" ]] && command -v srun >/dev/null 2>&1; then
       launch_prefix=(srun --jobid "$SLURM_JOB_ID_TARGET" --overlap --ntasks=1 --cpus-per-task=8 --cpu-bind=none)
     fi
+    local adapter_args=()
+    if [[ -n "$ADAPTER_PATH" ]]; then
+      adapter_args=(--adapter-path "$ADAPTER_PATH")
+    fi
     nohup "${launch_prefix[@]}" env CUDA_VISIBLE_DEVICES="$gpu_id" TOKENIZERS_PARALLELISM=false \
         "$PYTHON_BIN" "$SCRIPT" \
         --data-path "$shard_path" \
         --dataset-tag "$dataset_tag" \
         --skill-bank-path "$SKILL_BANK_PATH" \
         --model-path "$MODEL_PATH" \
+        "${adapter_args[@]}" \
         --out-jsonl "$shard_root/trace.jsonl" \
         --out-json "$shard_root/trace.json" \
         --summary-json "$shard_root/summary.json" \

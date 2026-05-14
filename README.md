@@ -9,7 +9,7 @@ This repository is a compact release of the SearchSkill pipeline. It keeps the f
 5. run RL,
 6. evaluate on the included dev or full test files.
 
-Model weights, trained checkpoints, retrieval indexes, API keys, caches, logs, and internal experiment outputs are not included.
+Released model weights are available from the SearchSkill Hugging Face model hub: [https://huggingface.co/HJCHJC](https://huggingface.co/HJCHJC). Retrieval indexes, API keys, caches, logs, and internal experiment outputs are not included.
 
 ## Layout
 
@@ -20,8 +20,38 @@ Model weights, trained checkpoints, retrieval indexes, API keys, caches, logs, a
 - `reinforcement_learning/`: RL data builder and launch/evaluation scripts.
 - `benchmarks/`: `dev/` and `full/` test JSONL files.
 - `external/runtime_patch/`: the SearchSkill-specific runtime files to copy into your RL runtime.
+- `paper/`: LaTeX source, bibliography, and figures for the paper.
+
+## Installation
+
+Create an environment with Python 3.10 or newer. Install PyTorch separately for your CUDA version, then install the released project dependencies:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+For evaluation-only use, `requirements-eval.txt` is a smaller subset. RL training additionally requires a compatible VERL-style runtime; copy `external/runtime_patch/` into that runtime as described in [external/README.md](external/README.md).
 
 ## Quick Evaluation
+
+For eval-only environments, install PyTorch for your CUDA version and then:
+
+```bash
+python -m pip install -r requirements-eval.txt
+```
+
+Start a compatible retrieval server before running evaluation:
+
+```bash
+export E5_INDEX_PATH="<retriever_index_dir>"
+export E5_CORPUS_PATH="<retriever_corpus_jsonl>"
+export HF_MODELS="<hf_model_root>"
+export HF_CACHE="<hf_cache_root>"
+bash data_preparation/samples/trajectory_pruning/start_local_retriever.sh
+```
+
+The retriever corpus should provide either a `contents` field formatted as `title\ntext`, or separate `title` and `text` fields. The launcher defaults to CPU FAISS; set `FAISS_GPU=1` for a GPU FAISS index.
 
 Set paths:
 
@@ -40,6 +70,8 @@ Run a small dev test:
 cd "$SEARCHSKILL_ROOT"
 MODEL_PATH="$MODEL_PATH" BENCHMARK_SPLIT=dev bash reinforcement_learning/scripts/evaluate_policy.sh nq
 ```
+
+`MODEL_PATH` can be a local merged checkpoint directory or a Hugging Face model id after the public weights are available. The default evaluation launcher uses one GPU (`SHARD_COUNT=1 GPU_IDS_CSV=0`); set those variables to use more shards or different GPU ids.
 
 Run all included dev tests:
 
@@ -66,7 +98,11 @@ python skill_bank/round_3_2wiki/run_b3_expand.py --base-url "$OPENAI_BASE_URL"
 python skill_bank/round_4_musique/build_packets.py
 python skill_bank/round_4_musique/run_b4_expand.py --base-url "$OPENAI_BASE_URL"
 
-python teacher_trajectory/src/build_manifest.py --output-dir teacher_trajectory/work/manifest
+python teacher_trajectory/src/build_manifest.py \
+  --output-dir teacher_trajectory/work/manifest \
+  --train-datasets hotpotqa \
+  --hotpot-count 20 \
+  --nq-count 0 --triviaqa-count 0 --2wiki-count 0 --musique-count 0 --failure-count 0
 python teacher_trajectory/src/run_teacher_rollout.py --help
 
 bash supervised_finetuning/scripts/train_stage1_7b_instruct.sh

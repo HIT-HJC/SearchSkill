@@ -1,0 +1,29 @@
+# SearchSkill public reproduction environment.
+# Install PyTorch separately for your CUDA version first:
+# https://pytorch.org/get-started/locally/
+#
+# RL training also needs a compatible VERL-style runtime. See external/README.md.
+
+accelerate>=0.33.0
+codetiming>=1.4.0
+datasets>=2.20.0
+einops>=0.8.0
+faiss-cpu>=1.8.0
+fastapi>=0.111.0
+hydra-core>=1.3.2
+numpy>=1.26.0
+omegaconf>=2.3.0
+pandas>=2.2.0
+peft>=0.12.0
+pyarrow==16.1.0
+pydantic>=2.7.0
+ray[default]>=2.10.0
+requests>=2.31.0
+safetensors>=0.4.3
+tensordict>=0.5.0
+tqdm>=4.66.0
+transformers>=4.44.0
+trl>=0.9.6
+uvicorn>=0.30.0
+vllm>=0.6.0
+xformers>=0.0.27

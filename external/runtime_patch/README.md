@@ -1,6 +1,6 @@
 # Runtime Patch Files
 
-These files are the SearchSkill-specific runtime changes used by RL training.
+These files are the SearchSkill-specific runtime changes used by RL training. They are intended for a VERL-style runtime compatible with the package layout referenced by `reinforcement_learning/scripts/train_*.sh`.
 
 Copy this directory over your RL runtime root:
 

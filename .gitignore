@@ -5,6 +5,13 @@ __pycache__/
 *.pid
 *.out
 *.err
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+paper/main.pdf
 .DS_Store
 .cache/
 tmp/

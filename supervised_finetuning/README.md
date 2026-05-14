@@ -39,7 +39,7 @@ Rebuild SFT data:
 
 ```bash
 python supervised_finetuning/scripts/build_stage1_dataset.py \
-  --input-path teacher_trajectory/runs/canonical_teacher_set/all/trajectories.filtered.jsonl \
+  --input-path teacher_trajectory/data/canonical_trajectories.jsonl \
   --output-dir supervised_finetuning/data/stage1
 
 python supervised_finetuning/scripts/build_stage2_dataset.py \

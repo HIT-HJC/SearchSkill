@@ -34,6 +34,8 @@ bash reinforcement_learning/scripts/train_7b_instruct.sh
 
 ## Test
 
+Install `requirements-eval.txt`, start the retriever server from the root README, and set `MODEL_PATH` to a local dense checkpoint or Hugging Face model id after public weights are available. The launcher defaults to one GPU; override `SHARD_COUNT` and `GPU_IDS_CSV` for multi-GPU evaluation.
+
 ```bash
 MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=dev bash reinforcement_learning/scripts/evaluate_policy.sh nq
 MODEL_PATH="<checkpoint_or_model>" BENCHMARK_SPLIT=full bash reinforcement_learning/scripts/evaluate_policy.sh all

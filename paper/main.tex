@@ -1,0 +1,1261 @@
+\documentclass{article}
+
+\PassOptionsToPackage{numbers,compress}{natbib}
+
+\usepackage[final]{neurips_2025}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xspace}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{arydshln}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{hyperref}
+\usepackage{placeins}
+
+\newcommand{\Ours}{\textsc{SearchSkill}\xspace}
+\newcommand{\RepoLink}{\href{https://github.com/HIT-HJC/SearchSkill}{here}\xspace}
+\definecolor{skilltagcolor}{RGB}{74,170,255}
+\definecolor{searchtagcolor}{RGB}{68,196,138}
+\definecolor{answertagcolor}{RGB}{241,112,122}
+\definecolor{infotagcolor}{RGB}{245,173,74}
+\definecolor{selecttagcolor}{RGB}{128,111,214}
+\definecolor{thinktagcolor}{RGB}{170,136,255}
+\definecolor{skillgainbg}{RGB}{232,246,234}
+\definecolor{deltabrown}{RGB}{236,184,113}
+\definecolor{plotorange}{RGB}{247,190,132}
+\definecolor{plotorangedark}{RGB}{190,84,36}
+\definecolor{plotblue}{RGB}{176,209,216}
+\definecolor{plotbluedark}{RGB}{42,118,143}
+\definecolor{plotgrid}{RGB}{224,224,224}
+\definecolor{rlgain}{RGB}{35,132,67}
+\definecolor{rlloss}{RGB}{190,65,55}
+\newcommand{\tagopen}[2]{\texttt{\textcolor{#1}{<#2>}}}
+\newcommand{\tagclose}[2]{\texttt{\textcolor{#1}{</#2>}}}
+\newcommand{\deltacell}[2]{\cellcolor{deltabrown!#1}{#2}}
+\newcommand{\flipcell}[3]{#1 {\scriptsize(\textcolor{rlgain}{+#2}/\textcolor{rlloss}{-#3})}}
+\setlength{\dashlinedash}{4pt}
+\setlength{\dashlinegap}{3pt}
+\newcommand{\dashedmidrule}{%
+  \arrayrulecolor{black!45}\hdashline\arrayrulecolor{black}
+}
+
+\title{\Ours: Teaching LLMs to Use Search Tools with Evolving Skill Banks}
+
+\author{%
+Hu Jinchao$^{1}$ \quad Meizhi Zhong$^{2}$ \quad Kehai Chen$^{1}$ \quad Min Zhang$^{1}$\\
+$^{1}$School of Computer Science and Technology, Harbin Institute of Technology, Shenzhen\\
+$^{2}$TikTok Inc, Beijing\\
+Shenzhen / Beijing, China\\
+\texttt{jchu@stu.hit.edu.cn} \quad
+\texttt{meizhi.zhong.1999@gmail.com}\\
+\texttt{chenkehai@hit.edu.cn} \quad
+\texttt{zhangmin2021@hit.edu.cn}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Teaching language models to use search tools is not only a question of whether they search, but also of whether they issue good queries. This is especially important in open-domain question answering, where broad or copied queries often waste retrieval budget and derail later reasoning. We propose \Ours, a framework that makes query planning explicit through reusable search skills. At each step, the model first selects a skill, then generates a search or answer action conditioned on the selected skill card. The skill inventory itself is not fixed: SearchSkill maintains an evolving SkillBank, expands or refines it from recurrent failure patterns, and reconstructs affected trajectories before supervised training. The resulting two-stage SFT recipe aligns training with the inference-time protocol of skill selection followed by skill-grounded execution. Across open-source and closed-source models, SearchSkill improves exact match on knowledge-intensive QA benchmarks and yields better retrieval behavior, including fewer copied first queries, more atomic hop-focused queries, and more correct answers within a small search budget. These results suggest that explicit skill-conditioned query planning is a lightweight alternative to treating search as an undifferentiated action.
+\end{abstract}
+
+\section{Introduction}
+Large language models (LLMs) exhibit strong reasoning ability and broad parametric knowledge, but that knowledge remains fundamentally static: it can be outdated, incomplete, or simply missing the long-tail facts required by knowledge-intensive tasks. This limitation is especially visible in open-domain and multi-hop question answering, where solving a problem often requires gathering fresh evidence, following hidden bridge entities, and verifying intermediate conclusions against external sources. Search tools therefore play an indispensable role in extending the knowledge boundary of LLMs and turning them into reliable systems for real-world information seeking.
+
+Recent years have seen rapid progress on retrieval-augmented and tool-using LLMs. Retrieval-augmented generation (RAG) augments generation with external passages for knowledge-intensive prediction~\citep{lewis2021rag}. Tool-use methods such as Toolformer~\citep{schick2023toolformer} and ReAct~\citep{yao2023react} further enable models to interleave reasoning with external actions. More recent search-centered systems train this capability more directly: Search-R1~\citep{jin2025searchr1} optimizes long-horizon search behavior with reinforcement learning, while ZeroSearch~\citep{sun2025zerosearch} incentivizes search capability without relying on live search during training. These advances have substantially improved LLM--retriever interaction, but they also expose a practical bottleneck. \textbf{Challenge 1: most existing methods teach the model to search, but devote much less modeling capacity to how to formulate high-quality search queries.} In multi-hop settings, poor queries lead to longer interaction traces, redundant tool calls, noisy evidence, and lower final answer accuracy. In other words, the issue is often not whether a model uses a retriever, but whether it uses the retriever intelligently.
+
+Recent work on agent skills offers a complementary angle. Anthropic's Agent Skills\footnote{\url{https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills}} made skills a first-class interface for packaging instructions, code, and resources that an agent can load on demand. Follow-up analyses show that skills rapidly became a practical mechanism for extending model functionality, while also raising ecosystem-level questions about organization and safe reuse~\citep{ling2026agentskillsdatadrivenanalysis,liu2026agentskillswildempirical}. AgentSkillOS studies selection and benchmarking over large skill ecosystems~\citep{li2026agentskillos}, while Reinforcement Learning for Self-Improving Agent with Skill Library, MemSkill, and SkillRL explore how agents can maintain and evolve skill libraries or skill banks over training~\citep{wang2026skilllibraryrl,zhang2026memskill,xia2026skillrl}. However, applying this intuition to search tool use is still non-trivial. \textbf{Challenge 2: current skill frameworks do not directly tell us how skills should be represented, invoked, and updated inside search trajectories.} A useful search skill must shape not only a high-level strategy, but also the next query, the arguments passed to the retriever, the verification behavior after retrieval, and the stopping decision before answering.
+
+To address these challenges, we propose \Ours, a framework that teaches LLMs to use search tools through an evolving bank of reusable search skills. Rather than treating search as an undifferentiated action, \Ours factorizes each interaction step into explicit skill selection and tool execution. Concretely, the model first emits a \tagopen{skilltagcolor}{skill}...\tagclose{skilltagcolor}{skill} tag to declare the skill(s) it will use at the current turn, and then either issues a \tagopen{searchtagcolor}{search}...\tagclose{searchtagcolor}{search} query or returns an \tagopen{answertagcolor}{answer}...\tagclose{answertagcolor}{answer}; retrieved evidence is fed back through \tagopen{infotagcolor}{information}...\tagclose{infotagcolor}{information}. This token-level interface makes the skill choice an explicit, trainable control variable before every retrieval or answer action. We instantiate the bank with search-specific skills such as bridge-entity search, parallel attribute comparison, temporal range extraction, conflict checking, verbatim evidence extraction, and answer grounding. Training is stage-wise: we first iteratively refine the SkillBank through a failure-driven outer loop, where current rollouts expose stable failure patterns, accepted add/refine updates revise the bank, and affected trajectories are reconstructed under each accepted update. Once the bank stabilizes, we perform skill-conditioned supervised fine-tuning on high-quality positive trajectories, distilling mature bank-consistent behavior into the policy.Our main contributions are as follows:
+\begin{itemize}
+  \item We propose a skill-conditioned search-tool interface that improves query formulation by making the model choose a reusable search strategy before each tool call, addressing the common failure of issuing broad or copied multi-hop queries.
+  \item We introduce an evolvable Search SkillBank that is updated through failure analysis, add/refine operations, and trajectory reconstruction, providing a reusable tool-use prior that can extend beyond the QA setting.
+  \item We show that a two-stage supervised fine-tuning recipe can obtain performance close to or stronger than large-scale RL-based search agents, while avoiding the high rollout and optimization cost of training search behavior primarily through RL.
+  \item We demonstrate effectiveness on both open-source and closed-source models: fine-tuned Qwen2.5 3B/7B models improve QA performance, and the frozen SkillBank also benefits proprietary models as an external planning guide.
+\end{itemize}
+
+\section{Related work}
+\subsection{RAG and RL}
+Retrieval-augmented generation for knowledge-intensive QA began with retrieval-aware pretraining and dense retrieval backbones such as REALM and DPR~\citep{guu2020realm,karpukhin2020dpr}. RAG and FiD then made retrieved passages central to generation and reading~\citep{lewis2021rag,izacard2021fid}. Later systems such as RETRO, Atlas, and IRCoT further tightened the coupling between retrieval and reasoning~\citep{borgeaud2022retro,izacard2022atlas,trivedi2023ircot}. Dynamic retrieval policies were subsequently explored by Active RAG, Self-RAG, and unified active retrieval~\citep{jiang2023active,asai2023selfrag,cheng2024uar}.
+
+In parallel, search became an explicit action space rather than a passive back-end. WebGPT and ReAct framed browsing and search as sequential reasoning-and-acting~\citep{nakano2022webgpt,yao2023react}, while Toolformer and Tool Learning generalized this pattern to broader tool use~\citep{schick2023toolformer,qin2024toollearning}. Search-o1 further embeds agentic search into long reasoning traces without reducing the problem to a static retrieve-then-read pipeline~\citep{li2025searcho1}. RL-based search agents then push this line further: R1-Searcher, DeepRetrieval, and Search-R1 directly optimize search behavior with reinforcement learning~\citep{song2025r1searcher,jiang2025deepretrieval,jin2025searchr1}. ZeroSearch complements them by improving search capability without live search during training~\citep{sun2025zerosearch}. Together, these works frame search as a trainable decision process rather than a fixed retrieval module.
+
+\subsection{Skills}
+A particularly relevant notion of skill is the recent agent-skill interface popularized by Anthropic's Agent Skills. In this interface, a skill is a portable bundle of instructions, resources, and executable code that an agent can discover and load only when relevant. This shift turned skills from an informal prompting pattern into a first-class object for agent engineering and reuse. A recent data-driven analysis of Claude Skills shows that such skills are already functioning as a practical extension layer for LLM agents~\citep{ling2026agentskillsdatadrivenanalysis}. At the same time, Agent Skills in the Wild highlights that once skills become reusable infrastructure, their organization and controlled invocation matter at scale~\citep{liu2026agentskillswildempirical}.
+
+Recent research extends this idea from hand-authored skills to learned and evolving skill ecosystems. SkillWeaver shows that web agents can discover and hone reusable skills from interaction traces~\citep{zheng2025skillweaver}. Reinforcement Learning for Self-Improving Agent with Skill Library studies iterative policy improvement with an explicit skill library~\citep{wang2026skilllibraryrl}. CASCADE studies cumulative agentic skill creation through autonomous development and evolution, while AgentSkillOS investigates organization and orchestration at ecosystem scale~\citep{huang2026cascade,li2026agentskillos}. MemSkill reframes memory operations as evolvable skills~\citep{zhang2026memskill}, and SkillRL co-evolves a hierarchical SkillBank with the agent policy under reinforcement learning~\citep{xia2026skillrl}. Collectively, these works shift skills from hand-authored helpers to dynamic, reusable, and trainable components for agents, while study of skills for search-tool interaction remains limited.
+
+\section{SearchSkill}
+This section introduces the overall SearchSkill pipeline, including SkillBank refinement, trajectory construction, and two-stage supervised fine-tuning. Figure~\ref{fig:searchskill-overview} summarizes the select-read-act interaction; the full executable protocol is given in Algorithm~\ref{alg:searchskill-rollout} in Appendix~\ref{app:trajectory-construction}.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/searchskill_overview.png}
+  \caption{Overview of SearchSkill: evolve a reusable SkillBank, construct skill-guided trajectories, and train a select-read-act search policy.}
+  \label{fig:searchskill-overview}
+\end{figure}
+
+\subsection{Stage-wise SkillBank evolution}
+Rather than growing the SkillBank through a single online refinement loop, the current SearchSkill pipeline evolves it in stages aligned with increasingly difficult QA regimes. We begin from a compact seed bank \(B_0\) containing general retrieval and grounding skills, and then expand it through four rounds: \(B_1\) from single-hop data (\textsc{NQ} and \textsc{TriviaQA}), \(B_2\) from \textsc{HotpotQA}, \(B_3\) from \textsc{2WikiMultiHopQA}, and \(B_4\) from \textsc{MuSiQue}. This ordering is deliberate: direct lookup and name-resolution skills are stabilized first, after which the bank is extended with bridge, comparison, compositional-chain, and long-hop decomposition skills.
+
+In each round, we first construct a coverage-oriented training pool and group representative question packets with metadata about hop structure, reasoning cues, and likely skill demands. We then use \textsc{GPT-5.4} to propose additions and targeted refinements under round-specific constraints. Early rounds favor expanding reusable single-hop retrieval skills aggressively, whereas later rounds preserve the existing bank while sharpening boundaries for multihop routing, checkpointing, and verification. Accepted updates are merged into the next bank \(B_{t+1}\), yielding a progressively richer skill taxonomy that grows from simple entity-attribute lookup to bridge resolution, relation-chain decomposition, and long-hop recovery. The evolved bank is then treated as an explicit external prior for later teacher-trajectory synthesis and supervised fine-tuning, rather than being learned implicitly by SFT.
+
+\subsection{Data sampling and teacher synthesis}
+After the SkillBank for the current stage is fixed, we construct supervision data in two steps. First, we build coverage-oriented training pools from \textsc{NQ}, \textsc{TriviaQA}, \textsc{HotpotQA}, \textsc{2WikiMultiHopQA}, and \textsc{MuSiQue}. Rather than sampling uniformly from the raw training split, we first derive lightweight example profiles, group questions by coarse reasoning signature, and use \textsc{GPT-5.4} to annotate representative groups with reasoning and skill-demand labels. We then sample subsets that preserve coverage over hop structure, comparison cues, temporal cues, and other retrieval-relevant patterns. This gives us a more balanced pool for later teacher synthesis than direct random sampling.
+
+Second, we build a trajectory manifest that mixes these sampled training examples with a small amount of failure replay from earlier evaluation traces. For each manifest example, \textsc{GPT-5.4} acts as a teacher under the current SkillBank and rolls out the same select-read-act interaction used by SearchSkill. Internally, the teacher predicts a structured next action including a primary skill, optional support skills, an action type, a query when retrieval is needed, and a checkpoint describing the currently resolved intermediate state. The internal action type may include retrieval, evidence checking, or answering, but the executable student trace is normalized into the runtime tags used by SearchSkill. The retriever executes search queries, the returned passages are appended as evidence, and a final answer-normalization step converts the draft prediction into a short exact answer span. We keep only canonical trajectories that satisfy simple executable criteria, including answer correctness, the presence of at least one retrieval step, legal skill identifiers, and consistency between the declared primary skill and the executed action pattern. These filtered teacher trajectories form the supervision pool used in the next stage.
+
+\subsection{Trajectory SFT}
+We train the policy in two supervised stages. The first stage starts from the target backbone and teaches the basic SearchSkill action format: each assistant turn emits \tagopen{skilltagcolor}{skill}...\tagclose{skilltagcolor}{skill} followed by one \tagopen{searchtagcolor}{search}...\tagclose{searchtagcolor}{search} or \tagopen{answertagcolor}{answer}...\tagclose{answertagcolor}{answer}. This stage uses the validated trajectory pool, including full search traces and closure-focused examples, so the model learns skill-tagged query planning, evidence use, and grounded stopping.
+
+The second stage continues from the first-stage checkpoint and repacks the same trajectory supervision into the select-read-act protocol in Figure~\ref{fig:searchskill-overview}. Each original action turn is split into a skill-selection turn, a user turn containing the selected SkillBank cards, and the original skill-grounded action turn. The model therefore learns not only to execute a skill, but also to choose skill ids from the SkillBank index and condition the next action on the selected card content. No question-specific recommended-skill hint is kept in this stage; the policy must route through the SkillBank itself.
+
+Let \(\mathcal{D}_{\mathrm{exec}}\) denote the first-stage trajectory set. For a trajectory \(\tau\), let \(h_t\) be the dialogue context before assistant turn \(t\), \(a_t\) be the target skill-grounded action turn, and \(\mathcal{M}(\tau)\) be the supervised assistant turns. We optimize
+\[
+\mathcal{L}_{\mathrm{exec}}(\theta)
+=
+- \sum_{\tau\in\mathcal{D}_{\mathrm{exec}}}
+\sum_{t\in\mathcal{M}(\tau)}
+\lambda(a_t)
+\sum_{k=1}^{|a_t|}
+\log p_{\theta}(a_{t,k}\mid h_t,a_{t,<k}),
+\]
+where \(\lambda(a_t)\) denotes the optional turn-level supervision weight used to balance different assistant targets.
+
+For the second stage, \(\mathcal{R}_{B^\star}(\mathcal{D}_{\mathrm{exec}})\) rewrites each first-stage action turn into a selection target \(s_t\), selected SkillBank card context \(C_{B^\star}(s_t)\), and the original action target \(a_t\). Let \(h_t^{\mathrm{sel}}\) be the context before skill selection, and let \(h_t^{\mathrm{act}}=h_t^{\mathrm{sel}}\oplus s_t\oplus C_{B^\star}(s_t)\) denote the action context after the selected cards are inserted. Starting from the first-stage checkpoint, we optimize
+\[
+\begin{aligned}
+\mathcal{L}_{\mathrm{bank}}(\theta)
+=
+- \sum_{\tau'\in\mathcal{R}_{B^\star}(\mathcal{D}_{\mathrm{exec}})}
+\sum_{t\in\mathcal{M}(\tau')}
+\Bigg[
+&\sum_{k=1}^{|s_t|}
+\log p_{\theta}(s_{t,k}\mid h_t^{\mathrm{sel}},s_{t,<k}) \\
+&+
+\lambda(a_t)
+\sum_{k=1}^{|a_t|}
+\log p_{\theta}(a_{t,k}\mid h_t^{\mathrm{act}},a_{t,<k})
+\Bigg].
+\end{aligned}
+\]
+Thus the first objective teaches execution, while the second teaches SkillBank routing and card-conditioned execution under the inference-time protocol.
+
+\section{Experiments}
+\subsection{Datasets}
+We evaluate SearchSkill on seven open-domain QA benchmarks spanning both single-hop factual retrieval and multi-hop compositional reasoning: Natural Questions, TriviaQA, and PopQA for single-hop QA~\citep{kwiatkowski2019naturalquestions,joshi2017triviaqa,mallen2023popqa}, and HotpotQA, 2WikiMultiHopQA, MuSiQue, and Bamboogle for multi-hop QA~\citep{yang2018hotpotqa,ho2020wikimultihopqa,trivedi2022musique,press2023bamboogle}. This mixture is important for our method. Single-hop benchmarks test whether better skill-conditioned querying improves efficient fact lookup, while the multi-hop benchmarks test whether the learned skills help the model decompose bridge, comparison, and compositional search problems into more reliable multi-turn search trajectories.
+
+\subsection{Baselines}
+Our baselines isolate three sources of improvement. Direct inference and chain-of-thought prompting~\citep{wei2022cot} measure language-only reasoning under matched Qwen2.5 backbones. RAG~\citep{lewis2021rag} measures the effect of adding retrieved evidence without explicit skill selection, query planning, or grounded stopping. Search-o1~\citep{li2025searcho1}, Search-R1~\citep{jin2025searchr1}, and ZeroSearch~\citep{sun2025zerosearch} represent recent search-native agents for multi-turn retrieval and search-oriented post-training. This suite separates gains from reasoning, retrieval access, and skill-conditioned search control.
+
+\subsection{Experimental setup}
+\label{sec:experimental-setup}
+\textbf{Backbones.} We study Qwen2.5-7B and Qwen2.5-3B~\citep{qwen2025qwen25}, and report results for base and instruct variants whenever the corresponding baseline is available. This lets us test whether SearchSkill remains effective across different model scales and alignment levels, rather than only on a single strong instruction-tuned checkpoint.
+
+\textbf{Training data and trajectories.} Following Section~3, we build trajectories from HotpotQA, 2WikiMultiHopQA, and MuSiQue~\citep{yang2018hotpotqa,ho2020wikimultihopqa,trivedi2022musique}, together with single-hop data from Natural Questions and TriviaQA~\citep{kwiatkowski2019naturalquestions,joshi2017triviaqa}. For each question, the refined teacher pipeline samples 3--5 candidate skill traces. We then separate them into positive trajectories and diagnostic failures. Positive trajectories satisfy our supervision filters, including answer correctness, evidence closure, limited search length, and low redundancy, and are used for positive-trajectory SFT. Diagnostic failures are reserved for iterative failure analysis and SkillBank refinement rather than being directly imitated. After each accepted bank update, we reconstruct only the affected trajectories and refresh the positive supervision pool together with replayed unaffected traces.
+
+\textbf{Search environment and evaluation.} All methods interact with the same fixed search environment. Our search tool is a local E5-based retriever~\citep{wang2022e5} that returns the top-3 results for each query, which are inserted as \tagopen{infotagcolor}{information}...\tagclose{infotagcolor}{information}. SearchSkill uses the select-read-act protocol in Figure~\ref{fig:searchskill-overview}: select skill ids, read the selected skill cards, then emit \tagopen{skilltagcolor}{skill} plus one search or answer action. We evaluate final predictions with exact match after normalizing them to the shortest grounded answer span. The matched retriever, action budget, and answer normalization keep the comparison focused on skill-aware search behavior.
+
+\textbf{Optimization protocol.} We first refine the SkillBank through iterative failure analysis and trajectory reconstruction while keeping the backbone fixed within each refinement round. After the bank stabilizes, we run two-stage SFT: trajectory-format learning followed by SkillBank-card-conditioned selection and execution. Unless otherwise noted, the main comparison in Section~4.4 reports the final SFT policy paired with the evolved frozen bank.
+
+\subsection{Main results}
+Table~\ref{tab:main-results} shows that \Ours consistently strengthens the same Qwen2.5 backbones. \textbf{Key insights.} \Ours obtains the best macro averages in both blocks, reaching 42.34 on 7B and 36.94 on 3B. Compared with the strongest GRPO baseline in each block, the average gains are 3.66 and 3.80 points; on 2Wiki, the gains over the comparable GRPO rows are 6.50 and 10.50 points. \textbf{Multi-hop QA benefits most from explicit skill routing}, especially on tasks such as 2Wiki where the model must decompose relations and carry intermediate entities across searches. \textbf{Single-hop QA is not sacrificed for this gain}: with only SkillBank-guided SFT, \Ours remains on par with or better than RL-trained search agents on factual lookup benchmarks, while avoiding their large online rollout cost. \textbf{The effect is stable across scale and initialization}: both 7B and 3B blocks reach the best macro average, and the gains appear for base and instruct variants, indicating that the evolved SkillBank provides a reusable search-control prior rather than a model-specific prompt advantage.
+
+\begin{table}[t]
+  \centering
+  \caption{Main results on single-hop and multi-hop knowledge-intensive QA benchmarks. We report exact match (EM) as percentages with two decimal places. Avg. denotes the macro average over all seven benchmarks, and \(\Delta\) reports the gap from the best SearchSkill Avg. within each model block.}
+  \label{tab:main-results}
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.15}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{lccccccccc}
+    \toprule
+    & \multicolumn{3}{c}{\textbf{Single-Hop QA}} & \multicolumn{4}{c}{\textbf{Multi-Hop QA}} & & \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-8}
+    \textbf{Method} &
+    \textbf{NQ} &
+    \textbf{TriviaQA} &
+    \textbf{PopQA} &
+    \textbf{HotpotQA} &
+    \textbf{2Wiki} &
+    \textbf{MuSiQue} &
+    \textbf{Bamboogle} &
+    \textbf{Avg. (\(\uparrow\))} &
+    \textbf{\(\Delta\)} \\
+    \midrule
+    \addlinespace[0.25em]
+    \multicolumn{10}{c}{\textbf{Qwen2.5-7B-Base/Instruct}} \\
+    \addlinespace[0.15em]
+    Direct Inference & 16.79 & 38.98 & 15.36 & 17.00 & 26.00 & 1.00 & 8.00 & 17.59 & \deltacell{65}{+24.75} \\
+    CoT & 12.19 & 34.03 & 16.11 & 17.00 & 18.50 & 5.00 & 22.40 & 17.89 & \deltacell{64}{+24.45} \\
+    RAG & 38.00 & 58.01 & 39.10 & 33.50 & 23.00 & 7.00 & 8.80 & 29.63 & \deltacell{42}{+12.71} \\
+    Search-o1 & 30.94 & 57.20 & 36.02 & 31.50 & 27.50 & 11.00 & 36.80 & 32.99 & \deltacell{34}{+9.35} \\
+    ZeroSearch-Base & 36.70 & 58.90 & 47.30 & 29.00 & 31.00 & 7.50 & 22.40 & 33.26 & \deltacell{33}{+9.08} \\
+    SearchR1-Base (GRPO) & 39.50 & 56.00 & 38.80 & 35.50 & 40.50 & 9.00 & 37.60 & 36.70 & \deltacell{25}{+5.64} \\
+    SearchR1-Instruct (GRPO) & 39.66 & 60.51 & 41.09 & 40.00 & 37.50 & \textbf{16.00} & 36.00 & 38.68 & \deltacell{20}{+3.66} \\
+    \dashedmidrule
+    \textbf{\Ours-SFT-Base} & 40.89 & 60.01 & \textbf{52.80} & 42.00 & \textbf{47.00} & 14.50 & \textbf{39.20} & \textbf{42.34} & \deltacell{10}{--} \\
+    \textbf{\Ours-SFT-Instruct} & \textbf{41.60} & \textbf{61.04} & 51.40 & \textbf{43.00} & 44.50 & 15.50 & 38.40 & 42.21 & \deltacell{12}{+0.13} \\
+    \midrule
+    \addlinespace[0.25em]
+    \multicolumn{10}{c}{\textbf{Qwen2.5-3B-Base/Instruct}} \\
+    \addlinespace[0.15em]
+    Direct Inference & 11.88 & 33.31 & 11.64 & 14.50 & 27.00 & 2.00 & 4.00 & 14.90 & \deltacell{60}{+22.04} \\
+    CoT & 11.33 & 33.07 & 11.90 & 15.00 & 15.50 & 2.50 & 20.80 & 15.73 & \deltacell{58}{+21.21} \\
+    RAG & 33.16 & 53.24 & 38.30 & 27.50 & 26.00 & 3.00 & 6.40 & 26.80 & \deltacell{36}{+10.14} \\
+    Search-o1 & 28.86 & 47.49 & 31.29 & 24.50 & 24.00 & 6.00 & 20.80 & 26.13 & \deltacell{38}{+10.81} \\
+    ZeroSearch-Base & 34.00 & 57.50 & 41.40 & 26.00 & 30.00 & 6.50 & 16.00 & 30.20 & \deltacell{28}{+6.74} \\
+    SearchR1-Base (GRPO) & 36.10 & \textbf{58.00} & 41.30 & 33.00 & 31.50 & 7.50 & 14.40 & 31.69 & \deltacell{24}{+5.25} \\
+    SearchR1-Instruct (GRPO) & 33.60 & 56.00 & 43.90 & 29.00 & 31.00 & 10.50 & \textbf{28.00} & 33.14 & \deltacell{20}{+3.80} \\
+    \dashedmidrule
+    \textbf{\Ours-SFT-Base} & 36.20 & 53.90 & \textbf{47.00} & 34.00 & 37.50 & 13.50 & \textbf{28.00} & 35.73 & \deltacell{14}{+1.21} \\
+    \textbf{\Ours-SFT-Instruct} & \textbf{37.50} & 54.30 & 46.60 & \textbf{35.50} & \textbf{41.50} & \textbf{16.00} & 27.20 & \textbf{36.94} & \deltacell{10}{--} \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\section{Further analysis}
+\subsection{Empty SkillBank ablation}
+\label{sec:further-analysis-empty-skillbank}
+
+We replace the SkillBank with an empty bank while keeping the rest of the system fixed. Figure~\ref{fig:empty-skillbank-ablation} shows that removing skill ids and card content lowers most datasets, while the non-catastrophic drop suggests that SFT has already taught a basic search prior: the model can invent plausible skill names such as \texttt{search} or \texttt{search-wiki-entity} even when they are not provided.
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{minipage}[t]{0.50\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[width=\linewidth]{figures/empty_skillbank_em_bars_v3.pdf}
+  \end{minipage}
+  \hspace{0.02\linewidth}
+  \begin{minipage}[t]{0.34\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[width=\linewidth]{figures/empty_skillbank_bamboogle_search_pie_v2.pdf}
+  \end{minipage}
+  \caption{Effect of replacing the SkillBank with an empty bank. Left: EM under full \(B_4\) and empty-bank settings. Right: Bamboogle search-count changes.}
+  \label{fig:empty-skillbank-ablation}
+\end{figure}
+
+The Bamboogle exception reflects extra search rather than better control: without skill constraints, 30.4\% of cases use more searches, which can help short heterogeneous questions but wastes tokens and weakens the purpose of skill-guided search.
+
+\subsection{SkillBank content and initialization}
+\label{sec:further-analysis-skillbank-content}
+
+\begin{figure}[!htbp]
+  \centering
+  \hspace{0.03\linewidth}
+  \begin{minipage}[t]{0.38\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[width=\linewidth]{figures/skill_card_ablation_line.pdf}
+  \end{minipage}
+  \hspace{0.10\linewidth}
+  \begin{minipage}[t]{0.38\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[width=\linewidth]{figures/seed_bank_b0_vs_b4_line.pdf}
+  \end{minipage}
+  \caption{SkillBank controls under the same SFT policy. Left: removing selected card content. Right: replacing evolved \(B_4\) with seed \(B_0\).}
+  \label{fig:skillbank-content-init}
+\end{figure}
+
+Figure~\ref{fig:skillbank-content-init} separates two sources of SkillBank benefit. The left plot keeps the selected \(B_4\) ids but removes their card content, testing whether names alone are sufficient; the right plot keeps the same SFT policy but replaces the evolved \(B_4\) with the seed bank \(B_0\), testing the effect of bank evolution. Both controls generally reduce performance, showing that SearchSkill benefits from both readable skill-card content and iterative SkillBank refinement. The drops are not catastrophic because the trained backbone already acquires a basic query-decomposition prior from trajectory SFT, but explicit skill content and evolved routing still make the decomposition more reliable.
+
+\subsection{Skill contribution after activation}
+\label{sec:further-analysis-skillbank-evolution}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.34\linewidth}
+    \centering
+      \includegraphics[width=\linewidth]{figures/skill_activation_rescue.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.205\linewidth}
+    \centering
+      \includegraphics[width=\linewidth]{figures/ablation_comparison_join.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.205\linewidth}
+    \centering
+      \includegraphics[width=\linewidth]{figures/ablation_bridge_chain.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.205\linewidth}
+    \centering
+      \includegraphics[width=\linewidth]{figures/ablation_grounding.pdf}
+  \end{minipage}
+  \caption{Skill-category contribution after activation. Left: activation versus judged necessity. Right: category-removal ablations; light bars use the full bank and dark bars remove the category.}
+  \label{fig:skillbank-evolution}
+\end{figure}
+
+We evaluate whether activated skills are functionally necessary rather than merely selected. We group the fine-grained \(B_4\) cards into direct lookup, bridge/chain decomposition, comparison/join, and grounding/verification; Appendix~\ref{app:skillbank-evolution} lists the skills in each group. Figure~\ref{fig:skillbank-evolution} compares category activation with judge-verified necessity and removes one category at a time from the available bank. The resulting drops show that activated skills contribute to answer construction, especially when the task requires structured decomposition or evidence grounding.
+
+\subsection{Query planning and evidence efficiency}
+\label{sec:further-analysis-query-efficiency}
+
+We further test whether \Ours addresses the query-quality failure that motivates our method: search policies often send the whole multi-hop question to the retriever instead of isolating the next missing entity or relation. Figure~\ref{fig:query-planning-efficiency} reports four diagnostics averaged over HotpotQA, 2WikiMultiHopQA, MuSiQue, and Bamboogle. First query copy (\(\downarrow\)) measures whether the first search is a near copy of the original question; atomic-hop query (\(\uparrow\)) measures the fraction of searches that target one clear retrieval subgoal; average search (\(\downarrow\)) counts the number of retrieval calls per example; and Correct@\( \le 3 \) searches (\(\uparrow\)) measures the fraction of examples answered correctly within three retrieval calls. Arrows indicate the preferred direction for each metric.
+
+\begin{figure}[t]
+  \centering
+  \setlength{\fboxsep}{0pt}
+  \begin{minipage}[t]{0.24\linewidth}
+    \centering
+    \hspace*{1.8em}{\scriptsize\bfseries First Query Copy}\\[-0.1em]
+    \begin{tikzpicture}[x=0.52cm,y=0.075cm]
+      \foreach \y in {70,80,90,100} {
+        \draw[plotgrid,dotted] (0,\y) -- (4.15,\y);
+        \node[left,font=\tiny] at (0,\y) {\y};
+      }
+      \draw[black,thick] (0,70) rectangle (4.15,100);
+      \draw[fill=plotorange!78,draw=none] (0.55,70) rectangle (1.15,89.93);
+      \draw[fill=plotorange,draw=none] (1.78,70) rectangle (2.38,93.52);
+      \draw[fill=plotorangedark,draw=none] (3.01,70) rectangle (3.61,76.00);
+      \node[font=\tiny,plotorangedark] at (0.85,91.8) {89.9};
+      \node[font=\tiny,plotorangedark] at (2.08,95.4) {93.5};
+      \node[font=\tiny,plotorangedark] at (3.31,77.9) {76.0};
+      \node[rotate=90,font=\scriptsize\bfseries] at (-1.18,85) {Copy (\%)};
+      \node[rotate=25,anchor=east,font=\tiny] at (1.17,66.8) {w/o Skills};
+      \node[rotate=25,anchor=east,font=\tiny] at (2.40,66.8) {SearchR1};
+      \node[rotate=25,anchor=east,font=\tiny] at (3.63,66.8) {\Ours};
+    \end{tikzpicture}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.24\linewidth}
+    \centering
+    \hspace*{1.8em}{\scriptsize\bfseries Atomic Hop Query}\\[-0.1em]
+    \begin{tikzpicture}[x=0.52cm,y=0.075cm]
+      \foreach \y in {30,40,50,60} {
+        \draw[plotgrid,dotted] (0,\y) -- (4.15,\y);
+        \node[left,font=\tiny] at (0,\y) {\y};
+      }
+      \draw[black,thick] (0,30) rectangle (4.15,60);
+      \draw[fill=plotblue!78,draw=none] (0.55,30) rectangle (1.15,32.88);
+      \draw[fill=plotblue,draw=none] (1.78,30) rectangle (2.38,47.65);
+      \draw[fill=plotbluedark,draw=none] (3.01,30) rectangle (3.61,50.02);
+      \node[font=\tiny,plotbluedark] at (0.85,35.0) {32.9};
+      \node[font=\tiny,plotbluedark] at (2.08,49.8) {47.7};
+      \node[font=\tiny,plotbluedark] at (3.31,52.2) {50.0};
+      \node[rotate=90,font=\scriptsize\bfseries] at (-1.18,45) {Atomic (\%)};
+      \node[rotate=25,anchor=east,font=\tiny] at (1.17,26.6) {w/o Skills};
+      \node[rotate=25,anchor=east,font=\tiny] at (2.40,26.6) {SearchR1};
+      \node[rotate=25,anchor=east,font=\tiny] at (3.63,26.6) {\Ours};
+    \end{tikzpicture}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.24\linewidth}
+    \centering
+    \hspace*{1.8em}{\scriptsize\bfseries Average Search}\\[-0.1em]
+    \begin{tikzpicture}[x=0.52cm,y=0.5625cm]
+      \foreach \y in {1,2,3,4,5} {
+        \draw[plotgrid,dotted] (0,\y) -- (4.15,\y);
+        \node[left,font=\tiny] at (0,\y) {\y};
+      }
+      \draw[black,thick] (0,1) rectangle (4.15,5);
+      \draw[fill=plotorange!78,draw=none] (0.55,1) rectangle (1.15,1.82);
+      \draw[fill=plotorange,draw=none] (1.78,1) rectangle (2.38,4.12);
+      \draw[fill=plotorangedark,draw=none] (3.01,1) rectangle (3.61,2.98);
+      \node[font=\tiny,plotorangedark] at (0.85,2.08) {1.82};
+      \node[font=\tiny,plotorangedark] at (2.08,4.38) {4.12};
+      \node[font=\tiny,plotorangedark] at (3.31,3.24) {2.98};
+      \node[rotate=90,font=\scriptsize\bfseries] at (-1.18,3) {Searches};
+      \node[rotate=25,anchor=east,font=\tiny] at (1.17,0.56) {w/o Skills};
+      \node[rotate=25,anchor=east,font=\tiny] at (2.40,0.56) {SearchR1};
+      \node[rotate=25,anchor=east,font=\tiny] at (3.63,0.56) {\Ours};
+    \end{tikzpicture}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.24\linewidth}
+    \centering
+    \hspace*{1.8em}{\scriptsize\bfseries Correct@\( \le 3 \) Searches}\\[-0.1em]
+    \begin{tikzpicture}[x=0.52cm,y=0.1125cm]
+      \foreach \y in {10,15,20,25,30} {
+        \draw[plotgrid,dotted] (0,\y) -- (4.15,\y);
+        \node[left,font=\tiny] at (0,\y) {\y};
+      }
+      \draw[black,thick] (0,10) rectangle (4.15,30);
+      \draw[fill=plotblue!78,draw=none] (0.55,10) rectangle (1.15,14.07);
+      \draw[fill=plotblue,draw=none] (1.78,10) rectangle (2.38,21.79);
+      \draw[fill=plotbluedark,draw=none] (3.01,10) rectangle (3.61,24.41);
+      \node[font=\tiny,plotbluedark] at (0.85,15.6) {14.1};
+      \node[font=\tiny,plotbluedark] at (2.08,23.3) {21.8};
+      \node[font=\tiny,plotbluedark] at (3.31,25.9) {24.4};
+      \node[rotate=90,font=\scriptsize\bfseries] at (-1.18,20) {Correct (\%)};
+      \node[rotate=25,anchor=east,font=\tiny] at (1.17,7.8) {w/o Skills};
+      \node[rotate=25,anchor=east,font=\tiny] at (2.40,7.8) {SearchR1};
+      \node[rotate=25,anchor=east,font=\tiny] at (3.63,7.8) {\Ours};
+    \end{tikzpicture}
+  \end{minipage}
+  \caption{Query-planning diagnostics on four multi-hop benchmarks.}
+  \label{fig:query-planning-efficiency}
+\end{figure}
+
+\subsection{Closed-source model transfer}
+\label{sec:further-analysis-closed-source}
+
+Finally, we test whether the frozen SkillBank can serve as an external search prior for proprietary models without fine-tuning. Figure~\ref{fig:closed-source-skillbank} compares a search-only workflow with the same workflow augmented by \(B_4\) as an optional planning guide. The consistent macro gains across all three closed-source models show that learned search skills transfer beyond the trained open-source policies, and that exposing a structured SkillBank before retrieval can improve closed-source search planning.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/closed_source_transfer.pdf}
+  \caption{Closed-source transfer with frozen \(B_4\). Bars show exact-match percentages; parentheses give gains over search-only prompting.}
+  \label{fig:closed-source-skillbank}
+\end{figure}
+
+\subsection{Reinforcement learning}
+\label{sec:further-analysis-rl}
+
+We further apply a short GRPO refinement stage after two-stage SFT while keeping the SkillBank interface fixed. As an auxiliary test of post-SFT optimization, we use a lightweight reward
+\[
+r = r_{\mathrm{EM}} + \lambda_e r_{\mathrm{evi}} - \lambda_d r_{\mathrm{dup}},
+\]
+where the terms reward final-answer correctness and answer-containing evidence while discouraging duplicate searches. The main RL results are reported in Table~\ref{tab:sft-rl-comparison}; for each run, we select the reported checkpoint according to training diagnostics, including reward trends, valid-search behavior, and development scores, rather than always using the final checkpoint. Additional reward dynamics are provided in Appendix~\ref{app:grpo-reward-dynamics}; this experiment probes how GRPO behaves in the SkillBank select-read-act action space and whether reinforcement learning can further shape skill execution.
+
+\begin{table}[t]
+  \centering
+  \caption{RL results on four multi-hop benchmarks. Macro is the unweighted average. Parentheses report sample-level flips against the corresponding SFT model on the same questions: green values are cases newly corrected by RL, while red values are cases changed from correct to wrong.}
+  \label{tab:sft-rl-comparison}
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.05}
+  \scriptsize
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lccccc}
+    \toprule
+    \textbf{Model} & \textbf{HotpotQA} & \textbf{2Wiki} & \textbf{MuSiQue} & \textbf{Bamboogle} & \textbf{Macro} \\
+    \midrule
+    Qwen2.5-7B-Instruct (GRPO) & \flipcell{0.440}{5.0}{4.0} & \flipcell{0.455}{11.0}{10.0} & \flipcell{0.145}{5.0}{6.0} & \flipcell{0.328}{4.8}{10.4} & \flipcell{0.342}{6.5}{7.6} \\
+    Qwen2.5-7B-Base (GRPO) & \flipcell{0.400}{6.5}{8.5} & \flipcell{0.475}{7.5}{7.0} & \flipcell{0.100}{3.5}{8.0} & \flipcell{0.336}{4.0}{9.6} & \flipcell{0.328}{5.4}{8.3} \\
+    Qwen2.5-3B-Instruct (GRPO) & \flipcell{0.355}{1.5}{1.5} & \flipcell{0.415}{2.0}{2.0} & \flipcell{0.160}{1.5}{1.5} & \flipcell{0.280}{4.0}{1.6} & \flipcell{0.303}{2.3}{1.7} \\
+    Qwen2.5-3B-Base (GRPO) & \flipcell{0.365}{8.0}{5.5} & \flipcell{0.390}{12.5}{11.0} & \flipcell{0.135}{3.5}{3.5} & \flipcell{0.256}{4.8}{7.2} & \flipcell{0.287}{7.2}{6.8} \\
+    \bottomrule
+  \end{tabular}
+  }
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/rl_7b_reward_valid_search_fourpanel.pdf}
+  \caption{GRPO training diagnostics for 7B models. Panels show train reward for 7B-Instruct and 7B-Base, followed by the average number of valid searches for the same two runs.}
+  \label{fig:rl-train-reward}
+\vspace{0.5em}
+  \includegraphics[width=0.68\linewidth]{figures/rl_skill_execution_bars.pdf}
+  \caption{RL execution diagnostics on 7B-Instruct examples corrected by GRPO.}
+  \label{fig:rl-execution-diagnostics}
+\end{figure}
+
+\noindent Figure~\ref{fig:rl-train-reward} reports reward and valid-search dynamics for the 7B GRPO runs. The 7B-Instruct policy shows a noisy but sustained increase in train reward while keeping valid search usage near one search per rollout. The 7B-Base run initially improves, but its valid-search count later collapses, so we truncate its reward panel at the collapse point and treat this behavior as a reward-design limitation rather than a stable gain. This contrast motivates using both reward and action-validity diagnostics when selecting RL checkpoints.
+
+The diagnostic bars in Figure~\ref{fig:rl-execution-diagnostics} show that, on SFT failures corrected by GRPO, RL conditions later actions on retrieved evidence more often (\(\uparrow\)), hits answer-containing evidence more frequently (\(\uparrow\)), grounds final answers more reliably (\(\uparrow\)), and reduces extra searches after evidence is found (\(\downarrow\)). These metrics suggest that GRPO mainly improves evidence use, answer grounding, and stopping behavior under the fixed SkillBank interface.
+\FloatBarrier
+
+\section{Conclusion}
+\label{sec:limitation-conclusion}
+\label{sec:limitations-impact}
+We present \Ours, a skill-conditioned framework that makes search-tool use explicit: the system evolves a reusable SkillBank, constructs bank-guided trajectories, and trains models to select skills before issuing retrieval or answer actions. Across open-source and closed-source models, our results show that explicit skill routing improves query planning, evidence use, and multi-hop answer grounding. Our auxiliary GRPO study does not yield large additional accuracy gains, but it noticeably changes execution behavior in the SkillBank action space, indicating that reinforcement learning can reshape how SFT policies select skills, search, and stop. Stronger RL algorithms and task-aligned rewards may further improve the framework.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\renewcommand{\theHtable}{\thesection.\arabic{table}}
+\renewcommand{\theHfigure}{\thesection.\arabic{figure}}
+\renewcommand{\theHalgorithm}{\thesection.\arabic{algorithm}}
+
+\section{Experimental setups}
+\label{app:experimental-setups}
+
+\subsection{Data process}
+\label{app:data-process}
+
+We construct the training pool with a coverage-oriented data processing pipeline rather than uniform random sampling. The pipeline first reads the cached training splits and removes direct overlap with the corresponding evaluation ids when such ids are available. It then converts each example into a lightweight profile containing the question, answer form, question type, coarse entity count, length bucket, dataset-native type or hop count, and heuristic retrieval cues such as temporal, numerical, comparison, alias, verification, and relation-chain indicators. These profiles are grouped into coarse reasoning signatures, which serve as the sampling units for preserving diversity.
+
+For single-hop datasets, Natural Questions and TriviaQA are sampled with a signature-capped strategy. Rare signatures are protected, frequent signatures are capped, and the remaining examples are ranked to improve label coverage over answer forms, WH types, question length, entity density, and retrieval-related cues. This produces 3,000 examples from Natural Questions and 3,000 examples from TriviaQA. For multi-hop datasets, HotpotQA, 2WikiMultiHopQA, and MuSiQue are first grouped by signatures that include native question type and hop count. We then ask \textsc{GPT-5.4} to annotate representative groups with reasoning types, skill demands, answer form, entity pattern, difficulty, and coverage priority. The sampler uses these annotations to enforce coverage over bridge reasoning, comparison, relation chains, temporal and numerical reasoning, set constraints, verification, and answer composition. After initial selection, the pipeline removes duplicate or conflicting questions, reviews suspicious records with the same model, and refills dropped items from the ranked candidate pool.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Coverage-oriented training subsets produced by the data processing pipeline.}
+  \label{tab:appendix-data-process}
+  \setlength{\tabcolsep}{7pt}
+  \renewcommand{\arraystretch}{1.1}
+  \small
+  \begin{tabular}{lrrr}
+    \toprule
+    \textbf{Dataset} & \textbf{Original examples} & \textbf{Reasoning signatures} & \textbf{Selected examples} \\
+    \midrule
+    Natural Questions & 79,168 & 1,086 & 3,000 \\
+    TriviaQA & 78,785 & 5,130 & 3,000 \\
+    HotpotQA & 90,447 & 3,094 & 12,445 \\
+    2WikiMultiHopQA & 15,000 & 410 & 8,300 \\
+    MuSiQue & 19,938 & 2,118 & 8,594 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The output of this stage consists of lightweight profiles, group annotations, sampling reports, and final full-record JSONL files. The sampled examples are then passed to the trajectory construction pipeline, where teacher rollouts, retriever interactions, and positive-trajectory filtering produce the SFT supervision described in Section~3.
+
+\subsection{SkillBank evolution}
+\label{app:skillbank-evolution}
+
+The SkillBank is evolved before trajectory SFT because the search interface should expose reusable retrieval policies rather than dataset-specific answer shortcuts. If the bank is too small, the model must express distinct behaviors with the same generic search action; if it is expanded without structure, the model faces a noisy routing problem. We therefore grow the bank in curriculum order, starting from a compact \(B_0\) that contains the core bridge, comparison, temporal, conflict-checking, evidence-span, and answer-grounding skills, and then adding only skills that correspond to stable behavior patterns observed in the sampled data.
+
+Each evolution round uses the processed samples from Appendix~\ref{app:data-process}. The examples are grouped into discovery packets by reasoning signature, and each packet keeps a small set of representative questions together with metadata such as dataset, group size, native type, hop count, answer form, entity pattern, and heuristic flags. These packets are summarized into coverage buckets, then \textsc{GPT-5.4} proposes a new SkillBank version from the previous bank, the bucket summaries, and representative examples. The update is constrained to preserve existing useful skills, add skills only when they change search planning or verification behavior, and refine old skills when their routing boundary is too broad. This design makes the bank an explicit external prior for later teacher synthesis, rather than something the student must rediscover from SFT labels alone.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Curriculum used to evolve the SearchSkill SkillBank. New skills are added only when the corresponding data stage exposes a reusable search or verification behavior.}
+  \label{tab:appendix-skillbank-evolution}
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \small
+  \begin{tabular}{llcp{0.48\linewidth}}
+    \toprule
+    \textbf{Bank} & \textbf{Evolution data} & \textbf{Added} & \textbf{Main purpose of the update} \\
+    \midrule
+    \(B_0\) & Seed bank & 6 & Core bridge search, comparison, temporal extraction, conflict checking, evidence extraction, and grounding. \\
+    \(B_1\) & NQ + TriviaQA & 5 & Add a single-hop spine for direct relation lookup, surface-name resolution, anchored queries, ranking lookup, and forced-choice answers. \\
+    \(B_2\) & HotpotQA & 3 & Add reusable two-hop bridge planning, bridge disambiguation, relation-chain decomposition, and multihop yes/no verification. \\
+    \(B_3\) & 2WikiMultiHopQA & 3 & Add bridge-comparison planning, derived-kinship inference joins, and checkpointed longer-hop retrieval. \\
+    \(B_4\) & MuSiQue & 3 & Add long-hop re-anchoring, temporal-anchor carry-forward, and full-chain reconstruction before final answering. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+This staged evolution is important for two reasons. First, it separates skill discovery from policy optimization: the bank is built by analyzing broad coverage packets, while the student later learns to invoke the resulting skills through explicit tags. Second, it avoids asking the model to choose from a large long-hop bank before it has stable simpler skills. Direct lookup and answer grounding are established first, bridge and comparison skills are added next, and only then do we introduce long-hop decomposition and recovery skills for MuSiQue-style questions. The final \(B_4\) is therefore a cumulative skill prior that covers single-hop lookup, two-hop bridge reasoning, compositional comparison, and longer decomposition under one consistent interface.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Final \(B_4\) SkillBank grouped by the four functional categories used in Section~\ref{sec:further-analysis-skillbank-evolution}. The summaries are condensed from the corresponding skill cards.}
+  \label{tab:appendix-b4-skillbank-categories}
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.02}
+  \scriptsize
+  \begin{tabular}{@{}p{0.18\linewidth}p{0.36\linewidth}p{0.40\linewidth}@{}}
+  \toprule
+  \textbf{Category} & \textbf{Skill} & \textbf{Skill-card summary} \\
+  \midrule
+  Direct lookup &
+  \nolinkurl{single-entity-relation-lookup} &
+  Query one resolved entity plus the requested relation or attribute, then verify that the evidence explicitly attaches the answer to that entity. \\
+  &
+  \nolinkurl{surface-name-resolution} &
+  Resolve real names, alternate names, former names, nicknames, or character-to-actor mappings from contextual name-linking evidence. \\
+  &
+  \nolinkurl{superlative-ranking-match} &
+  Retrieve and verify a superlative claim such as first, largest, highest, oldest, or top-ranked within the specified set and timeframe. \\
+  &
+  \nolinkurl{forced-choice-option-resolution} &
+  Treat an explicit option set in the question as answer anchors, verify which option matches the evidence, and answer with that option span. \\
+  &
+  \nolinkurl{temporal-range-extract} &
+  Extract a date, year, count, measurement, rank, or range for an already identified target while preserving unit, scope, and timeframe. \\
+  \midrule
+  Bridge/chain &
+  \nolinkurl{bridge-entity-search} &
+  Find one hidden intermediate entity from a named clue, then search the final attribute on that confirmed bridge entity. \\
+  &
+  \nolinkurl{bridge-disambiguate-then-hop} &
+  Resolve an alias-heavy or underspecified bridge candidate with rare anchors before launching the second-hop attribute search. \\
+  &
+  \nolinkurl{relation-chain-decomposition} &
+  Follow an explicit ordered relation chain one edge at a time, verifying each intermediate before continuing to the next relation. \\
+  &
+  \nolinkurl{multi-constraint-query-anchoring} &
+  Build a query from several rare constraints when the next target is clue-heavy or alias-prone, then re-anchor after the candidate is verified. \\
+  &
+  \nolinkurl{sequential-hop-checkpointing} &
+  Preserve multiple intermediate checkpoints in 3-plus-hop or mirrored multi-step questions, restarting from the last secure checkpoint when needed. \\
+  &
+  \nolinkurl{re-anchored-long-hop-decomposition} &
+  Solve long clue-heavy paths by making each confirmed entity the new anchor for the unresolved remainder of the question. \\
+  &
+  \nolinkurl{temporal-anchor-carry-forward} &
+  Attach a temporal qualifier to the hop it constrains, carry the time-scoped checkpoint forward, and verify downstream evidence under that timeframe. \\
+  \midrule
+  Comparison/join &
+  \nolinkurl{parallel-attribute-compare} &
+  Retrieve matched evidence for two named entities under the same attribute, unit, definition, and timeframe before comparing or selecting. \\
+  &
+  \nolinkurl{bridge-comparison-planning} &
+  Resolve hidden bridge entities on both sides of a comparison before retrieving endpoint attributes and making the final comparison. \\
+  &
+  \nolinkurl{derived-kinship-inference-join} &
+  Derive family roles such as paternal grandmother or in-law relations by joining immediate relative and second-edge family evidence. \\
+  &
+  \nolinkurl{multihop-yes-no-verification} &
+  Decompose a yes/no claim into required subclaims, gather matched evidence for each, and answer yes only when all are explicitly supported. \\
+  \midrule
+  Grounding/verification &
+  \nolinkurl{conflict-check} &
+  Run a targeted disambiguation search when retrieved evidence surfaces competing entities, titles, dates, numbers, or inconsistent checkpoints. \\
+  &
+  \nolinkurl{verbatim-evidence-span} &
+  Copy the shortest faithful answer span directly supported by evidence, preserving names, titles, units, quotations, or list structure. \\
+  &
+  \nolinkurl{answer-grounding-check} &
+  Apply a final grounding checklist over answer support, relation match, answer type, units, timeframe, and all bridge or comparison edges. \\
+  &
+  \nolinkurl{reconstructed-chain-verification} &
+  Replay confirmed checkpoints before answering long chains, ensuring the endpoint answer belongs to the intended final target rather than a nearby entity. \\
+  \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Trajectory construction}
+\label{app:trajectory-construction}
+
+Trajectory construction turns the sampled examples and the evolved SkillBank into executable supervision. We first build a manifest from the processed training pools in Appendix~\ref{app:data-process}. Each manifest item stores the question, gold answers, dataset family, metadata summary, candidate primary skills, and suggested support skills. The manifest also mixes a small number of failure-replay examples from earlier evaluations, so the teacher can reconstruct trajectories for cases where previous policies selected poor skills, stopped too early, or answered with an intermediate entity.
+
+For each manifest item, \textsc{GPT-5.4} acts as a teacher policy under the current SkillBank. At every step, the teacher returns a structured JSON action containing a primary skill, optional support skills, an action type, a search query or draft answer, and a checkpoint of the current resolved state. If the action is \texttt{search} or \texttt{verify}, the local retriever is called with top-\(3\) retrieval and the returned passages are appended to the trace. If the action is \texttt{answer}, a finalizer prompt normalizes the draft into the shortest answer span that is explicitly supported by the collected evidence, typically using \texttt{verbatim-evidence-span} together with \texttt{answer-grounding-check}. This produces raw trajectories with interleaved skills, actions, retrieved evidence, checkpoints, and final answers.
+
+\begin{algorithm}[H]
+  \caption{Two-phase SkillBank interface in SearchSkill}
+  \label{alg:searchskill-rollout}
+  \begin{algorithmic}[1]
+    \Require Question \(x\), policy model, SkillBank \(B^\star\), retriever, budget \(T\)
+    \Ensure Final answer and skill-annotated interaction trace
+    \State Build compact index \(I=\mathrm{Index}(B^\star)\)
+    \State Initialize evidence \(E_0\leftarrow\emptyset\), prompt state \(H_0\leftarrow[x,I]\), trace \(\Gamma\leftarrow\emptyset\)
+    \For{\(t=1,\ldots,T\)}
+      \State Generate skill-selection turn and parse \(s_t\) from \tagopen{selecttagcolor}{select\_skill}...\tagclose{selecttagcolor}{select\_skill}
+      \State Load selected cards \(C_t\leftarrow\mathrm{Cards}(B^\star,s_t)\)
+      \State Generate action turn \tagopen{skilltagcolor}{skill}\(\hat{s}_t\)\tagclose{skilltagcolor}{skill} followed by one action tag
+      \State Parse \(o_t\in\{\tagopen{searchtagcolor}{search},\tagopen{answertagcolor}{answer}\}\) and content \(z_t\)
+      \State Update trace \(\Gamma\leftarrow\Gamma\cup\{(s_t,C_t,o_t,z_t)\}\)
+      \If{\(o_t=\textsc{Search}\)}
+        \State Execute retriever \(R_t\leftarrow\mathrm{Search}(z_t)\)
+        \State Update evidence \(E_{t+1}\leftarrow E_t\cup R_t\)
+        \State Update prompt \(H_{t+1}\leftarrow H_t+(s_t,C_t,o_t,z_t)+\tagopen{infotagcolor}{information}R_t\tagclose{infotagcolor}{information}+I\)
+      \ElsIf{\(o_t=\textsc{Answer}\)}
+        \State \Return final answer \(z_t\) and trace \(\Gamma\)
+      \Else
+        \State Stop with invalid action
+      \EndIf
+    \EndFor
+    \State Stop when the search budget is exhausted
+  \end{algorithmic}
+\end{algorithm}
+
+We keep only trajectories that pass executable validation. A trajectory must answer correctly under exact-match normalization, contain at least one retrieval step, use only legal SkillBank identifiers, and avoid using support-only verification skills as the primary skill before the final answer. When multiple rollout sources contain the same example, we keep the higher-quality row according to validation success, runtime status, nonempty final answer, legal skill usage, route consistency, and trace completeness. The early canonical teacher set contains 360 validated trajectories from 757 unique candidates, but the final SFT pool is larger because we continue with coverage-supplement rollouts and replay earlier validated data.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Final trajectory-format SFT pool. The train split reuses validated replay trajectories and adds cleaned coverage-supplement trajectories.}
+  \label{tab:appendix-trajectory-sft-pool}
+  \setlength{\tabcolsep}{5pt}
+  \renewcommand{\arraystretch}{1.1}
+  \small
+  \begin{tabular}{lrp{0.48\linewidth}}
+    \toprule
+    \textbf{Source} & \textbf{Records} & \textbf{Role in the SFT pool} \\
+    \midrule
+    Replay train records & 1,445 & Preserve earlier validated SearchSkill supervision \\
+    Cleaned supplement trajectories & 786 & Add broader coverage after filtering and deduplication \\
+    Closure-expanded supplement records & 1,572 & Add action and closure supervision from the supplement \\
+    Final train split & 3,017 & Trajectory-format SFT training data \\
+    Final eval split & 16 & Held-out SFT validation records \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The final SFT data is therefore not limited to the 360 early canonical trajectories. The trajectory-format training split contains 3,017 records: 1,445 records from the earlier validated replay set and 1,572 additional records derived from 786 cleaned coverage-supplement trajectories after closure expansion. These records supervise the model to emit explicit \tagopen{skilltagcolor}{skill}...\tagclose{skilltagcolor}{skill} declarations before each \tagopen{searchtagcolor}{search}...\tagclose{searchtagcolor}{search} or \tagopen{answertagcolor}{answer}...\tagclose{answertagcolor}{answer} action, while the held-out SFT validation split contains 16 records.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Question-type distribution of the trajectory-format SFT training data. ``Unknown'' mainly corresponds to the single-hop NQ and TriviaQA records, where no dataset-native multihop type is defined.}
+  \label{tab:appendix-sft-type-distribution}
+  \setlength{\tabcolsep}{6pt}
+  \renewcommand{\arraystretch}{1.1}
+  \small
+  \begin{tabular}{lrr}
+    \toprule
+    \textbf{Question type} & \textbf{Records} & \textbf{Main source} \\
+    \midrule
+    Bridge & 682 & HotpotQA \\
+    Comparison & 561 & HotpotQA / 2WikiMultiHopQA \\
+    Compositional & 371 & 2WikiMultiHopQA \\
+    MuSiQue decomposition-2 & 201 & MuSiQue \\
+    MuSiQue decomposition-3 & 217 & MuSiQue \\
+    MuSiQue decomposition-4 & 156 & MuSiQue \\
+    Bridge comparison & 104 & 2WikiMultiHopQA \\
+    Inference & 95 & 2WikiMultiHopQA \\
+    Single-hop / unlabeled & 630 & NQ / TriviaQA / residual records \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Two-stage SFT training}
+\label{app:two-stage-sft-training}
+
+This section reports the 7B-Instruct SFT configuration used for the main SearchSkill policy. Both stages use Qwen2.5-7B-Instruct as the backbone and train LoRA adapters with the same target modules: \texttt{q\_proj}, \texttt{k\_proj}, \texttt{v\_proj}, \texttt{o\_proj}, \texttt{up\_proj}, \texttt{down\_proj}, and \texttt{gate\_proj}. The first stage trains the execution format from the validated trajectory-format supervision. The second stage initializes from the first-stage adapter and trains the SkillBank-card protocol, where each original action turn is rewritten into a skill-selection turn, a selected-card context turn, and the original skill-grounded action turn.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Two-stage SFT configuration for the Qwen2.5-7B-Instruct SearchSkill policy.}
+  \label{tab:appendix-two-stage-sft-config}
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \small
+  \begin{tabular}{p{0.25\linewidth}p{0.31\linewidth}p{0.31\linewidth}}
+    \toprule
+    \textbf{Item} & \textbf{Stage I: execution SFT} & \textbf{Stage II: SkillBank-card SFT} \\
+    \midrule
+    Initialization & Qwen2.5-7B-Instruct & Stage-I adapter on Qwen2.5-7B-Instruct \\
+    Supervision format & \tagopen{skilltagcolor}{skill} plus one \tagopen{searchtagcolor}{search} or \tagopen{answertagcolor}{answer} action & \tagopen{selecttagcolor}{select\_skill}, selected skill cards, then \tagopen{skilltagcolor}{skill} plus one action \\
+    Train / eval records & 3,017 / 16 & 3,017 / 16 \\
+    Max sequence length & 8,192 & 12,288 \\
+    Truncation side & Left & Left \\
+    Learning rate & \(7\times10^{-5}\) & \(1\times10^{-5}\) \\
+    Epochs & 2.0 & 1.0 \\
+    Warmup ratio & 0.05 & 0.03 \\
+    GPUs & 4 & 4 \\
+    Per-device train batch & 1 & 1 \\
+    Gradient accumulation & 4 & 4 \\
+    Effective train batch & 16 & 16 \\
+    LoRA setting & \(r=16\), \(\alpha=32\), dropout \(0.05\) & \(r=16\), \(\alpha=32\), dropout \(0.05\) \\
+    Loss weights & answer \(2.5\), search \(0.8\), other \(1.0\) & answer \(2.0\), search \(0.8\), other \(1.0\) \\
+    Scheduler / precision & cosine; bf16 when supported, otherwise fp16 & cosine; bf16 when supported, otherwise fp16 \\
+    Logging / eval / save steps & 5 / 40 / 40 & 5 / 40 / 40 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+During preprocessing, user and system tokens are masked out and only assistant outputs are supervised. For records marked as full-trajectory supervision, every assistant turn contributes to the loss; for closure-focused records, only the final assistant turn is supervised. The weighted token loss assigns larger weight to answer turns to improve grounded stopping, while search turns receive a smaller weight to avoid over-optimizing surface query strings.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/sft_two_stage_loss.pdf}
+  \caption{Training and validation loss curves for the two-stage SFT runs across four Qwen2.5 backbones. Each row corresponds to one SFT stage, and columns correspond to model variants. Thin lines show raw training loss and thick lines show a three-point moving average.}
+  \label{fig:appendix-sft-two-stage-loss}
+\end{figure}
+
+\textbf{SFT loss dynamics.} Figure~\ref{fig:appendix-sft-two-stage-loss} summarizes the training curves for the two supervised stages. Across both stages, instruction-tuned backbones absorb the SearchSkill format more easily than base backbones: their validation losses are lower, and the Stage-II SkillBank-card objective remains stable after initializing from Stage I. Base models still reduce loss under the same supervision, but their much higher training loss suggests that learning the structured search protocol is harder without prior instruction-following behavior. This supports using the two-stage recipe as a portable training protocol while expecting stronger and cleaner convergence from instruction-tuned initializations.
+
+\subsection{GRPO reward dynamics}
+\label{app:grpo-reward-dynamics}
+
+Our RL action space follows the same fixed SkillBank interface used at inference time: the policy selects skill ids, reads the corresponding card content, and then emits either a search query or a final answer. We use this section only to report auxiliary reward dynamics rather than to introduce a separate RL method; the reward used for the post-SFT test is summarized in Section~\ref{sec:further-analysis-rl}.
+
+\begin{table}[tbp]
+  \centering
+  \caption{GRPO configuration for the 7B diagnostic runs. Figure~\ref{fig:appendix-rl-7b-base-dynamics} reports the available cumulative 7B-Base training-reward curve.}
+  \label{tab:appendix-grpo-config}
+  \small
+  \begin{tabular}{>{\raggedright\arraybackslash}p{0.25\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
+    \toprule
+    Setting & 7B-Instruct & 7B-Base \\
+    \midrule
+    Initialization & Two-stage SFT policy & Two-stage SFT policy \\
+    Training / validation examples & 1200 / 80 & 1200 / 80 \\
+    GPUs / parallelism & 4 H20, FSDP offload & 4 H20, FSDP offload \\
+    GRPO samples & 8 rollouts per prompt & 8 rollouts per prompt \\
+    Train / validation batch & 8 / 80 & 8 / 80 \\
+    PPO mini / micro batch & 32 / 4 & 32 / 4 \\
+    Actor learning rate & \(1\times10^{-6}\) & \(1\times10^{-6}\) \\
+    KL regularization & low-variance KL, coefficient \(0.001\) & low-variance KL, coefficient \(0.001\) \\
+    Entropy coefficient / grad clip & \(0.001\) / \(1.0\) & \(0.001\) / \(1.0\) \\
+    Rollout decoding & temperature \(1.1\), top-\(p=0.98\) & temperature \(1.1\), top-\(p=0.98\) \\
+    Search interface & top-3 retriever, max 5 turns & top-3 retriever, max 5 turns \\
+    Length limits & prompt 8192, response 192, observation 1400 & prompt 8192, response 192, observation 1400 \\
+    Eval / save frequency & every 15 steps / every 15 steps & every 15 steps / every 15 steps \\
+    Planned optimization steps & 150 & 150 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Figure~\ref{fig:appendix-rl-process-reward} shows the 7B-Instruct GRPO trajectory initialized from two-stage SFT: training reward rises after early skill-space exploration while valid search usage remains stable, but the validation curves remain noisy across benchmarks. Figure~\ref{fig:appendix-rl-7b-base-dynamics} reports the cumulative 7B-Base training-reward curve; reward rises during the early and middle training phase, then becomes unstable and decays toward the end of the run. These diagnostics support treating RL as a promising but still exploratory extension for directly optimizing skill selection, search execution, and grounded stopping beyond SFT imitation.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/rl_7b_instruct_grpo_dynamics.pdf}
+  \caption{GRPO training dynamics for the 7B-Instruct SFT-initialized policy. The plot shows train reward, smoothed train reward, validation exact-match curves, and valid-search usage.}
+  \label{fig:appendix-rl-process-reward}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/rl_7b_base_train_reward_cumulative.png}
+  \caption{Cumulative GRPO training reward for the 7B-Base SFT-initialized policy. The plot shows raw train reward and a five-step moving average over cumulative training steps.}
+  \label{fig:appendix-rl-7b-base-dynamics}
+\end{figure}
+
+\section{Limitations and future directions}
+\label{app:limitations}
+
+SearchSkill currently evolves its SkillBank for multi-hop question answering from a finite, coverage-oriented training pool. This makes the learned bank effective for the reasoning patterns seen in our data, but it may miss skills that only appear in new domains, new tools, or rare reasoning forms. Extending the framework therefore requires more complete mechanisms for continual skill discovery, validation, merging, and revision when the task distribution changes.
+
+Our reinforcement-learning results also reveal both flexibility and risk. GRPO can substantially change the action habits of an SFT policy in the select-read-act space, but it can also disturb behavior on multi-hop questions that the SFT model already solves, for example by changing search frequency or weakening stable stopping behavior. Better algorithms and rewards that are explicitly matched to SkillBank routing, retrieval execution, and grounded answering are needed; with such alignment, reinforcement learning may further improve the capability of the overall workflow.
+
+\section{Existing assets and licenses}
+\label{app:asset-licenses}
+
+SearchSkill uses publicly released benchmarks, model checkpoints, retrievers, and baseline implementations only for academic research. Tables~\ref{tab:appendix-benchmark-licenses} and~\ref{tab:appendix-model-baseline-licenses} record the main existing assets used or cited by the experimental setup; the corresponding source papers are cited in the main text and bibliography. Our released code and data package will not relicense these upstream assets; it will preserve the original source attribution, license names, and terms of use, and will provide scripts or pointers for obtaining assets from their original providers when redistribution is not appropriate.
+
+\begin{table}[H]
+  \centering
+  \caption{Existing benchmark assets and license or terms notes.}
+  \label{tab:appendix-benchmark-licenses}
+  \setlength{\tabcolsep}{6pt}
+  \renewcommand{\arraystretch}{1.12}
+  \scriptsize
+  \begin{tabular}{p{0.22\linewidth}p{0.36\linewidth}p{0.32\linewidth}}
+    \toprule
+    \textbf{Asset} & \textbf{Role in this paper} & \textbf{License / terms note} \\
+    \midrule
+    Natural Questions & Single-hop benchmark and training pool source & Apache-2.0 in the official repository. \\
+    TriviaQA & Single-hop benchmark and training pool source & Apache-2.0 in the official repository. \\
+    PopQA & Single-hop benchmark & MIT in the official PopQA/adaptive-retrieval repository. \\
+    HotpotQA & Multi-hop benchmark and training pool source & CC BY-SA 4.0 for the dataset and processed Wikipedia release; Apache-2.0 for the official code repository. \\
+    2WikiMultiHopQA & Multi-hop benchmark and training pool source & Apache-2.0 in the official repository. \\
+    MuSiQue & Multi-hop benchmark and training pool source & CC BY 4.0 in the official repository. \\
+    Bamboogle & Multi-hop benchmark & MIT in the official Self-Ask/Bamboogle repository. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Existing model, retriever, and baseline assets and license or terms notes.}
+  \label{tab:appendix-model-baseline-licenses}
+  \setlength{\tabcolsep}{6pt}
+  \renewcommand{\arraystretch}{1.12}
+  \scriptsize
+  \begin{tabular}{p{0.22\linewidth}p{0.36\linewidth}p{0.32\linewidth}}
+    \toprule
+    \textbf{Asset} & \textbf{Role in this paper} & \textbf{License / terms note} \\
+    \midrule
+    Qwen2.5-7B base/instruct & Backbone models & Apache-2.0 on the Hugging Face model cards. \\
+    Qwen2.5-3B base/instruct & Backbone models & Qwen Research License on the Hugging Face model cards. \\
+    E5 retriever & Local retrieval model family used by the search environment & MIT on the Hugging Face model card and UniLM/E5 release. \\
+    Search-o1 & Search-agent baseline & MIT in the official repository. \\
+    Search-R1 & Search-agent baseline & Apache-2.0 in the official repository. \\
+    ZeroSearch & Search-agent baseline & Apache-2.0 in the official repository. \\
+    Direct, CoT, and RAG baselines & Locally implemented baseline protocols & No external baseline code package is redistributed; implementations follow the cited papers and use the assets listed above. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Cost analysis}
+\label{app:cost-analysis}
+
+\subsection{Compute budget}
+\label{app:compute-budget}
+
+Table~\ref{tab:appendix-compute-budget} gives a coarse compute accounting for the current SearchSkill pipeline. We report the budget in reserved H20 GPU-hours because some long-running data-construction jobs reserve an 8-H20 node, while SFT and GRPO training use four H20 GPUs and benchmark evaluation uses two H20 GPUs for the retriever plus two H20 GPUs for dev-set evaluation. The numbers should therefore be read as an approximate end-to-end engineering cost rather than a hardware-efficiency benchmark.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Approximate compute budget for data construction, SFT, RL, and evaluation. Wall time is based on available run logs when present; otherwise we report a conservative range from the observed pipeline runs.}
+  \label{tab:appendix-compute-budget}
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.12}
+  \scriptsize
+  \begin{tabular}{p{0.20\linewidth}p{0.17\linewidth}p{0.16\linewidth}p{0.16\linewidth}p{0.22\linewidth}}
+    \toprule
+    \textbf{Stage} & \textbf{Main resource} & \textbf{Wall time} & \textbf{Reserved H20-hours} & \textbf{Scope} \\
+    \midrule
+    Data profiling and sampling & CPU/API, light retrieval & 3--5 h & \(<5\) & Build dataset profiles, group question packets, and select coverage-oriented pools. \\
+    SkillBank evolution & CPU/API & 1--2 h & 0 & Generate and manually inspect staged bank updates from \(B_0\) to \(B_4\). \\
+    Teacher rollout and trajectory validation & 8 H20 node & 6--10 h & 48--80 & Generate candidate traces, run search-tool validation, filter positives, and keep diagnostic failures. \\
+    Stage-I execution SFT & 4 H20 training & 0.4--0.5 h per backbone & 3--4 per backbone & Train the basic \tagopen{skilltagcolor}{skill} plus action format; the logged 7B-Instruct run takes 0.44 h. \\
+    Stage-II SkillBank-card SFT & 4 H20 training & 0.75--0.80 h per backbone & 6--7 per backbone & Continue from Stage I with \tagopen{selecttagcolor}{select\_skill} and selected SkillBank cards; the logged 7B-Instruct run takes 0.77 h. \\
+    GRPO refinement & 4 H20 training & 2.7--10.4 h per run & 22--83 per run & Run fixed-bank GRPO with policy, reference, and rollout devices; 7B runs are longer than 3B runs. \\
+    Benchmark evaluation & 2 H20 retriever + 2 H20 dev evaluation & 2--4 h per checkpoint suite & 4--16 & Evaluate checkpoints on single-hop and multi-hop QA splits with the same search interface. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+For the four GRPO runs used in Section~\ref{sec:further-analysis-rl}, the logged wall-clock times are approximately 10.39 h for 7B-Instruct, 7.19 h for 7B-Base, 2.96 h for 3B-Instruct, and 3.17 h for 3B-Base. The two-stage SFT cost is much smaller: the logged 7B-Instruct stages take about 1.21 h in total. Overall, the dominant cost is not LoRA SFT itself, but search-conditioned rollout generation and GRPO, where each optimization step repeatedly samples tool-use trajectories.
+
+\subsection{API budget}
+\label{app:api-budget}
+
+Table~\ref{tab:appendix-api-budget} summarizes the external API usage. We separate data synthesis, automatic judging, and closed-source transfer because they serve different roles in the pipeline. Data synthesis is the dominant API cost because it asks \textsc{GPT-5.4} to build profiles, evolve SkillBank candidates, and synthesize or revise trajectories. All judge calls use \textsc{GPT-4o-mini}. Closed-source transfer counts only the three final comparison models: Claude Haiku 4.5, GPT-5.4-mini, and Gemini 2.5 Flash-Lite.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Approximate API usage by pipeline component. Values are read from the provider usage dashboards and rounded for readability.}
+  \label{tab:appendix-api-budget}
+  \setlength{\tabcolsep}{2pt}
+  \renewcommand{\arraystretch}{1.12}
+  \scriptsize
+  \begin{tabular}{@{}p{0.20\linewidth}p{0.28\linewidth}p{0.12\linewidth}p{0.15\linewidth}p{0.09\linewidth}@{}}
+    \toprule
+    \textbf{Component} & \textbf{Model / service} & \textbf{Requests} & \textbf{Usage scale} & \textbf{Cost} \\
+    \midrule
+    Data synthesis & \textsc{GPT-5.4} & 27.0K & 101.96M tokens & \$416.13 \\
+    Automatic judging & \textsc{GPT-4o-mini} & 2.712K & 4.107M tokens & \$0.88 \\
+    Closed-source transfer & Claude Haiku 4.5; GPT-5.4-mini; Gemini 2.5 Flash-Lite & 16.015K & Dashboard billed usage & \$17.20 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+These numbers highlight a useful practical point: SearchSkill's API cost is front-loaded into data construction, while later judging and closed-source transfer are comparatively small. The expensive part is asking a stronger model to organize difficult QA examples into reusable skills and executable traces; once this structure exists, validation and transfer experiments can be run with cheaper judge and inference models.
+
+\section{Case studies}
+\label{app:case-studies}
+
+The following examples use the same display style as the retrieval-quality examples in Section~\ref{sec:further-analysis-query-efficiency}: each case shows the question, final answer, query sequence, and retrieved output. We keep the text compact enough for readability, but retain the actual multi-turn operating process.
+
+\newcommand{\casehr}{\par\noindent\rule{\linewidth}{0.45pt}\par}
+\newcommand{\casedash}{\par\noindent\textcolor{black!45}{\xleaders\hbox{\rule[0.55ex]{6pt}{0.35pt}\hskip 4pt}\hfill}\par}
+\newcommand{\tracetok}[3]{\texttt{\textcolor{#1}{<#2>}#3\textcolor{#1}{</#2>}}}
+\newcommand{\selecttok}[1]{\tracetok{selecttagcolor}{select\_skill}{#1}}
+\newcommand{\skilltok}[1]{\tracetok{skilltagcolor}{skill}{#1}}
+\newcommand{\searchtok}[1]{\tracetok{searchtagcolor}{search}{#1}}
+\newcommand{\answertok}[1]{\tracetok{answertagcolor}{answer}{#1}}
+\newcommand{\closetok}[2]{\texttt{\textcolor{#1}{</#2>}}}
+
+\subsection{Case 1: Recovering the hidden EMU bridge}
+\casehr
+\small
+\noindent\textbf{Question:} When was conscription introduced in country having Emus during the war setting \emph{The Things They Carried}?\\
+\textbf{Ground Truth:} 1964\\
+\textbf{Search-R1 Answer:} malformed \closetok{searchtagcolor}{search}\\
+\textbf{\Ours Answer:} \answertok{1964}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{country having Emus during the war setting The Things They Carried}\\
+\textbf{Output:}\\
+Doc 1: \emph{Emu War}. The Emu War was a wildlife-management military operation in Australia in 1932.\\
+Doc 2: \emph{Emu}. The emu is a large flightless bird native to Australia.\\
+\textbf{Observation:} The query copies the surface clue ``Emus'' and retrieves bird/Emu-War evidence, not the intended acronym bridge.\\
+\textbf{Query 2:} \emph{when was conscription introduced in Australia}\\
+\textbf{Output:}\\
+Doc 1: \emph{Conscription in Australia}. The page gives a broad history of mandatory military service across multiple periods.\\
+Doc 2: The evidence mentions early defence legislation and later national-service schemes.\\
+\textbf{Query 3:} \emph{when was conscription introduced in Australia during WWI}\\
+\textbf{Query 4:} \emph{exact year of conscription introduced in Australia WWI}\\
+\textbf{Failure:} The model has moved from the Vietnam-War setting to WWI and keeps searching variants of the wrong temporal frame.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{bridge-entity-search}\\
+\textbf{Skill meaning:} first recover the hidden bridge entity, then ask the final attribute question using that resolved entity.
+
+\textbf{Action 1:}\\
+\skilltok{bridge-entity-search}\\
+\searchtok{"The Things They Carried" emus country}\\
+\textbf{Output:}\\
+Doc 1: \emph{The Things They Carried} is a collection of linked stories about American soldiers in the Vietnam War.\\
+Doc 2: The page anchors the setting to Vietnam rather than a generic animal clue.\\
+\textbf{State update:} the relevant war setting is Vietnam.
+
+\textbf{Action 2:}\\
+\skilltok{bridge-entity-search}\\
+\searchtok{"Emu" Vietnam War country}\\
+\textbf{Output:}\\
+Doc 1: \emph{Experimental Military Unit}. EMU was an Australian-American helicopter assault force during the Vietnam War.\\
+Doc 2: The unit was created after a U.S. request for Australia to send more helicopter pilots to the conflict.\\
+\textbf{State update:} EMU \(\rightarrow\) Australia.
+
+\textbf{Action 3:}\\
+\skilltok{bridge-entity-search}\\
+\searchtok{Australia conscription introduced}\\
+\textbf{Output:}\\
+Doc 1: \emph{Conscription in Australia}. The national-service scheme relevant to the Vietnam era was introduced in 1964.\\
+Doc 2: The page distinguishes Vietnam-era national service from earlier home-defence or WWI debates.\\
+\textbf{Final:}\\
+\skilltok{verbatim-evidence-span|bridge-entity-search}\\
+\answertok{1964}\\
+\textbf{Why this case matters:} SearchSkill does not ask the retriever to solve the whole riddle. It turns a misleading lexical cue into a controlled bridge chain: \emph{The Things They Carried} \(\rightarrow\) Vietnam War \(\rightarrow\) EMU \(\rightarrow\) Australia \(\rightarrow\) conscription date.
+\casehr
+
+\subsection{Case 2: Decomposing a broad mayor question}
+\casehr
+\small
+\noindent\textbf{Question:} Who was the first African American mayor of the most populous city in the United States?\\
+\textbf{Ground Truth:} David Dinkins\\
+\textbf{Search-R1 Answer:} malformed \closetok{searchtagcolor}{search}\\
+\textbf{\Ours Answer:} \answertok{David Dinkins}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{first African American mayor of the most populous city in the United States}\\
+\textbf{Output:}\\
+Doc 1: \emph{Doris A. Davis}. Davis was a mayor of Compton and is described as the first African-American woman mayor of a metropolitan city.\\
+Doc 2: Other returned snippets discuss African-American mayors but do not first resolve the target city.\\
+\textbf{Observation:} The first query is too broad; the retriever matches the ``first African American mayor'' phrase without grounding ``most populous city''.\\
+\textbf{Query 2:} \emph{most populous city in the United States}\\
+\textbf{Output:}\\
+Doc 1: \emph{New York City}. New York City is the most populous city in the United States.\\
+\textbf{Query 3:} \emph{first African American mayor of New York City}\\
+\textbf{Output:}\\
+Doc 1: an unrelated mayor result appears before the correct David Dinkins evidence.\\
+\textbf{Query 4:} \emph{when did David Dinkins become mayor of New York City}\\
+\textbf{Query 5:} \emph{who was the first African American mayor of the most populous city in the United States}\\
+\textbf{Failure:} Even after finding the right entity, the trace keeps querying and ends without a clean answer.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{relation-chain-decomposition}\\
+\textbf{Skill meaning:} resolve each relation in order and carry the intermediate entity into the next query.
+
+\textbf{Action 1:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{most populous city in the United States}\\
+\textbf{Output:}\\
+Doc 1: \emph{New York City}. The city of New York is identified as the most populous city in the United States.\\
+Doc 2: Additional snippets confirm New York City's population ranking.\\
+\textbf{State update:} target city \(=\) New York City.
+
+\textbf{Action 2:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{New York City first African American mayor}\\
+\textbf{Output:}\\
+Doc 1: \emph{David Dinkins}. David Norman Dinkins served as the 106th Mayor of New York City from 1990 to 1993.\\
+Doc 2: The same passage states that he was the first African American to hold that office.\\
+\textbf{Final:}\\
+\skilltok{verbatim-evidence-span|relation-chain-decomposition}\\
+\answertok{David Dinkins}\\
+\textbf{Why this case matters:} The SkillBank-selected decomposition prevents a single overloaded query from matching the wrong ``first mayor'' fact. The retriever receives one query for the city and one query for the city-specific mayor relation.
+\casehr
+
+\subsection{Case 3: Avoiding a plausible but wrong president}
+\casehr
+\small
+\noindent\textbf{Question:} When did the president who set the precedent of a two term limit enter office?\\
+\textbf{Ground Truth:} April 30, 1789\\
+\textbf{Search-R1 Answer:} 1933\\
+\textbf{\Ours Answer:} \answertok{April 30, 1789}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{president who set the precedent of a two term limit}\\
+\textbf{Output:}\\
+Doc 1: \emph{Term limits in the United States}. The page explains the two-term tradition and also notes that Franklin D. Roosevelt broke the tradition by winning a third and fourth term.\\
+Doc 2: Other snippets discuss constitutional term limits after Roosevelt.\\
+\textbf{Observation:} The evidence contains both the original precedent and the later exception; the model latches onto Roosevelt.\\
+\textbf{Query 2:} \emph{Franklin D. Roosevelt entered office year}\\
+\textbf{Output:}\\
+Doc 1: \emph{First and second terms of Franklin D. Roosevelt}. Roosevelt's first term began in 1933.\\
+\textbf{Failure:} The second query is precise but follows the wrong entity. The error happens at the entity-selection step, not at answer extraction.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{relation-chain-decomposition}\\
+\textbf{Skill meaning:} first identify the entity satisfying the description, then retrieve the requested attribute.
+
+\textbf{Action 1:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{two-term-limit president}\\
+\textbf{Output:}\\
+Doc 1: \emph{Term limits in the United States}. The tradition of not seeking a third term is associated with George Washington.\\
+Doc 2: The same evidence separates Washington's precedent from Roosevelt's later decision to break it.\\
+\textbf{State update:} target president \(=\) George Washington.
+
+\textbf{Action 2:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{George Washington entered office}\\
+\textbf{Output:}\\
+Doc 1: \emph{Presidency of George Washington}. Washington's presidency began on April 30, 1789.\\
+Doc 2: The passage also gives the end date, March 4, 1797, confirming the presidential-office context.\\
+\textbf{Final:}\\
+\skilltok{verbatim-evidence-span|relation-chain-decomposition}\\
+\answertok{April 30, 1789}\\
+\textbf{Why this case matters:} The skill forces an explicit entity-resolution state before asking for the date. This avoids a common retrieval trap where the top evidence contains a salient but wrong entity.
+\casehr
+
+\subsection{Case 4: Carrying an intermediate entity across hops}
+\casehr
+\small
+\noindent\textbf{Question:} Where was the place of death of Suzanne Farrington's mother?\\
+\textbf{Ground Truth:} London\\
+\textbf{Search-R1 Answer:} malformed \searchtok{Vivien Leigh death place}\\
+\textbf{\Ours Answer:} \answertok{London}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{Suzanne Farrington}\\
+\textbf{Output:}\\
+Doc 1: \emph{Suzanne Farrington}. The passage describes Farrington and includes facts about her own death in Wiltshire.\\
+Doc 2: Additional snippets discuss her family and career context.\\
+\textbf{Observation:} The first retrieval is useful for identifying the person, but it also contains a distractor death location for Farrington herself.\\
+\textbf{Query 2:} \emph{Vivien Leigh death place}\\
+\textbf{Output:}\\
+Doc 1: \emph{Vivien Leigh}. The passage contains the relevant death-context evidence and central-London theatre references.\\
+\textbf{Query 3:} \emph{Vivien Leigh funeral location}\\
+\textbf{Query 4:} \emph{Vivien Leigh place of death}\\
+\textbf{Query 5--8:} repeated variants of \emph{Vivien Leigh death place}.\\
+\textbf{Failure:} The trajectory already has the right intermediate entity and enough evidence, but continues to search and finally outputs a search tag rather than the answer.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{relation-chain-decomposition}\\
+\textbf{Skill meaning:} follow the relation chain \emph{Suzanne Farrington} \(\rightarrow\) \emph{mother} \(\rightarrow\) \emph{place of death}.
+
+\textbf{Action 1:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{Suzanne Farrington mother}\\
+\textbf{Output:}\\
+Doc 1: \emph{Suzanne Farrington}. The passage links Suzanne Farrington to Vivien Leigh as her mother.\\
+Doc 2: The surrounding evidence distinguishes Farrington's own biography from the target relation.\\
+\textbf{State update:} target mother \(=\) Vivien Leigh.
+
+\textbf{Action 2:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{Vivien Leigh place of death}\\
+\textbf{Output:}\\
+Doc 1: \emph{Vivien Leigh}. The passage describes the circumstances around Leigh's death and links the event to London.\\
+Doc 2: Related snippets discuss funeral arrangements and central-London theatre tributes.\\
+\textbf{State update:} candidate answer \(=\) London.
+
+\textbf{Action 3:}\\
+\skilltok{relation-chain-decomposition}\\
+\searchtok{Vivien Leigh death place London}\\
+\textbf{Output:}\\
+Doc 1: The retrieved passage verifies the same entity and answer span, supporting London as the place of death.\\
+\textbf{Final:}\\
+\skilltok{verbatim-evidence-span|relation-chain-decomposition}\\
+\answertok{London}\\
+\textbf{Why this case matters:} The model keeps the intermediate entity explicit, verifies the answer span, and stops instead of repeatedly searching around the same evidence.
+\casehr
+
+\subsection{Case 5: Joining an in-law relation}
+\casehr
+\small
+\noindent\textbf{Question:} Who is Maria Luisa Of Savoy's father-in-law?\\
+\textbf{Ground Truth:} Louis, Grand Dauphin\\
+\textbf{Search-R1 Answer:} Louis XIV\\
+\textbf{\Ours Answer:} \answertok{Louis, Grand Dauphin}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{Maria Luisa of Savoy husband}\\
+\textbf{Output:}\\
+Doc 1: \emph{Maria Luisa of Savoy}. The passage states that Maria Luisa was queen consort of Spain by marriage to Philip V of Spain.\\
+\textbf{Query 2:} \emph{Philip V of Spain father}\\
+\textbf{Output:}\\
+Doc 1: \emph{Philip V of Spain}. The passage states that Philip's father was Louis, Grand Dauphin, and also mentions that Philip was a grandson of King Louis XIV.\\
+\textbf{Query 3:} \emph{Louis Grand Dauphin father}\\
+\textbf{Failure:} The trajectory follows one edge too far and answers Louis XIV, the father of the father-in-law, rather than the father-in-law itself.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{derived-kinship-inference-join}\\
+\textbf{Skill meaning:} compose an in-law relation by joining immediate spouse evidence with the spouse's parent evidence, then stop at the derived role.
+
+\textbf{Action 1:}\\
+\skilltok{derived-kinship-inference-join}\\
+\searchtok{Maria Luisa of Savoy husband}\\
+\textbf{Output:}\\
+Doc 1: \emph{Maria Luisa of Savoy}. Maria Luisa was queen consort of Spain by marriage to Philip V of Spain.\\
+\textbf{State update:} husband \(=\) Philip V of Spain.
+
+\textbf{Action 2:}\\
+\skilltok{derived-kinship-inference-join}\\
+\searchtok{Philip V of Spain father}\\
+\textbf{Output:}\\
+Doc 1: \emph{Philip V of Spain}. The passage states that Philip's father was Louis, Grand Dauphin.\\
+\textbf{State update:} father-in-law \(=\) Louis, Grand Dauphin.
+
+\textbf{Final:}\\
+\skilltok{verbatim-evidence-span|derived-kinship-inference-join}\\
+\answertok{Louis, Grand Dauphin}\\
+\textbf{Why this case matters:} The SkillBank makes the join boundary explicit. Search-R1 retrieves the needed evidence but continues to a neighboring family edge; SearchSkill stops at the composed in-law relation.
+\casehr
+
+\subsection{Case 6: Comparing matched attributes}
+\casehr
+\small
+\noindent\textbf{Question:} Who died first, Olaf Everson or Abdul Wahab Khan Tarzi?\\
+\textbf{Ground Truth:} Abdul Wahab Khan Tarzi\\
+\textbf{Search-R1 Answer:} Olaf Everson\\
+\textbf{\Ours Answer:} \answertok{Abdul Wahab Khan Tarzi}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{Olaf Everson date of death}\\
+\textbf{Output:}\\
+Doc 1: The top result is \emph{Olaf Skoogfors}, an unrelated Olaf entity, and says he died in 1975.\\
+\textbf{Query 2:} \emph{Abdul Wahab Khan Tarzi date of death}\\
+\textbf{Output:}\\
+Doc 1: \emph{Abdul Wahab Khan Tarzi}. The passage gives 20 January 1994 as the death date.\\
+\textbf{Query 3--4:} repeated variants of \emph{Olaf Everson date of death exact}.\\
+\textbf{Failure:} The comparison is corrupted by an entity mismatch on the Olaf side, so the final answer chooses the wrong option.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{parallel-attribute-compare}\\
+\textbf{Skill meaning:} retrieve the same attribute for both candidate entities, check entity identity, and compare the matched values.
+
+\textbf{Action 1:}\\
+\skilltok{parallel-attribute-compare}\\
+\searchtok{Olaf Everson death date}\\
+\textbf{Output:}\\
+Doc 1: The top evidence is noisy and points to an Olaf entity with a 1975 death date, requiring caution before comparison.\\
+\textbf{State update:} candidate date for Olaf side is uncertain/noisy.
+
+\textbf{Action 2:}\\
+\skilltok{parallel-attribute-compare}\\
+\searchtok{Abdul Wahab Khan Tarzi death date}\\
+\textbf{Output:}\\
+Doc 1: \emph{Abdul Wahab Khan Tarzi}. The passage gives 24 November 1903--20 January 1994.\\
+\textbf{State update:} Tarzi death date \(=\) 20 January 1994.
+
+\textbf{Action 3:}\\
+\skilltok{parallel-attribute-compare}\\
+\searchtok{Olaf Everson death date}\\
+\textbf{Output:}\\
+Doc 1: The repeated evidence remains about a different Olaf entity, so the model does not treat it as a clean support for Olaf Everson.\\
+\textbf{Final:}\\
+\skilltok{answer-grounding-check|parallel-attribute-compare}\\
+\answertok{Abdul Wahab Khan Tarzi}\\
+\textbf{Why this case matters:} The skill frames the problem as matched-attribute comparison rather than independent lookup. This makes entity mismatch visible before the final comparison.
+\casehr
+
+\subsection{Case 7: Resolving a superlative target}
+\casehr
+\small
+\noindent\textbf{Question:} What was the death toll of the second largest volcanic eruption in the 20th century?\\
+\textbf{Ground Truth:} 847\\
+\textbf{Search-R1 Answer:} 847\\
+\textbf{\Ours Answer:} \answertok{847}
+
+\casedash
+\noindent\textcolor{red!75!black}{\textbf{Search-R1 Trace}}\\
+\textbf{Query 1:} \emph{second largest volcanic eruption in the 20th century}\\
+\textbf{Output:}\\
+Doc 1: \emph{Ring of Fire}. The passage identifies the 1991 eruption of Mount Pinatubo as the world's second-largest terrestrial eruption of the 20th century.\\
+\textbf{Query 2:} \emph{death toll of Mount Pinatubo eruption}\\
+\textbf{Output:}\\
+Doc 1: \emph{Mount Pinatubo}. The passage reports that 847 people were killed by the eruption.\\
+\textbf{Observation:} Search-R1 also answers correctly, but the trajectory treats the superlative resolution as ordinary query rewriting.
+
+\casedash
+\noindent\textcolor{blue!75!black}{\textbf{\Ours Trace (SkillBank + Retriever)}}\\
+\textbf{Selection:} \selecttok{superlative-ranking-match}\\
+\textbf{Skill meaning:} first resolve the ranked entity under the specified scope, then retrieve the requested attribute for that entity.
+
+\textbf{Action 1:}\\
+\skilltok{superlative-ranking-match}\\
+\searchtok{second largest volcanic eruption 20th century}\\
+\textbf{Output:}\\
+Doc 1: \emph{Ring of Fire}. The passage identifies the 1991 Mount Pinatubo eruption as the world's second-largest terrestrial eruption of the 20th century.\\
+\textbf{State update:} ranked target \(=\) Mount Pinatubo eruption.
+
+\textbf{Action 2:}\\
+\skilltok{superlative-ranking-match}\\
+\searchtok{Mount Pinatubo death toll}\\
+\textbf{Output:}\\
+Doc 1: \emph{Mount Pinatubo}. The passage states that a reported 847 people were killed by the eruption.\\
+\textbf{Final:}\\
+\skilltok{verbatim-evidence-span|superlative-ranking-match}\\
+\answertok{847}\\
+\textbf{Why this case matters:} This case shows a non-bridge skill: SearchSkill exposes the superlative resolution step explicitly before asking for the final attribute, making the query plan easier to inspect even when a baseline also reaches the answer.
+\casehr
+
+\end{document}

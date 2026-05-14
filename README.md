@@ -20,11 +20,13 @@ SearchSkill teaches language models to use search tools through an evolving Skil
 SearchSkill improves multi-hop exact match with the same Qwen2.5 backbones after two-stage SFT. The figures below compare against search-agent baselines on HotpotQA, 2WikiMultiHopQA, MuSiQue, and Bamboogle; `Avg.` is the macro average over these four multi-hop benchmarks.
 
 <div align="center">
-  <img src="assets/results/sft_7b_instruct_main_results.svg" alt="7B-Instruct multi-hop results" width="49%">
-  <img src="assets/results/sft_7b_base_main_results.svg" alt="7B-Base multi-hop results" width="49%">
+  <img src="assets/results/sft_7b_instruct_main_results.svg" alt="7B-Instruct multi-hop results" width="92%">
   <br>
-  <img src="assets/results/sft_3b_instruct_main_results.svg" alt="3B-Instruct multi-hop results" width="49%">
-  <img src="assets/results/sft_3b_base_main_results.svg" alt="3B-Base multi-hop results" width="49%">
+  <img src="assets/results/sft_7b_base_main_results.svg" alt="7B-Base multi-hop results" width="92%">
+  <br>
+  <img src="assets/results/sft_3b_instruct_main_results.svg" alt="3B-Instruct multi-hop results" width="92%">
+  <br>
+  <img src="assets/results/sft_3b_base_main_results.svg" alt="3B-Base multi-hop results" width="92%">
 </div>
 
 ## Repository Layout

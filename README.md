@@ -1,8 +1,8 @@
 # SearchSkill
 
-SearchSkill teaches language models to use search tools through an evolving SkillBank. The released repository keeps the code and data needed to inspect the pipeline, rebuild training data, train SFT/RL policies, and evaluate on the included dev/full benchmark splits.
+SearchSkill teaches language models to use search tools through an evolving SkillBank. This repository keeps the code and data needed to inspect the pipeline, rebuild training data, train SFT/RL policies, and evaluate on the included dev/full benchmark splits.
 
-Released model weights are available from the SearchSkill Hugging Face model hub: [https://huggingface.co/HJCHJC](https://huggingface.co/HJCHJC). Retrieval indexes, API keys, caches, logs, and internal experiment outputs are not included.
+Released model weights are available from the SearchSkill Hugging Face model hub: [https://huggingface.co/HJCHJC](https://huggingface.co/HJCHJC).
 
 ## Repository Layout
 
@@ -13,7 +13,6 @@ Released model weights are available from the SearchSkill Hugging Face model hub
 - `reinforcement_learning/`: RL data builder, training wrappers, and benchmark evaluation launcher.
 - `benchmarks/`: public `dev/` and `full/` test JSONL files.
 - `external/runtime_patch/`: SearchSkill-specific files to overlay into a compatible VERL-style RL runtime.
-- `paper/`: LaTeX source, bibliography, and figures for the paper.
 
 ## 1. Install
 
@@ -43,11 +42,9 @@ export HF_DATA="<dataset_mirror_root>"
 export HF_CACHE="<hf_cache_root>"
 ```
 
-For evaluation-only environments, install `requirements-eval.txt` instead of the full dependency file after installing PyTorch:
+For evaluation-only use, install `requirements-eval.txt` instead of the full dependency file in the same environment after installing PyTorch:
 
 ```bash
-conda create -n searchskill-eval python=3.10 -y
-conda activate searchskill-eval
 python -m pip install -r requirements-eval.txt
 ```
 
@@ -278,15 +275,6 @@ Key code:
 - `skill_bank/nq_eval/eval_common.py`
 - `benchmarks/dev/*.jsonl`
 - `benchmarks/full/*.jsonl`
-
-## Paper
-
-The paper source is in `paper/`. Compile with:
-
-```bash
-cd paper
-latexmk -pdf main.tex
-```
 
 ## Notes
 
